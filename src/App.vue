@@ -7,7 +7,7 @@ const route = useRoute();
 onMounted(() => {
     // 路由權限檢查 當 全部路由名稱無法匹配當下路由名稱時 導向
     if (router.getRoutes().some((router) => router.name !== route.name)) {
-        router.push({ name: "NotFound" });
+        // router.push({ name: "NotFound" });
         return;
     }
 });
@@ -28,6 +28,7 @@ onMounted(() => {
         </div>
     </header>
 
+    <RouterView name="MainLeftSideBar" />
     <RouterView />
 </template>
 

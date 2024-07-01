@@ -5,6 +5,7 @@ import { useCounterStore } from "@/stores/counter";
 import { usePermissionStore } from "@/stores/permissitonStore";
 import dynamicRouter from "@/router/dynamicRouter";
 import { storeToRefs } from "pinia";
+import LayoutMainLeftSidebar from "@/layouts/main/LayoutMainLeftSidebar";
 const router = createRouter({
     scrollBehavior(to, from, savedPosition) {
         // 始终滚动到顶部
@@ -15,7 +16,10 @@ const router = createRouter({
         {
             path: "/",
             name: "home",
-            component: HomeView,
+            components: {
+                default: HomeView,
+                MainLeftSideBar: LayoutMainLeftSidebar,
+            },
         },
         {
             path: "/about",
@@ -29,7 +33,10 @@ const router = createRouter({
         {
             path: "/auth/login/:slug",
             name: "login",
-            component: async () => await import("@/views/auth/LoginView"),
+            components: {
+                default: async () => await import("@/views/auth/LoginView"),
+                MainLeftSideBar: LayoutMainLeftSidebar,
+            },
         },
         {
             path: "/404",
