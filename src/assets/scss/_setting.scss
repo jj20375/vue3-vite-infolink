@@ -1,0 +1,49 @@
+/*=============================================
+=                     Mixin                   =
+=============================================*/
+
+// 自訂 Breakpoint
+$device: (xlpc: 1600px,
+  pc: 1400px,
+  nb: 1280px,
+  xlpad: 992px,
+  pad: 769px,
+  phone: 576px,
+);
+
+// 取得自訂斷點
+/* 例如:
+  @include device(pc);
+  得到 1400px
+*/
+@function device($name) {
+  @return map-get($device, $name);
+}
+
+// Responsive Media Query
+// (to-pc 為 指定斷點以上的螢幕, to-mb 為指定斷點以下得螢幕)
+/*
+例如：
+  @include res(pad, to-pc) {...}
+  等同於
+  @media all and (min-width: 768px) {...}
+
+  @include res(pad, to-mb) {...}
+  等同於
+  @media all and (max-width: 767px) {...}
+*/
+@mixin res($selected, $mode: to-pc) {
+  @if $mode==to-pc {
+    @media all and (min-width: device($selected)) {
+      @content;
+    }
+  }
+
+  @if $mode==to-mb {
+    $size: device($selected) - 0.02px;
+
+    @media all and (max-width: $size) {
+      @content;
+    }
+  }
+}

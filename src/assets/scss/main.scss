@@ -1,0 +1,111 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import "setting";
+@import "btn";
+@import "form";
+@import "table";
+@import "dialog";
+@import "collapse";
+@import "tab";
+@import "plugin";
+
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100;300;400;500;700;900&family=Plus+ Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap");
+
+html,
+body {
+    touch-action: manipulation;
+    overscroll-behavior-y: none;
+    letter-spacing: 0.05rem;
+    @apply text-black-800;
+}
+
+body {
+    font-family: "Plus Jakarta Sans", "Noto Sans TC", sans-serif;
+}
+
+input[type="number"] {
+    -moz-appearance: textfield;
+}
+
+[type="button"] {
+    -webkit-appearance: none;
+}
+
+.disabled {
+    @apply disabled:cursor-not-allowed disabled:bg-gray-300 disabled:opacity-70;
+}
+
+.btnDisabled {
+    @apply disabled:cursor-not-allowed disabled:border-gray-300 disabled:bg-gray-300 disabled:text-white;
+}
+
+// 後台編輯區區塊
+.edit-section {
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        margin-bottom: 1rem;
+    }
+
+    p {
+        line-height: 1.8;
+        margin-bottom: 1rem;
+    }
+
+    a {
+        @apply text-yellow-900;
+        text-decoration: underline;
+    }
+
+    ul {
+        list-style: disc;
+        padding-left: 1.5rem;
+
+        li {
+            line-height: 2;
+        }
+    }
+
+    ol {
+        list-style: decimal;
+        padding-left: 1.5rem;
+
+        li {
+            // 因為後台編輯器會自動加高所以拿掉該設定
+            // line-height: 2;
+        }
+    }
+
+    thead,
+    tbody,
+    tfoot,
+    tr,
+    td,
+    th {
+        border-width: unset;
+    }
+
+    img {
+        object-fit: cover;
+        height: auto;
+        max-width: 100%;
+    }
+
+    hr {
+        @apply bg-gray-200 my-[24px] lg:my-[40px];
+        margin-top: 40px;
+        margin-bottom: 40px;
+        opacity: 1;
+    }
+
+    iframe {
+        aspect-ratio: 16/9;
+        width: 100%;
+        height: auto;
+    }
+}

@@ -1,0 +1,70 @@
+// 主要按鈕(黃色)
+.yellow-btn {
+    @apply bg-yellow-900 hover:bg-yellow-800 transition-all font-medium duration-500 rounded-[4px] py-[11px] px-4 text-[16px] text-black-800 cursor-pointer;
+    &.btn-lg {
+        @apply w-[300px];
+    }
+    &.btn-md {
+        @apply w-[160px];
+    }
+    &.btn-sm {
+        @apply w-[128px];
+    }
+    &.btn-xs {
+        @apply w-[108px];
+    }
+}
+
+// 次要按鈕(灰色)
+.gray-btn {
+    @apply bg-gray-100 rounded-full py-[11px] px-4 hover:xl:bg-black-800 hover:xl:text-white transition-all duration-500 text-[16px] cursor-pointer;
+    &.btn-lg {
+        @apply w-[300px] py-4;
+    }
+    &.btn-md {
+        @apply w-[160px];
+    }
+    &.btn-sm {
+        @apply w-[128px];
+    }
+    &.btn-xs {
+        @apply w-[108px] py-2;
+    }
+}
+
+// 邊框按鈕(無底色)
+.border-btn {
+    @apply bg-transparent border border-black-100 hover:text-black-700 transition-all font-medium duration-500 rounded-[4px] py-[11px] px-4 text-[16px] text-black-800 cursor-pointer;
+    &.btn-lg {
+        @apply w-[300px];
+    }
+    &.btn-md {
+        @apply w-[160px];
+    }
+    &.btn-sm {
+        @apply w-[128px];
+    }
+    &.btn-xs {
+        @apply w-[108px];
+    }
+}
+
+// 透明按鈕(無邊框無底色)
+.transparent-btn {
+    @apply bg-transparent hover:text-black-700 rounded-[4px] transition-all duration-500 font-medium py-[11px] px-4 text-[16px] cursor-pointer;
+    &.btn-lg {
+        @apply w-[300px];
+    }
+    &.btn-md {
+        @apply w-[160px];
+    }
+    &.btn-sm {
+        @apply w-[128px];
+    }
+    &.btn-xs {
+        @apply w-[108px];
+    }
+    &:disabled {
+        @apply bg-gray-100 text-gray-400 cursor-not-allowed;
+    }
+}

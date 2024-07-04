@@ -6,6 +6,7 @@ import { usePermissionStore } from "@/stores/permissitonStore";
 import dynamicRouter from "@/router/dynamicRouter";
 import { storeToRefs } from "pinia";
 import LayoutMainLeftSidebar from "@/layouts/main/LayoutMainLeftSidebar";
+import LayoutMainHeader from "@/layouts/main/LayoutMainHeader";
 const router = createRouter({
     scrollBehavior(to, from, savedPosition) {
         // 始终滚动到顶部
@@ -14,11 +15,19 @@ const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
     routes: [
         {
-            path: "/",
+            path: `/`,
+            name: "index",
+            redirect: (to) => {
+                return { name: `home`, params: { slug: "會員專區" } };
+            },
+        },
+        {
+            path: `/home/:slug`,
             name: "home",
             components: {
                 default: HomeView,
                 MainLeftSideBar: LayoutMainLeftSidebar,
+                MainHeader: LayoutMainHeader,
             },
         },
         {

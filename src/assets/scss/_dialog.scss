@@ -1,0 +1,45 @@
+// 修改 element dialog的樣式
+.custom-dialog{
+  @apply rounded-md overflow-hidden max-w-[calc(100%-2rem)] pt-8 pr-1 sm:pr-2 pb-0 pl-2 sm:pl-4 #{!important};
+  .el-dialog__headerbtn{
+    @apply right-0 z-30;
+  }
+  .el-dialog__close{
+    @apply text-[20px] text-black-800 #{!important};
+  }
+  .el-dialog__header{
+    @apply absolute top-0 right-0 p-0;
+  }
+  .el-dialog__body{
+    -webkit-overflow-scrolling: touch;
+    @apply relative pt-0 pb-[40px] sm:pb-[40px] pl-[12px] sm:pl-[24px] pr-[16px] sm:pr-[32px] h-full overflow-y-auto #{!important};
+  }
+
+  // 客制scrollbar
+  .el-dialog__body::-webkit-scrollbar{
+    -webkit-appearance: none;
+  }
+
+  .el-dialog__body::-webkit-scrollbar:vertical {
+    @apply w-[10px];
+  }
+
+  .el-dialog__body::-webkit-scrollbar-thumb {
+    @apply bg-gray-400 rounded-2xl;
+  }
+
+  .el-dialog__body::-webkit-scrollbar-track{
+    @apply bg-gray-100 rounded-2xl my-4;
+  }
+}
+
+// 不想要有padding的樣式
+.no-padding-dialog{
+  @apply rounded-2xl overflow-hidden p-0 #{!important};
+  .el-dialog__header{
+    @apply p-0 #{!important};
+  }
+  .el-dialog__body{
+    @apply p-0 #{!important};
+  }
+}

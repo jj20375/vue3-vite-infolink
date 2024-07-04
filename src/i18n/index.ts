@@ -12,7 +12,7 @@ const messages = {
 const i18n = createI18n({
     // 使用 composition api 時 這裏要設置 false
     legacy: false,
-    locale: getStorage("lang") ?? "en", // 預設語言
+    locale: getStorage("lang") ?? "tw", // 預設語言
     fallbackLocale: {
         en: ["en", "en-US"],
         tw: ["tw", "zh-TW"],

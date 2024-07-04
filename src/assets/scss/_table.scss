@@ -1,0 +1,20 @@
+// 會員的table樣式
+.custom-table{
+    @apply w-full;
+    th{
+      @apply text-start bg-black-800 text-white font-normal py-3 px-5 text-sm;
+    }
+    tr{
+      &:hover{
+        .title{
+          @apply underline underline-offset-2;
+        }
+      }
+    }
+    td{
+      @apply py-3 px-5 border-b-[1px] text-black-800 text-[15px] border-b-gray-100;
+      a{
+        @apply block underline xl:no-underline hover:underline underline-offset-2;
+      }
+    }
+}

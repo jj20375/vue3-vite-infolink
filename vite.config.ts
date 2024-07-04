@@ -4,6 +4,7 @@ import type { ConfigEnv, UserConfig } from "vite";
 import vue from "@vitejs/plugin-vue";
 import vueJsx from "@vitejs/plugin-vue-jsx";
 import vueDevTools from "vite-plugin-vue-devtools";
+import svgLoader from "vite-svg-loader";
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }: ConfigEnv): UserConfig => {
@@ -13,7 +14,7 @@ export default defineConfig(({ mode }: ConfigEnv): UserConfig => {
         define: {
             __APP_ENV__: JSON.stringify(env.APP_ENV),
         },
-        plugins: [vue(), vueJsx(), vueDevTools()],
+        plugins: [vue(), vueJsx(), vueDevTools(), svgLoader()],
         publicDir: "public",
         resolve: {
             alias: {

@@ -1,0 +1,516 @@
+// 修改element的表單樣式
+.custom-form {
+  .el-form-item {
+    @apply relative flex flex-col justify-stretch flex-wrap mb-0 text-base;
+    .el-form-item__label{
+      @apply justify-start font-medium tracking-wider text-black-800 h-[40px] leading-[36px] text-[15px];
+    }
+    .el-input__wrapper{
+      @apply px-0 rounded-[4px] #{!important};
+    }
+    .el-form-item__content{
+      @apply items-start;
+      // 輸入框
+      .el-input{
+        @apply h-auto;
+        &.is-disabled{
+          .el-input__wrapper {
+            @apply bg-gray-200;
+            .el-input__inner{
+              -webkit-text-fill-color: #333333;
+            }
+          }
+        }
+        &.is-focus{
+          &.el-input__wrapper{
+            @apply shadow-[0_0_0_1px_#A8AAAD] #{!important};
+          }
+        }
+        .el-input__wrapper {
+          @apply py-[8px] px-5 text-[16px] font-normal shadow-[0_0_0_1px_#D7D8D9] #{!important};
+          &.is-focus{
+            @apply shadow-[0_0_0_1px_#A8AAAD] #{!important};
+          }
+          .el-input__inner {
+            @apply text-black-800 tracking-wider;
+
+            &::placeholder {
+              -webkit-text-fill-color: #A8AAAD;
+            }
+          }
+        }
+        .el-input__clear, .el-input__password{
+          @apply text-[20px];
+        }
+      }
+      // 下拉選單
+      .el-select{
+        .el-select__wrapper {
+          @apply py-[8px] pl-4 pr-5 text-[16px] rounded-[4px] font-normal shadow-[0_0_0_1px_#D7D8D9] #{!important};
+          &.is-focused{
+            @apply shadow-[0_0_0_1px_#A8AAAD] #{!important};
+          }
+          .el-select__selection{
+            @apply min-h-[30px] tracking-wider;
+          }
+          .el-select__inner {
+            @apply text-black-800;
+
+            &::placeholder {
+              -webkit-text-fill-color: #A8AAAD;
+            }
+          }
+        }
+        .el-icon.el-select__caret{
+          @apply w-[16px] h-[16px] bg-cover;
+          background-image: url("data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4NCjxtYXNrIGlkPSJtYXNrMF80ODlfMjM0OCIgc3R5bGU9Im1hc2stdHlwZTphbHBoYSIgbWFza1VuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeD0iMCIgeT0iMCIgd2lkdGg9IjI0IiBoZWlnaHQ9IjI0Ij4NCjxyZWN0IHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgZmlsbD0iI0Q5RDlEOSIvPg0KPC9tYXNrPg0KPGcgbWFzaz0idXJsKCNtYXNrMF80ODlfMjM0OCkiPg0KPHBhdGggZD0iTTIxLjMwNzUgNy44ODI3NUwxMS42NTM4IDE3LjUzNjVMMiA3Ljg4Mjc1TDMuNDE5MjUgNi40NjM1TDExLjY1MzggMTQuNjk4M0wxOS44ODgzIDYuNDYzNUwyMS4zMDc1IDcuODgyNzVaIiBmaWxsPSIjQThBQUFEIi8+DQo8L2c+DQo8L3N2Zz4=");
+          svg{
+            @apply hidden;
+          }
+        }
+        .el-select__selection{
+          @apply px-1;
+          .el-select__tags-text{
+           @apply leading-[17px] text-[15px];
+          }
+          .el-tag--info{
+            @apply bg-yellow-200 text-black-900 rounded-[4px];
+          }
+          .el-icon.el-tag__close{
+            @apply text-black-900;
+            &:hover{
+              @apply bg-black-900 text-white;
+            }
+          }
+        }
+      }
+      // 多行文字輸入框
+      .el-textarea{
+        .el-textarea__inner {
+          @apply text-black-800 rounded-[4px] py-3 px-4 text-[16px] tracking-wider shadow-[0_0_0_1px_#D7D8D9] #{!important};
+          &.is-focus{
+            @apply shadow-[0_0_0_1px_#A8AAAD] #{!important};
+          }
+          &::placeholder {
+            -webkit-text-fill-color: #A8AAAD;
+          }
+        }
+      }
+      // 單選(checkbox)
+      .el-checkbox{
+        .el-checkbox__label{
+          @apply text-black-800 font-normal text-[15px];
+        }
+        .el-checkbox__input{
+          .el-checkbox__inner {
+            @apply w-[18px] h-[18px] border-black-300 rounded-[4px];
+            &:hover{
+              @apply border-yellow-900;
+            }
+          }
+          &.is-disabled{
+            .el-checkbox__inner {
+              &:hover{
+                @apply border-black-300;
+              }
+            }
+          }
+          &.is-checked{
+            .el-checkbox__inner {
+              @apply border-yellow-900 bg-yellow-900 after:h-[9px] after:left-[6px] after:top-[2px] #{!important};
+            }
+          }
+        }
+        &.el-checkbox--large{
+
+        }
+      }
+      // 單選(radio)
+      .el-radio{
+        .el-radio__label{
+          @apply font-[600] text-[15px];
+        }
+        .el-radio__input{
+          .el-radio__inner{
+            @apply w-[18px] h-[18px];
+            &:hover{
+              @apply border-purple-700;
+            }
+          }
+          &.is-checked{
+            .el-radio__inner {
+              @apply border-purple-700 bg-purple-700;
+            }
+          }
+        }
+      }
+      // 日曆
+      .el-date-editor{
+        @apply w-full;
+        &.el-input__wrapper, .el-input__wrapper{
+          @apply h-[46px] py-[8px] px-5 text-[16px] font-normal rounded-[4px] shadow-[0_0_0_1px_#D7D8D9] #{!important};
+        }
+        .el-range-input{
+          @apply text-[16px] #{!important};
+        }
+        .el-icon{
+          @apply text-black-800;
+        }
+        .el-range__icon{
+          @apply text-[16px];
+        }
+        &.is-active{
+          @apply shadow-[0_0_0_1px_#A8AAAD] #{!important};
+          .el-range-input{
+            @apply text-[16px] #{!important};
+          }
+        }
+      }
+      // 開關(switch)
+      .el-switch{
+        .el-switch__label{
+          @apply mr-4;
+          *{
+            @apply font-normal text-[15px] #{!important};
+          }
+        }
+        &.is-checked{
+          .el-switch__core{
+            @apply bg-purple-700 border-purple-700;
+          }
+        }
+      }
+    }
+    .el-form-item__error{
+      @apply text-red-500 pt-1.5;
+    }
+  }
+  .el-form-item.is-required:not(.is-no-asterisk).asterisk-right > .el-form-item__label:after, .el-form-item.is-required:not(.is-no-asterisk).asterisk-right > .el-form-item__label-wrap > .el-form-item__label:after{
+    @apply text-red-500;
+  }
+}
+
+// 日曆樣式改成黃色
+.date-box {
+  .el-picker-panel__icon-btn {
+    margin-top: 0;
+
+    &:hover {
+      @apply text-purple-700;
+    }
+  }
+
+  .el-date-table td.current:not(.disabled) .el-date-table-cell__text {
+    @apply bg-purple-700;
+  }
+
+  .el-date-table td.today .el-date-table-cell__text {
+    @apply text-purple-700;
+  }
+
+  .el-month-table td.today .cell {
+    @apply text-purple-700;
+  }
+
+  @include res(phone, to-mb) {
+    .el-date-range-picker .el-picker-panel__body{
+      min-width: 620px;
+    }
+    .el-picker-panel__body-wrapper {
+      width: 100vw;
+      overflow: scroll;
+    }
+  }
+
+  .el-date-picker__header-label:hover {
+    @apply text-purple-700;
+  }
+
+  .el-year-table td.today .cell {
+    @apply text-purple-700;
+  }
+
+  .el-month-table td.current:not(.disabled) .cell {
+    @apply text-purple-700;
+  }
+
+  .el-month-table td .cell:hover {
+    @apply text-purple-700;
+  }
+
+  .el-date-table td.available:hover {
+    @apply text-purple-700;
+  }
+
+  .el-date-table th {
+    text-align: center;
+  }
+}
+
+// header 特殊樣式
+.header-form {
+  .el-form-item {
+    @apply relative flex flex-col justify-stretch flex-wrap mb-0 bg-transparent text-base;
+    .el-form-item__label{
+      @apply justify-start text-[15px] tracking-wider text-black-800;
+    }
+    .el-input__wrapper{
+      @apply px-2;
+    }
+    .el-form-item__content{
+      // 輸入框
+      .el-select{
+        .el-select__selected-item{
+          @apply text-center;
+        }
+        .el-select__wrapper {
+          @apply shadow-none rounded-none py-1.5 px-3 bg-transparent transition-all duration-[300ms] #{!important};
+          .el-input__inner {
+            @apply text-[15px] text-black-800 tracking-wider font-normal #{!important};
+          }
+          .el-icon{
+            @apply w-[14px] h-[14px] bg-cover;
+            background-image: url("data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4NCjxtYXNrIGlkPSJtYXNrMF80ODlfMjM0OCIgc3R5bGU9Im1hc2stdHlwZTphbHBoYSIgbWFza1VuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeD0iMCIgeT0iMCIgd2lkdGg9IjI0IiBoZWlnaHQ9IjI0Ij4NCjxyZWN0IHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgZmlsbD0iI0Q5RDlEOSIvPg0KPC9tYXNrPg0KPGcgbWFzaz0idXJsKCNtYXNrMF80ODlfMjM0OCkiPg0KPHBhdGggZD0iTTIxLjMwNzUgNy44ODI3NUwxMS42NTM4IDE3LjUzNjVMMiA3Ljg4Mjc1TDMuNDE5MjUgNi40NjM1TDExLjY1MzggMTQuNjk4M0wxOS44ODgzIDYuNDYzNUwyMS4zMDc1IDcuODgyNzVaIiBmaWxsPSIjMzMzMzMzIi8+DQo8L2c+DQo8L3N2Zz4=");
+            svg{
+              @apply hidden;
+            }
+          }
+        }
+      }
+    }
+  }
+  &.white{
+    .el-form-item{
+      .el-form-item__content{
+        .el-select{
+          .el-select__selected-item{
+            @apply text-white #{!important};
+          }
+          .el-icon{
+            background-image: url("data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4NCjxtYXNrIGlkPSJtYXNrMF80ODlfMjM0OCIgc3R5bGU9Im1hc2stdHlwZTphbHBoYSIgbWFza1VuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeD0iMCIgeT0iMCIgd2lkdGg9IjI0IiBoZWlnaHQ9IjI0Ij4NCjxyZWN0IHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgZmlsbD0iI0Q5RDlEOSIvPg0KPC9tYXNrPg0KPGcgbWFzaz0idXJsKCNtYXNrMF80ODlfMjM0OCkiPg0KPHBhdGggZD0iTTIxLjMwNzUgNy44ODI3NUwxMS42NTM4IDE3LjUzNjVMMiA3Ljg4Mjc1TDMuNDE5MjUgNi40NjM1TDExLjY1MzggMTQuNjk4M0wxOS44ODgzIDYuNDYzNUwyMS4zMDc1IDcuODgyNzVaIiBmaWxsPSIjZmZmZmZmIi8+DQo8L2c+DQo8L3N2Zz4=");
+          }
+        }
+      }
+    }
+  }
+  &.gray{
+    .el-form-item{
+      .el-form-item__content{
+        .el-input{
+          .el-input__inner {
+            @apply text-black-500 #{!important};
+          }
+          .el-icon{
+            background-image: url("data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4NCjxtYXNrIGlkPSJtYXNrMF80ODlfMjM0OCIgc3R5bGU9Im1hc2stdHlwZTphbHBoYSIgbWFza1VuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeD0iMCIgeT0iMCIgd2lkdGg9IjI0IiBoZWlnaHQ9IjI0Ij4NCjxyZWN0IHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgZmlsbD0iI0Q5RDlEOSIvPg0KPC9tYXNrPg0KPGcgbWFzaz0idXJsKCNtYXNrMF80ODlfMjM0OCkiPg0KPHBhdGggZD0iTTIxLjMwNzUgNy44ODI3NUwxMS42NTM4IDE3LjUzNjVMMiA3Ljg4Mjc1TDMuNDE5MjUgNi40NjM1TDExLjY1MzggMTQuNjk4M0wxOS44ODgzIDYuNDYzNUwyMS4zMDc1IDcuODgyNzVaIiBmaWxsPSIjMzMzMzMzIi8+DQo8L2c+DQo8L3N2Zz4=");
+          }
+        }
+      }
+    }
+  }
+}
+
+// 登入頁 特殊樣式
+.login-form {
+  .el-form-item {
+    @apply relative flex flex-col justify-stretch flex-wrap mb-0 bg-transparent text-base;
+    .el-form-item__label{
+      @apply justify-start font-medium text-black-800 h-[36px] leading-[36px] text-[16px];
+    }
+    .el-input__wrapper{
+      @apply px-0 rounded-none #{!important};
+    }
+    .el-form-item__content{
+      // 輸入框
+      .el-input{
+        @apply h-auto;
+        &.is-disabled{
+          @apply bg-[rgba(29,27,32,.12)];
+          .el-input__wrapper {
+            .el-input__inner{
+              -webkit-text-fill-color: #2d2c2e;
+            }
+          }
+        }
+        .el-input__wrapper {
+          @apply shadow-formDefault py-1.5 px-0 bg-transparent text-[16px] #{!important};
+          &.is-focus{
+            @apply shadow-formFocus #{!important};
+          }
+          .el-input__inner {
+            @apply text-black-800;
+
+            &::placeholder {
+              -webkit-text-fill-color: #A8AAAD;
+            }
+          }
+        }
+        .el-input__clear, .el-input__password{
+          @apply text-[20px];
+        }
+      }
+      .el-checkbox{
+        .el-checkbox__label{
+          @apply text-black-800 font-normal text-[15px] pb-[1px];
+        }
+        .el-checkbox__input{
+          .el-checkbox__inner {
+            @apply w-[18px] h-[18px] border-black-300 rounded-sm;
+            &:hover{
+              @apply border-yellow-900;
+            }
+          }
+          &.is-disabled{
+            .el-checkbox__inner {
+              &:hover{
+                @apply border-black-300;
+              }
+            }
+          }
+          &.is-checked{
+            .el-checkbox__inner {
+              @apply border-yellow-900 bg-yellow-900 after:h-[9px] after:left-[6px] after:top-[2px] #{!important};
+            }
+          }
+        }
+      }
+    }
+    .el-form-item__error{
+      @apply text-red-500 pt-1.5;
+    }
+  }
+}
+
+// select下拉選單樣式
+.el-select__popper{
+  @apply -mt-2.5 rounded-none #{!important};
+  .el-popper__arrow{
+    @apply hidden;
+  }
+  .el-select-dropdown{
+    .el-select-dropdown__header{
+      @apply font-normal h-auto px-4 py-1;
+    }
+    .el-select-dropdown__list{
+      @apply my-0 #{!important};
+      .el-select-dropdown__item{
+        @apply font-normal h-auto px-4 py-1;
+        &.is-hovering{
+          @apply bg-yellow-50;
+          &.is-selected{
+            @apply bg-yellow-50;
+          }
+        }
+        &.is-selected{
+          @apply bg-transparent;
+        }
+      }
+    }
+    .el-select-dropdown__empty{
+      @apply font-normal;
+    }
+    // 多選下拉選單
+    &.is-multiple{
+      .el-checkbox{
+        &.is-checked{
+          .el-checkbox__inner {
+            @apply border-yellow-900 bg-yellow-900;
+          }
+          .el-checkbox__label{
+            @apply text-black-900;
+          }
+        }
+        .el-checkbox__label{
+          @apply text-black-700 font-normal text-[15px];
+        }
+        .el-checkbox__inner{
+          @apply border-black-800 w-[18px] h-[18px];
+          &::after{
+            width: 12px;
+            height: 12px;
+            left: 2px;
+            top: 2px;
+            transform: rotate(0);
+            border: unset;
+            position: absolute;
+            mask: unset !important;
+            background-size: 12px 12px;
+            background-repeat: no-repeat;
+            background-position: center;
+            background-image: url("data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTIiIGhlaWdodD0iMTAiIHZpZXdCb3g9IjAgMCAxMiAxMCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4NCjxwYXRoIGQ9Ik00IDkuNEwwIDUuNEwxLjQgNEw0IDYuNkwxMC42IDBMMTIgMS40TDQgOS40WiIgZmlsbD0id2hpdGUiLz4NCjwvc3ZnPg==");
+          }
+        }
+      }
+      .el-select-dropdown__item{
+        @apply text-[15px] before:relative before:inline-block before:align-sub before:w-[18px] before:h-[18px] before:border-[1px] before:border-black-900 before:rounded-sm before:mr-2;
+        @apply after:left-[19px] after:mt-[1px] after:bg-transparent #{!important};
+        &::after{
+          position: absolute;
+          mask: unset !important;
+          background-size: 12px 12px;
+          background-repeat: no-repeat;
+          background-position: center;
+          background-image: url("data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTIiIGhlaWdodD0iMTAiIHZpZXdCb3g9IjAgMCAxMiAxMCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4NCjxwYXRoIGQ9Ik00IDkuNEwwIDUuNEwxLjQgNEw0IDYuNkwxMC42IDBMMTIgMS40TDQgOS40WiIgZmlsbD0id2hpdGUiLz4NCjwvc3ZnPg==");
+        }
+        &.is-selected{
+          @apply before:bg-yellow-900 before:border-yellow-900 #{!important};
+        }
+        &.is-hovering{
+          @apply bg-yellow-50;
+        }
+      }
+    }
+  }
+}
+
+// 搜尋框樣式
+.search-form{
+  .el-form-item {
+    @apply relative flex flex-col justify-stretch flex-wrap mb-0 bg-transparent text-base;
+    .el-form-item__content {
+      // 輸入框
+      .el-input {
+        @apply bg-purple-50;
+        .el-input__wrapper {
+          @apply shadow-formDefault rounded-md py-1.5 px-4 bg-transparent text-[16px] hover:bg-[rgba(103,80,164,.08)] transition-all duration-200 #{!important};
+          &.is-focus{
+            @apply shadow-formFocus bg-purple-50 #{!important};
+          }
+          .el-input__inner {
+            @apply text-black-800;
+
+            &::placeholder {
+              -webkit-text-fill-color: #5b5661;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+// 提示訊息樣式
+.el-popper{
+  .el-tag{
+    @apply bg-yellow-300 text-black-900 rounded-[4px] #{!important};
+  }
+  .el-tag__content{
+    @apply text-black-900 rounded-[4px] #{!important};
+  }
+  .el-icon.el-tag__close{
+    @apply text-black-900;
+    &:hover{
+      @apply bg-black-900 #{!important};
+    }
+  }
+  .el-date-table td.in-range, .el-date-table td.end-date, .el-date-table td.start-date{
+    .el-date-table-cell{
+      @apply bg-yellow-100;
+    }
+  }
+  .el-date-table td.end-date, .el-date-table td.start-date{
+    .el-date-table-cell__text{
+      @apply bg-yellow-900;
+    }
+  }
+}
+

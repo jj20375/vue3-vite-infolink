@@ -3,12 +3,12 @@ export default {
         code: "en",
         iso: "en-US",
         file: "en.json",
-        name: "English",
+        name: "EN",
     },
     tw: {
         code: "tw",
         iso: "zh-TW",
         file: "tw.json",
-        name: "繁體中文",
+        name: "繁中",
     },
 };

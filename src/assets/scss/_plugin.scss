@@ -1,0 +1,24 @@
+/*=============================================
+=                     Plugin                  =
+=============================================*/
+// 修改nuxt-icon的預設設定
+.nuxt-icon.nuxt-icon--fill{
+  margin-bottom: 0;
+}
+
+// 修改fancybox套件的背景樣式
+.fancybox__backdrop {
+  @apply opacity-50 #{!important};
+}
+
+/*=============================================
+=                    Other                    =
+=============================================*/
+// 不想要scrollbar
+.no-scrollbar {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+  &::-webkit-scrollbar{
+    display: none;
+  }
+}

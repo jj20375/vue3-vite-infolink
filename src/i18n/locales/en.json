@@ -1,3 +1,6 @@
 {
-    "welcome": "Hello welcome"
+    "welcome": "Hello welcome",
+    "router": {
+        "home": "會員專區(en)"
+    }
 }
