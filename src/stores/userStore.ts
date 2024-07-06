@@ -3,7 +3,9 @@ import { defineStore } from "pinia";
 
 export const useUserStore = defineStore("userStore", () => {
     // 使用者資料
-    const user = ref({});
+    const user = ref({
+        name: "測試名稱",
+    });
     // 判斷是否有登入
     const isAuth = ref(false);
 

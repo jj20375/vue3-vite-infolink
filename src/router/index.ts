@@ -1,61 +1,19 @@
 import { createRouter, createWebHistory, type NavigationGuardNext, type RouteLocationNormalized } from "vue-router";
-import HomeView from "../views/HomeView.vue";
-import NotFoundView from "@/views/NotFoundView";
 import { useCounterStore } from "@/stores/counter";
-import { usePermissionStore } from "@/stores/permissitonStore";
+import { usePermissionStore } from "@/stores/permissionStore";
 import dynamicRouter from "@/router/dynamicRouter";
+import defaultRouter from "@/router/defaultRouter";
 import { storeToRefs } from "pinia";
 import LayoutMainLeftSidebar from "@/layouts/main/LayoutMainLeftSidebar";
 import LayoutMainHeader from "@/layouts/main/LayoutMainHeader";
+import IconHome from "@/assets/img/icons/sidebar/home.svg";
 const router = createRouter({
     scrollBehavior(to, from, savedPosition) {
         // 始终滚动到顶部
         return { top: 0 };
     },
     history: createWebHistory(import.meta.env.BASE_URL),
-    routes: [
-        {
-            path: `/`,
-            name: "index",
-            redirect: (to) => {
-                return { name: `home`, params: { slug: "會員專區" } };
-            },
-        },
-        {
-            path: `/home/:slug`,
-            name: "home",
-            components: {
-                default: HomeView,
-                MainLeftSideBar: LayoutMainLeftSidebar,
-                MainHeader: LayoutMainHeader,
-            },
-        },
-        {
-            path: "/about",
-            name: "about",
-            // route level code-splitting
-            // this generates a separate chunk (About.[hash].js) for this route
-            // which is lazy-loaded when the route is visited.
-            component: () => import("../views/AboutView.vue"),
-            meta: { requiresAuth: true },
-        },
-        {
-            path: "/auth/login/:slug",
-            name: "login",
-            components: {
-                default: async () => await import("@/views/auth/LoginView"),
-                MainLeftSideBar: LayoutMainLeftSidebar,
-            },
-        },
-        {
-            path: "/404",
-            name: "404",
-            component: NotFoundView,
-        },
-        // 将匹配所有内容并将其放在 `route.params.pathMatch` 下
-        { path: "/:pathMatch(.*)*", name: "NotFound", component: NotFoundView, redirect: { name: "404" } },
-        ...dynamicRouter,
-    ],
+    routes: [...defaultRouter, ...dynamicRouter],
 });
 
 // 路由守衛 加上進入頁面前判斷是否有登入 沒登入則導向登入頁面

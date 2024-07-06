@@ -1,6 +1,13 @@
 {
     "welcome": "你好 歡迎",
     "router": {
-        "home": "會員專區"
+        "home": "首頁",
+        "user-panel": "會員專區",
+        "user-info": "會員資料管理",
+        "user-change-password": "變更密碼",
+        "user-record": "歷年合約紀錄",
+        "report-download": "報告下載",
+        "data-factory": "DataFactory",
+        "contact": "聯絡我們"
     }
 }

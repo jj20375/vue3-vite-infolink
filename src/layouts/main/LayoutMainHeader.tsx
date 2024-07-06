@@ -8,15 +8,14 @@ import IconLogout from "@/assets/img/icons/logout.svg";
 // 手機版漢堡選單 icon
 import IconMenu from "@/assets/img/icons/sidebar/menu.svg";
 import { setStorage } from "@/services/localStorage";
-// 語系檔
+// 語系選項
 import langs from "@/i18n/langs";
 import { useI18n } from "vue-i18n";
-import { ref, computed } from "vue";
+import { defineComponent, ref, computed } from "vue";
 import style from "./layoutMain.module.scss";
 import IconLogo2 from "@/assets/img/logo/logo-2.svg";
-export default {
+export default defineComponent({
     name: "LayoutMainHeader",
-    components: { IconLogo2 },
     props: {},
     emits: [],
     setup(props: any, { emit }: { emit: Function }) {
@@ -27,6 +26,7 @@ export default {
         const initData: any = computed(() => initStore.initData);
         const { locale, t } = useI18n();
         const langsOptions = ref(langs);
+        // 預設語系
         const currentLang = ref(locale.value);
         /**
          * 更換語系
@@ -91,4 +91,4 @@ export default {
             );
         };
     },
-};
+});

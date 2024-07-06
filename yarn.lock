@@ -3307,6 +3307,11 @@ vue-tsc@^2.0.21:
     "@vue/language-core" "2.0.22"
     semver "^7.5.4"
 
+vue3-slide-up-down@^2.1.0:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/vue3-slide-up-down/-/vue3-slide-up-down-2.1.0.tgz#5ca5a4b600e088db2fee940b225e466f80489d91"
+  integrity sha512-sSCO3Z8yIDIgUjmNii6VK+xIvTPgKHdEHsohG1POQDVRQF8AqNyXSVfnUge4QmGX3BrZKsR6JZ38Aohxx8KHZA==
+
 vue@^3.4.29:
   version "3.4.30"
   resolved "https://registry.yarnpkg.com/vue/-/vue-3.4.30.tgz#02c75c63a21e305c38a937866d8ee2269b62bbb4"

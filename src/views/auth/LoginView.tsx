@@ -1,5 +1,5 @@
 import { useRouter, onBeforeRouteUpdate } from "vue-router";
-import { usePermissionStore } from "@/stores/permissitonStore";
+import { usePermissionStore } from "@/stores/permissionStore";
 import { storeToRefs } from "pinia";
 import { computed, onMounted } from "vue";
 

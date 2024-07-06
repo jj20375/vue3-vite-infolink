@@ -6,3 +6,14 @@
 .svg-height {
     height: 40px;
 }
+.svg-path-gray {
+    @apply w-[18px];
+    path {
+        @apply fill-black-500;
+    }
+}
+.svg-path-black {
+    path {
+        @apply fill-black-900;
+    }
+}

@@ -10,6 +10,7 @@ export const useUtilityStore = defineStore("utilityStore", () => {
     function setOpenMenu(value: boolean) {
         openMenu.value = value;
     }
+
     return {
         openMenu,
         setOpenMenu,
