@@ -6,24 +6,18 @@ import { useUserStore } from "@/stores/userStore";
 import { useUtilityStore } from "@/stores/utilityStore";
 import { usePermissionStore } from "@/stores/permissionStore";
 import { useI18n } from "vue-i18n";
-import IconArrowLeftDouble from "@/assets/img/icons/arrow-left-double.svg";
-import IconHome from "@/assets/img/icons/sidebar/home.svg";
-import IconMember from "@/assets/img/icons/member.svg";
-import IconDownload from "@/assets/img/icons/sidebar/download.svg";
-import IconCloud from "@/assets/img/icons/sidebar/cloud.svg";
-import IconContact from "@/assets/img/icons/sidebar/contact.svg";
-import IconArrowRight from "@/assets/img/icons/arrow-right.svg";
+import IconArrowLeftDouble from "@/components/icons/IconArrowLeftDouble.vue";
+import IconArrowRight from "@/components/icons/IconArrowRight.vue";
 import IconCollapse from "@/assets/img/icons/sidebar/menu-collapse.svg";
 import IconLinkedin from "@/assets/img/icons/medias/linkedin.svg";
 import IconTwitter from "@/assets/img/icons/medias/twitter.svg";
 import IconWechat from "@/assets/img/icons/medias/wechat.svg";
-import IconClose from "@/assets/img/icons/close.svg";
-import IconLink from "@/assets/img/icons/link.svg";
+import IconClose from "@/components/icons/IconClose.vue";
+import IconLink from "@/components/icons/IconLink.vue";
+import IconLogout from "@/components/icons/IconLogout.vue";
 import { Vue3SlideUpDown } from "vue3-slide-up-down";
-import IconLogout from "@/assets/img/icons/logout.svg";
 import { useWindowResize } from "@/hooks/windowResize";
 import { setStorage } from "@/services/localStorage";
-import style from "./layoutMain.module.scss";
 // 語系選項
 import langs from "@/i18n/langs";
 
@@ -158,8 +152,8 @@ export default defineComponent({
                     <div>
                         {/* 手機版收合選單 */}
                         <div class="relative px-6 py-6 xl:hidden sm:px-7">
-                            <button onClick={() => closeMenu()} class="ml-auto !w-[20px] !h-[20px]">
-                                <IconClose />
+                            <button onClick={() => closeMenu()} class="block w-full">
+                                <IconClose class="ml-auto !w-[20px] !h-[20px]" />
                             </button>
                         </div>
                         <div class={["flex justify-between px-6 py-6 font-medium sm:px-7", { "hidden opacity-0": !expandMode.value && isDesktop.value }]}>
@@ -192,7 +186,7 @@ export default defineComponent({
                                                     exactActiveClass="font-medium text-black-900 before:absolute before:bg-yellow-900 before:top-0 before:left-0 before:h-full before:w-[4px] before:rounded-r-2xl fill-black-500"
                                                 >
                                                     <div class="flex items-center justify-between gap-3">
-                                                        <item.meta.icon class={["!w-[18px] !h-[18px]", style["svg-path-gray"], isActiveItem(item, idx) ? style["svg-path-black"] : ""]} />
+                                                        <item.meta.icon class={["!w-[18px] !h-[18px]", isActiveItem(item, idx) ? "text-black-900" : "text-black-500"]} />
                                                         <span class={["text-left flex-1", { "opacity-0": !expandMode.value && isDesktop.value }]}>{t(`router.${item.name as string}`)}</span>
                                                     </div>
                                                 </RouterLink>
@@ -200,10 +194,10 @@ export default defineComponent({
                                             {item.children && (
                                                 <div class={["relative block px-6 sm:px-7 py-4 text-[16px] text-black-500 hover:text-black-900 duration-300 transition-all"]}>
                                                     <div class="flex items-center justify-between gap-3">
-                                                        <item.meta.icon class={[style["svg-path-gray"], isActiveItem(item, idx) ? style["svg-path-black"] : ""]} />
+                                                        <item.meta.icon class={["!w-[18px] !h-[18px]", isActiveItem(item, idx) ? "text-black-900" : "text-black-500"]} />
                                                         <span class={["flex-1 text-left", { "opacity-0": !expandMode.value && isDesktop.value }]}>{t(`router.${item.name as string}`)}</span>
                                                         <div class={["", { "opacity-0": !expandMode.value && isDesktop.value }]}>
-                                                            <div class={["", { "rotate-90": collapseMap.value[idx] }]}>{item.children && <IconArrowRight class={["!w-5 !h-5", style["svg-path-gray"], isActiveItem(item, idx) ? style["svg-path-black"] : ""]} />}</div>
+                                                            <div class={["", { "rotate-90": collapseMap.value[idx] }]}>{item.children && <IconArrowRight class={["w-[18px] h-[18px]", isActiveItem(item, idx) ? "text-black-900" : "text-black-500"]} />}</div>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -212,10 +206,10 @@ export default defineComponent({
                                     ) : (
                                         <a target="_blank" href={item.meta!.link as string} class="relative block px-6 sm:px-7 py-4 text-[16px] text-black-500 hover:text-black-900">
                                             <div class="flex items-center justify-between gap-3">
-                                                <item.meta.icon class={["!w-[18px] !h-[18px]", style["svg-path-gray"], isActiveItem(item, idx) ? style["svg-path-black"] : ""]} />
+                                                <item.meta.icon class={["!w-[18px] !h-[18px]", isActiveItem(item, idx) ? "text-black-900" : "text-black-500"]} />
                                                 <span class={["flex-1", { "opacity-0": !expandMode.value && isDesktop.value }]}>{t(`router.${item.name as string}`)}</span>
                                                 <div class={["", { "opacity-0": !expandMode.value && isDesktop.value }]}>
-                                                    <div class={["", { "rotate-90": collapseMap.value[idx] }]}>{item.meta!.link && <IconLink class={["!w-5 !h-5", style["svg-path-gray"], isActiveItem(item, idx) ? style["svg-path-black"] : ""]} />}</div>
+                                                    <div class={["", { "rotate-90": collapseMap.value[idx] }]}>{item.meta!.link && <IconLink class={["!w-5 !h-5", isActiveItem(item, idx) ? "text-black-900" : "text-black-500"]} />}</div>
                                                 </div>
                                             </div>
                                         </a>
@@ -266,9 +260,7 @@ export default defineComponent({
                             </select>
                             <div class="relative flex w-[1px] h-[1rem] bg-black-700"></div>
                             <button onClick={() => logout()} class="flex gap-2 p-2 items-center text-black-500 text-[15px]">
-                                <span class="!w-5 !h-5">
-                                    <IconLogout />
-                                </span>
+                                <IconLogout class="!w-5 !h-5 text-black-500" />
                                 登出
                             </button>
                         </div>

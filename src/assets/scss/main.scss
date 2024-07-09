@@ -18,7 +18,7 @@ body {
     touch-action: manipulation;
     overscroll-behavior-y: none;
     letter-spacing: 0.05rem;
-    @apply text-black-800;
+    @apply text-black-800 bg-gray-100;
 }
 
 body {
@@ -108,8 +108,4 @@ input[type="number"] {
         width: 100%;
         height: auto;
     }
-}
-// 預先載入需要的css
-.base-class {
-    @apply col-span-1 col-span-2 col-span-3 col-span-4 col-span-5 md:col-span-1 md:col-span-2 md:col-span-3 md:col-span-4 md:col-span-5;
 }

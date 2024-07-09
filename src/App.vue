@@ -7,6 +7,7 @@
                 <div class="absolute top-0 left-0 w-full h-full opacity-20 z-[-1]" style="background-image: url('img/layout/bg.svg'); background-attachment: fixed"></div>
                 <!-- {{ $t("welcome") }} -->
                 <RouterView />
+                <Footer />
             </div>
         </section>
     </div>
@@ -17,6 +18,7 @@ import { onMounted } from "vue";
 import { RouterView, useRouter, useRoute } from "vue-router";
 import { setStorage } from "./services/localStorage";
 import { useI18n } from "vue-i18n";
+import Footer from "@/layouts/main/LayoutMainFooter";
 const router = useRouter();
 const route = useRoute();
 const i18n = useI18n();

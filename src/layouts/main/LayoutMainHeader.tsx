@@ -4,7 +4,7 @@ import { useInitStore } from "@/stores/initStore";
 // 其他方法 store
 import { useUtilityStore } from "@/stores/utilityStore";
 // 登出 icon
-import IconLogout from "@/assets/img/icons/logout.svg";
+import IconLogout from "@/components/icons/IconLogout.vue";
 // 手機版漢堡選單 icon
 import IconMenu from "@/assets/img/icons/sidebar/menu.svg";
 import { setStorage } from "@/services/localStorage";

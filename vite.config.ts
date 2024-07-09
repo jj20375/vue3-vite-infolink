@@ -36,5 +36,12 @@ export default defineConfig(({ mode }: ConfigEnv): UserConfig => {
             },
             host: "0.0.0.0",
         },
+        css: {
+            preprocessorOptions: {
+                scss: {
+                    additionalData: '@import "@/assets/scss/_setting.scss";',
+                },
+            },
+        },
     };
 });

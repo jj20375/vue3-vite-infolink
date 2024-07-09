@@ -1,6 +1,6 @@
 import LayoutMainLeftSidebar from "@/layouts/main/LayoutMainLeftSidebar";
 import LayoutMainHeader from "@/layouts/main/LayoutMainHeader";
-import IconHome from "@/assets/img/icons/sidebar/home.svg";
+import IconHome from "@/components/icons/sidebar/IconHome.vue";
 import HomeView from "../views/HomeView.vue";
 import NotFoundView from "@/views/NotFoundView";
 import { markRaw } from "vue";

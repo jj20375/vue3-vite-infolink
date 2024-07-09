@@ -3,12 +3,13 @@
 =============================================*/
 
 // 自訂 Breakpoint
-$device: (xlpc: 1600px,
-  pc: 1400px,
-  nb: 1280px,
-  xlpad: 992px,
-  pad: 769px,
-  phone: 576px,
+$device: (
+    xlpc: 1600px,
+    pc: 1400px,
+    nb: 1280px,
+    xlpad: 992px,
+    pad: 769px,
+    phone: 576px,
 );
 
 // 取得自訂斷點
@@ -17,7 +18,7 @@ $device: (xlpc: 1600px,
   得到 1400px
 */
 @function device($name) {
-  @return map-get($device, $name);
+    @return map-get($device, $name);
 }
 
 // Responsive Media Query
@@ -33,17 +34,22 @@ $device: (xlpc: 1600px,
   @media all and (max-width: 767px) {...}
 */
 @mixin res($selected, $mode: to-pc) {
-  @if $mode==to-pc {
-    @media all and (min-width: device($selected)) {
-      @content;
+    @if $mode==to-pc {
+        @media all and (min-width: device($selected)) {
+            @content;
+        }
     }
-  }
 
-  @if $mode==to-mb {
-    $size: device($selected) - 0.02px;
+    @if $mode==to-mb {
+        $size: device($selected) - 0.02px;
 
-    @media all and (max-width: $size) {
-      @content;
+        @media all and (max-width: $size) {
+            @content;
+        }
     }
-  }
+}
+
+// 預先載入需要的css
+.base-class {
+    @apply col-span-1 col-span-2 col-span-3 col-span-4 col-span-5 md:col-span-1 md:col-span-2 md:col-span-3 md:col-span-4 md:col-span-5;
 }

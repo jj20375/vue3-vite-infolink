@@ -1,7 +1,7 @@
-import IconMember from "@/assets/img/icons/member.svg";
-import IconDownload from "@/assets/img/icons/sidebar/download.svg";
-import IconCloud from "@/assets/img/icons/sidebar/cloud.svg";
-import IconContact from "@/assets/img/icons/sidebar/contact.svg";
+import IconMember from "@/components/icons/IconMember.vue";
+import IconDownload from "@/components/icons/sidebar/IconDownload.vue";
+import IconCloud from "@/components/icons/sidebar/IconCloud.vue";
+import IconContact from "@/components/icons/sidebar/IconContact.vue";
 import LayoutMainLeftSidebar from "@/layouts/main/LayoutMainLeftSidebar";
 import LayoutMainHeader from "@/layouts/main/LayoutMainHeader";
 import { markRaw } from "vue";
