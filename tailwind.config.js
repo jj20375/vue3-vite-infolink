@@ -1,7 +1,8 @@
 /** @type {import('tailwindcss').Config} */
 const colors = require("tailwindcss/colors");
 export default {
-    content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx,vue}"],
+    content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx,vue}", "./src/views/**/*.{js,ts,jsx,tsx,vue}"],
+    safelist: ["col-span-1", "col-span-2", "col-span-3", "col-span-4", "col-span-5", "md:col-span-1", "md:col-span-2", "md:col-span-3", "md:col-span-4", "md:col-span-5"],
     theme: {
         extend: {},
         textColor: (theme) => theme("colors"),
