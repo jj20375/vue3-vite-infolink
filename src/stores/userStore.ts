@@ -1,10 +1,26 @@
 import { ref } from "vue";
 import { defineStore } from "pinia";
+import type { UserPanelUserInfoInterface, UserPanelCompanyInterface, UserPanelSubAccountsInterface } from "@/views/user-panel/interface/userInterface";
 
 export const useUserStore = defineStore("userStore", () => {
     // 使用者資料
-    const user = ref({
+    const user = ref<UserPanelUserInfoInterface>({
+        email: "test@gmail.com",
         name: "測試名稱",
+        phone: "0933123123",
+        jobTitle: "CEO",
+    });
+    // 使用者公司資料
+    const company = ref<UserPanelCompanyInterface>({
+        name: "可思科技股份有限公司",
+        webURL: "https://www.codepulse.com.tw/zh-tw/",
+        address: "台北市中正區忠孝東路一段76號5f之一",
+        region: "台灣",
+    });
+    // 子帳號資料
+    const subAccounts = ref<UserPanelSubAccountsInterface>({
+        solarEnergySubAccounts: ["ili.wang@codepulse.com.tw", "gina.chen@codepulse.com.tw", "joe.lee@codepulse.com.tw", "ili.wang@codepulse.com.tw", "gina.chen@codepulse.com.tw", "joe.lee@codepulse.com.tw"],
+        storedEnergySubAccounts: ["ili.wang@codepulse.com.tw", "gina.chen@codepulse.com.tw", "joe.lee@codepulse.com.tw", "ili.wang@codepulse.com.tw", "gina.chen@codepulse.com.tw", "joe.lee@codepulse.com.tw"],
     });
     // 判斷是否有登入
     const isAuth = ref(false);
@@ -48,5 +64,5 @@ export const useUserStore = defineStore("userStore", () => {
         clearIsAuth();
     }
 
-    return { user, isAuth, setUser, setIsAuth };
+    return { user, company, subAccounts, isAuth, setUser, setIsAuth };
 });

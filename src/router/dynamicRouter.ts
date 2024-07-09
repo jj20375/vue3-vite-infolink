@@ -5,10 +5,10 @@ import IconContact from "@/assets/img/icons/sidebar/contact.svg";
 import LayoutMainLeftSidebar from "@/layouts/main/LayoutMainLeftSidebar";
 import LayoutMainHeader from "@/layouts/main/LayoutMainHeader";
 import { markRaw } from "vue";
-
-export default [
+import type { RouteRecordRaw } from "vue-router";
+const router: Array<RouteRecordRaw> = [
     {
-        path: "/user-panel/:slug",
+        path: "/user-panel",
         name: "user-panel",
         meta: {
             icon: markRaw(IconMember),
@@ -17,7 +17,7 @@ export default [
         },
         children: [
             {
-                path: "info/:level2Slug",
+                path: "info/:level2Slug/:chapters*",
                 name: "user-info",
                 meta: {
                     // menu: true,
@@ -25,7 +25,7 @@ export default [
                     parent: "user-panel",
                 },
                 components: {
-                    default: () => import("@/views/report/ReportDownloadView"),
+                    default: () => import("@/views/user-panel/UserInfoView"),
                     MainLeftSideBar: LayoutMainLeftSidebar,
                     MainHeader: LayoutMainHeader,
                 },
@@ -100,3 +100,5 @@ export default [
         },
     },
 ];
+
+export default router;

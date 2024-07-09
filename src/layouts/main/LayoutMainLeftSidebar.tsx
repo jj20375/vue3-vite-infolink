@@ -1,5 +1,6 @@
 import { defineComponent, ref, computed } from "vue";
 import { useRoute, useRouter, RouterLink } from "vue-router";
+import type { RouteRecordRaw } from "vue-router";
 import { useInitStore } from "@/stores/initStore";
 import { useUserStore } from "@/stores/userStore";
 import { useUtilityStore } from "@/stores/utilityStore";
@@ -43,7 +44,8 @@ export default defineComponent({
         const user = computed(() => userStore.user);
         const initData = computed(() => initStore.initData);
         const openMenu = computed(() => utilityStore.openMenu);
-        const permissionRouter = computed(() => permissionStore.permissionRouter);
+        // 權限路由
+        const permissionRouter = computed<Array<RouteRecordRaw>>(() => permissionStore.permissionRouter);
 
         const expandMode = ref(true);
         const setExpandMode = () => {
@@ -71,14 +73,15 @@ export default defineComponent({
             return route.name === item?.path?.name || (item.children && item.children.some((child: any) => route.name === child.path.name)) || collapseMap.value[idx];
         };
 
-        const menuList = computed(() => {
+        // 路由選單
+        const menuList = computed<Array<RouteRecordRaw>>(() => {
             console.log("permissionRouter =>", permissionRouter.value);
             if (permissionRouter.value.length > 0) {
                 const rawMenuList = permissionRouter.value.filter((data) => {
                     if (data.children) {
                         data.children = data.children.filter((children: any) => !children.meta.menu);
                     }
-                    return data.meta.menu;
+                    return data.meta!.menu;
                 });
                 console.log("rawMenuList ==>", rawMenuList);
                 return rawMenuList;
@@ -173,11 +176,11 @@ export default defineComponent({
                         <div>
                             {menuList.value.map((item, idx) => (
                                 <div key={idx}>
-                                    {item.path && !item.meta.link ? (
+                                    {item.path && !item.meta!.link ? (
                                         <button
                                             class="w-full"
                                             onClick={() => {
-                                                if (!item.meta.link) setCollapse(idx);
+                                                if (!item.meta!.link) setCollapse(idx);
                                                 if (!expandMode.value) setExpandMode();
                                             }}
                                         >
@@ -207,12 +210,12 @@ export default defineComponent({
                                             )}
                                         </button>
                                     ) : (
-                                        <a target="_blank" href={item.meta.link as string} class="relative block px-6 sm:px-7 py-4 text-[16px] text-black-500 hover:text-black-900">
+                                        <a target="_blank" href={item.meta!.link as string} class="relative block px-6 sm:px-7 py-4 text-[16px] text-black-500 hover:text-black-900">
                                             <div class="flex items-center justify-between gap-3">
                                                 <item.meta.icon class={["!w-[18px] !h-[18px]", style["svg-path-gray"], isActiveItem(item, idx) ? style["svg-path-black"] : ""]} />
                                                 <span class={["flex-1", { "opacity-0": !expandMode.value && isDesktop.value }]}>{t(`router.${item.name as string}`)}</span>
                                                 <div class={["", { "opacity-0": !expandMode.value && isDesktop.value }]}>
-                                                    <div class={["", { "rotate-90": collapseMap.value[idx] }]}>{item.meta.link && <IconLink class={["!w-5 !h-5", style["svg-path-gray"], isActiveItem(item, idx) ? style["svg-path-black"] : ""]} />}</div>
+                                                    <div class={["", { "rotate-90": collapseMap.value[idx] }]}>{item.meta!.link && <IconLink class={["!w-5 !h-5", style["svg-path-gray"], isActiveItem(item, idx) ? style["svg-path-black"] : ""]} />}</div>
                                                 </div>
                                             </div>
                                         </a>

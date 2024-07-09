@@ -4,8 +4,9 @@ import IconHome from "@/assets/img/icons/sidebar/home.svg";
 import HomeView from "../views/HomeView.vue";
 import NotFoundView from "@/views/NotFoundView";
 import { markRaw } from "vue";
+import type { RouteRecordRaw } from "vue-router";
 
-export default [
+const router: Array<RouteRecordRaw> = [
     {
         path: `/`,
         name: "index",
@@ -46,3 +47,4 @@ export default [
     // 将匹配所有内容并将其放在 `route.params.pathMatch` 下
     { path: "/:pathMatch(.*)*", name: "NotFound", meta: {}, component: NotFoundView, redirect: { name: "404" } },
 ];
+export default router;

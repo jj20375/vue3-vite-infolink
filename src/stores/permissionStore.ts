@@ -3,11 +3,12 @@ import { defineStore } from "pinia";
 import router from "@/router";
 import dynamicRouter from "@/router/dynamicRouter";
 import defaultRouter from "@/router/defaultRouter";
+import type { RouteRecordRaw } from "vue-router";
 export const usePermissionStore = defineStore("permissionStore", () => {
     /**
      * 路由權限資料
      */
-    const permissionRouter = ref([...defaultRouter, ...dynamicRouter]);
+    const permissionRouter = ref<Array<RouteRecordRaw>>([...defaultRouter, ...dynamicRouter]);
     const isHavePermissionRouter = ref(false);
 
     /**
@@ -48,7 +49,7 @@ export const usePermissionStore = defineStore("permissionStore", () => {
                 },
             ];
             // 路由權限檢查 當 api 給予路由資料中 無法匹配 所需權限路由時 移除該路由
-            permissionRouter.value = permissionRouter.value.filter((data: { name: string; children?: any }) => {
+            permissionRouter.value = permissionRouter.value.filter((data: RouteRecordRaw) => {
                 return getRouter.some((apiData) => {
                     // if (apiData.name === data.name) {
                     //     if (data.children) {

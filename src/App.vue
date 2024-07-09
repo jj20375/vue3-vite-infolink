@@ -5,7 +5,7 @@
             <RouterView name="MainLeftSideBar" />
             <div class="relative flex flex-col justify-between xl:flex-1 w-full min-h-[calc(100vh-72px)]">
                 <div class="absolute top-0 left-0 w-full h-full opacity-20 z-[-1]" style="background-image: url('img/layout/bg.svg'); background-attachment: fixed"></div>
-                {{ $t("welcome") }}
+                <!-- {{ $t("welcome") }} -->
                 <RouterView />
             </div>
         </section>
