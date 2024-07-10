@@ -5,7 +5,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, defineEmits, defineProps, withDefaults } from "vue";
+import { ref } from "vue";
 interface Props {
     page: number;
     total: number;
