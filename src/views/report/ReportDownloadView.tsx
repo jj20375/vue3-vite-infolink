@@ -293,7 +293,9 @@ export default defineComponent({
 
         const currentPage = ref(1);
 
-        function handlePageChange(val: any) {}
+        function handlePageChange(val: any) {
+            return val;
+        }
 
         return () => (
             <section>
@@ -322,7 +324,7 @@ export default defineComponent({
                             <ReportDownloadTable tableHeadData={tableHeadData.value} tableBodyData={tableBodyData.value} />
                             <div class="flex flex-col lg:flex-row justify-between items-start lg:items-center mt-6">
                                 <div class="order-2 lg:order-1 text-[14px]">共有 32 筆資料，第 1 / 10 頁</div>
-                                <Pagination class="order-1 lg:order-2 mb-4 lg:mb-0" total={100} pageSize={10} page={currentPage.value} v-on:handlePageChange={() => handlePageChange(1)} />
+                                <Pagination class="order-1 lg:order-2 mb-4 lg:mb-0" total={100} pageSize={10} page={currentPage.value} onHandlePageChange={handlePageChange(1)} />
                             </div>
                         </div>
                     </div>
