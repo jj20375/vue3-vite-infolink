@@ -144,7 +144,7 @@ export default defineComponent({
         return () => (
             <div
                 class={[
-                    "fixed xl:sticky top-0 xl:top-[72px] -translate-x-full xl:translate-x-0 bg-white h-screen xl:h-[calc(100vh-72px)] w-full xl:w-[300px] xl:border-r border-black-100 duration-300 transition-all overflow-x-hidden z-[3001]",
+                    "fixed xl:sticky top-0 xl:top-[72px] -translate-x-full xl:translate-x-0 bg-white h-screen xl:h-[calc(100vh-72px)] w-full xl:w-[300px] xl:border-r border-black-100 duration-300 transition-all overflow-x-hidden z-[1000]",
                     { "!w-[76px]": !expandMode.value && isDesktop.value, "!translate-x-0": openMenu.value },
                 ]}
             >
@@ -249,15 +249,6 @@ export default defineComponent({
                                     </el-select>
                                 </el-form-item>
                             </el-form>
-                            <select class="w-[100px]" v-model={currentLang.value}>
-                                {Object.values(langsOptions.value).map((langValue) => {
-                                    return (
-                                        <option key={langValue.code} value={langValue.code}>
-                                            {langValue.name}
-                                        </option>
-                                    );
-                                })}
-                            </select>
                             <div class="relative flex w-[1px] h-[1rem] bg-black-700"></div>
                             <button onClick={() => logout()} class="flex gap-2 p-2 items-center text-black-500 text-[15px]">
                                 <IconLogout class="!w-5 !h-5 text-black-500" />

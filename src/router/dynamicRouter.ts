@@ -66,8 +66,18 @@ const router: Array<RouteRecordRaw> = [
         meta: {
             icon: markRaw(IconDownload),
             menu: true,
-            rort: 3,
+            sort: 3,
         },
+        components: {
+            default: () => import("@/views/report/ReportDownloadView"),
+            MainLeftSideBar: LayoutMainLeftSidebar,
+            MainHeader: LayoutMainHeader,
+        },
+    },
+    {
+        path: "/report-download-detail/:id/:slug",
+        name: "report-download-detail",
+        meta: {},
         components: {
             default: () => import("@/views/report/ReportDownloadView"),
             MainLeftSideBar: LayoutMainLeftSidebar,
@@ -80,7 +90,7 @@ const router: Array<RouteRecordRaw> = [
         meta: {
             icon: markRaw(IconCloud),
             menu: true,
-            rort: 4,
+            sort: 4,
             link: "https://www.google.com.tw/webhp?hl=zh-TW",
         },
         component: () => import("@/views/NotFoundView"),
@@ -91,7 +101,7 @@ const router: Array<RouteRecordRaw> = [
         meta: {
             icon: markRaw(IconContact),
             menu: true,
-            rort: 5,
+            sort: 5,
         },
         components: {
             default: () => import("@/views/report/ReportDownloadView"),

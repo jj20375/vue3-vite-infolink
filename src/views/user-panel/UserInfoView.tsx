@@ -4,21 +4,11 @@ import { useUserStore } from "@/stores/userStore";
 import { useWindowResize } from "@/hooks/windowResize";
 import type { FormInstance } from "element-plus";
 import type { UserPanelUserInfoInterface } from "./interface/userInterface";
+import type { ColumnsInterface } from "@/interface/global.d";
 import Breadcrumb from "@/components/Breadcrumb";
 import { isEmpty } from "@/services/utils";
 
-interface FormColumnsInterface {
-    type?: string;
-    showPassword?: boolean;
-    prop: "email" | "name" | "jobTitle" | "phone" | "messagingApp" | "messagingAppCustomName" | "messagingAppId";
-    label: string;
-    placeholder?: string;
-    style: string;
-    disabled?: boolean;
-    span: string;
-    options?: { value: string; label: string }[];
-    onChange?: Function | undefined;
-}
+interface FormColumnsInterface extends ColumnsInterface<"email" | "name" | "jobTitle" | "phone" | "messagingApp" | "messagingAppCustomName" | "messagingAppId"> {}
 
 // 預設使用者資料表單
 const defaultUserForm: UserPanelUserInfoInterface = { email: "", name: "", jobTitle: "", phone: "", messagingApp: "", messagingAppId: "" };
@@ -197,7 +187,7 @@ const UserForm = defineComponent({
                                 {item.style === "input" && <el-input type={item.type ? item.type : "text"} show-password={item.showPassword} disabled={item.disabled} placeholder={item.placeholder} v-model={form.value[item.prop]}></el-input>}
 
                                 {item.style === "select" && (
-                                    <el-select v-model={form.value[item.prop]} placeholder={item.placeholder} v-on:change={item.onChange !== undefined ? item.onChange!(form.value) : null}>
+                                    <el-select v-model={form.value[item.prop]} placeholder={item.placeholder} onChange={() => (item.onChange !== undefined ? item.onChange!(form.value) : null)}>
                                         {item.options && item.options.map((option) => <el-option key={option.value} label={option.label} value={option.value} />)}
                                     </el-select>
                                 )}
@@ -341,7 +331,9 @@ export default defineComponent({
                 <section>
                     <div class="relative py-[20px] xl:py-[30px] px-[20px] xl:px-[30px]">
                         <div class="xl:max-w-[1300px] mx-auto">
-                            <Breadcrumb class="mb-2" />
+                            <div class="mb-2">
+                                <Breadcrumb />
+                            </div>
                             <h3 class="text-[28px] font-semibold mb-5 sm:mb-7">會員資料管理</h3>
                             {/** 公司資料區塊 */}
                             {CompanySection}
@@ -351,7 +343,7 @@ export default defineComponent({
                                 <UserForm v-model:form={form.value} formRefDom={formRefDom.value} v-model:formColumns={formColumns.value} v-model:formRules={formRules} />
                                 {/** 子帳號列表區塊 TODO 加判斷(只有主帳號才出出現的區塊) */}
                                 {SubAccountsSection}
-                                <button v-on:click_prevent={onSubmit()} class={["yellow-btn mt-6", isMobile.value ? "w-full" : "btn-sm"]}>
+                                <button onClick={() => onSubmit()} class={["yellow-btn mt-6", isMobile.value ? "w-full" : "btn-sm"]}>
                                     儲存
                                 </button>
                             </div>
