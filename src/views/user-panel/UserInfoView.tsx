@@ -154,7 +154,7 @@ const UserForm = defineComponent({
             } else {
                 delete formRules.value.messagingAppId;
             }
-            if (val.messagingApp === "other") {
+            if (val.messagingApp === "other" && formColumns.value.find((item) => item.prop === "messagingAppCustomName") === undefined) {
                 formColumns.value.splice(formColumns.value.length - 1, 0, {
                     prop: "messagingAppCustomName",
                     label: "軟體名稱",
@@ -167,7 +167,7 @@ const UserForm = defineComponent({
                     formColumns.value[messagingAppItemIndex].span = "2";
                 }
                 emit("update:formColumns", formColumns.value);
-            } else {
+            } else if (val.messagingApp !== "other") {
                 formColumns.value = formColumns.value.filter((column) => column.prop !== "messagingAppCustomName");
                 delete form.value.messagingAppCustomName;
                 const messagingAppItemIndex = formColumns.value.findIndex((item) => item.prop === "messagingApp");
