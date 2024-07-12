@@ -11,6 +11,7 @@ import IconReset from "@/components/icons/IconReset.vue";
 import IconDownload from "@/components/icons/IconDownload.vue";
 import ReportDownloadTable from "./components/ReportDownloadTable";
 import Pagination from "@/components/Pagination.vue";
+import { useI18n } from "vue-i18n";
 
 interface FilterInterFace {
     // 產業別
@@ -38,6 +39,8 @@ const ReportSearch = defineComponent({
     },
     emits: ["update:searchFilter"],
     setup(props, { emit, attrs }) {
+        const { t } = useI18n();
+
         const { isLargePad } = useWindowResize();
 
         const filterForm = ref<FilterInterFace | any>(props.searchFilter);
@@ -214,7 +217,7 @@ const ReportSearch = defineComponent({
                     <div class="hidden xl:block xl:h-[40px]"></div>
                     <div class="flex sm:inline-flex gap-2 justify-center items-center yellow-btn" onClick={() => onSubmit(filterForm.value)}>
                         <IconSearch class="text-black-900" />
-                        查詢
+                        {t("global.search")}
                     </div>
                     <div class="flex sm:inline-flex gap-2 justify-center items-center transparent-btn" onClick={() => resetFilter(filterForm.value)}>
                         <IconReset class="text-black-900" />

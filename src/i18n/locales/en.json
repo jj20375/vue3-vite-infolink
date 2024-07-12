@@ -9,5 +9,8 @@
         "report-download": "報告下載(en)",
         "data-factory": "DataFactory(en)",
         "contact": "聯絡我們(en)"
+    },
+    "global": {
+        "search": "Search"
     }
 }
