@@ -1,0 +1,74 @@
+/* MyComponent.module.css */
+.uploadSection {
+    @apply block;
+
+    @media (max-width: 600px) {
+        .cardInner {
+            @apply block;
+        }
+    }
+
+    .cardInner {
+        ::v-deep .el-upload-list__item-actions {
+            @apply hidden #{!important};
+        }
+
+        ::v-deep .el-upload {
+            @apply border border-solid border-black-100 hover:border-black-300 rounded-none transition-none #{!important};
+
+            .el-upload-dragger {
+                @apply flex justify-center items-center w-full h-full border-0 #{!important};
+            }
+        }
+
+        &:not(.active) {
+            ::v-deep .el-upload-list {
+                @apply absolute w-full min-h-[250px] h-full #{!important};
+
+                .el-upload {
+                    @apply w-full h-full opacity-0 transition-none flex-grow-0 flex-shrink-0 flex-auto #{!important};
+                }
+
+                .el-upload-list__item {
+                    @apply opacity-0 transition-none #{!important};
+                }
+            }
+        }
+
+        &.active {
+            ::v-deep .el-upload-list__item-actions {
+                @apply flex opacity-100 xl:opacity-0 hover:opacity-100 #{!important};
+                span {
+                    @apply block cursor-pointer #{!important};
+                }
+            }
+
+            ::v-deep .el-upload-list--picture-card {
+                @apply flex gap-2 justify-center md:justify-start #{!important};
+
+                .el-upload-list__item {
+                    @apply relative justify-center border border-black-100 m-0 rounded-none transition-none aspect-square #{!important};
+                    .thumbnail-card {
+                        @apply w-full h-full #{!important};
+                    }
+                }
+
+                .el-upload-list__item-actions {
+                    @apply cursor-pointer #{!important};
+                }
+            }
+        }
+    }
+
+    .text {
+        @apply leading-6 text-sm;
+    }
+
+    .svgIcon {
+        @apply w-12 h-12;
+
+        &.plusIcon {
+            @apply w-8 h-8;
+        }
+    }
+}

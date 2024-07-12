@@ -5,6 +5,7 @@ import vue from "@vitejs/plugin-vue";
 import vueJsx from "@vitejs/plugin-vue-jsx";
 import vueDevTools from "vite-plugin-vue-devtools";
 import svgLoader from "vite-svg-loader";
+import tailwindcss from "tailwindcss";
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }: ConfigEnv): UserConfig => {
@@ -41,6 +42,12 @@ export default defineConfig(({ mode }: ConfigEnv): UserConfig => {
                 scss: {
                     additionalData: '@import "@/assets/scss/_setting.scss";',
                 },
+            },
+            modules: {
+                localsConvention: "camelCaseOnly", // 使用駝峰命名法
+            },
+            postcss: {
+                plugins: [tailwindcss()],
             },
         },
     };

@@ -1,7 +1,7 @@
 import LayoutMainLeftSidebar from "@/layouts/main/LayoutMainLeftSidebar";
 import LayoutMainHeader from "@/layouts/main/LayoutMainHeader";
 import IconHome from "@/components/icons/sidebar/IconHome.vue";
-import HomeView from "../views/HomeView.vue";
+import HomeView from "@/views/home/HomeView.vue";
 import NotFoundView from "@/views/NotFoundView";
 import { markRaw } from "vue";
 import type { RouteRecordRaw } from "vue-router";

@@ -300,32 +300,30 @@ export default defineComponent({
         return () => (
             <section>
                 <div class="relative py-[20px] xl:py-[30px] px-[20px] xl:px-[30px]">
-                    <div class="mb-2">
-                        <Breadcrumb />
-                    </div>
+                    <Breadcrumb />
                     <h3 class="text-[28px] font-semibold mb-5 sm:mb-7">報告下載</h3>
-                    <div class="xl:max-w-[1200px]">
+                    <div class="xl:max-w-[1200px] min">
                         <ReportSearch searchFilter={filterForm.value} />
-                        <div class="mt-3 sm:mt-12 border border-gray-600 p-5 rounded-[4px] bg-white">
-                            <div class="flex flex-col sm:flex-row gap-1 sm:gap-4 justify-end mb-5">
-                                {downloadManualData.value.chinese !== undefined && (
-                                    <a target="_blank" href={downloadManualData.value.chinese} class="flex gap-2 p-2 items-center text-[14px] cursor-pointer hover:text-black-700 transition-all duration-300">
-                                        <IconDownload class="!w-4 !h-4" />
-                                        巨集使用說明書(中文)
-                                    </a>
-                                )}
-                                {downloadManualData.value.english !== undefined && (
-                                    <a target="_blank" href={downloadManualData.value.english} class="flex gap-2 p-2 items-center text-[14px] cursor-pointer hover:text-black-700 transition-all duration-300">
-                                        <IconDownload class="!w-4 !h-4" />
-                                        巨集使用說明書(英文)
-                                    </a>
-                                )}
-                            </div>
-                            <ReportDownloadTable tableHeadData={tableHeadData.value} tableBodyData={tableBodyData.value} />
-                            <div class="flex flex-col lg:flex-row justify-between items-start lg:items-center mt-6">
-                                <div class="order-2 lg:order-1 text-[14px]">共有 32 筆資料，第 1 / 10 頁</div>
-                                <Pagination class="order-1 lg:order-2 mb-4 lg:mb-0" total={100} pageSize={10} page={currentPage.value} onHandlePageChange={handlePageChange(1)} />
-                            </div>
+                    </div>
+                    <div class="mt-3 sm:mt-12 border border-gray-600 p-5 rounded-[4px] bg-white">
+                        <div class="flex flex-col sm:flex-row gap-1 sm:gap-4 justify-end mb-5">
+                            {downloadManualData.value.chinese !== undefined && (
+                                <a target="_blank" href={downloadManualData.value.chinese} class="flex gap-2 p-2 items-center text-[14px] cursor-pointer hover:text-black-700 transition-all duration-300">
+                                    <IconDownload class="!w-4 !h-4" />
+                                    巨集使用說明書(中文)
+                                </a>
+                            )}
+                            {downloadManualData.value.english !== undefined && (
+                                <a target="_blank" href={downloadManualData.value.english} class="flex gap-2 p-2 items-center text-[14px] cursor-pointer hover:text-black-700 transition-all duration-300">
+                                    <IconDownload class="!w-4 !h-4" />
+                                    巨集使用說明書(英文)
+                                </a>
+                            )}
+                        </div>
+                        <ReportDownloadTable tableHeadData={tableHeadData.value} tableBodyData={tableBodyData.value} />
+                        <div class="flex flex-col lg:flex-row justify-between items-start lg:items-center mt-6">
+                            <div class="order-2 lg:order-1 text-[14px]">共有 32 筆資料，第 1 / 10 頁</div>
+                            <Pagination class="order-1 lg:order-2 mb-4 lg:mb-0" total={100} pageSize={10} page={currentPage.value} onHandlePageChange={handlePageChange(1)} />
                         </div>
                     </div>
                 </div>

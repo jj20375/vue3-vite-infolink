@@ -3658,6 +3658,11 @@ vue3-lottie@^3.3.0:
     klona "^2.0.6"
     lottie-web "5.12.2"
 
+vue3-recaptcha2@^1.8.0:
+  version "1.8.0"
+  resolved "https://registry.yarnpkg.com/vue3-recaptcha2/-/vue3-recaptcha2-1.8.0.tgz#4a50b0dbfa052568de347dc64d1839d02bdc3384"
+  integrity sha512-lICGpLGv9wsdVjgWZ0usbZ+Ki52YX5kOzjt8l/ADun9GxdjJ5/AkGpxE7dZ+mG3VcE4ASZG2B/nYWB4wWFadvQ==
+
 vue3-slide-up-down@^2.1.0:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/vue3-slide-up-down/-/vue3-slide-up-down-2.1.0.tgz#5ca5a4b600e088db2fee940b225e466f80489d91"

@@ -25,7 +25,7 @@ const router: Array<RouteRecordRaw> = [
                     parent: "user-panel",
                 },
                 components: {
-                    default: () => import("@/views/user-panel/UserInfoView"),
+                    default: () => import("@/views/user-panel/user-info/UserInfoView"),
                     MainLeftSideBar: LayoutMainLeftSidebar,
                     MainHeader: LayoutMainHeader,
                 },
@@ -39,21 +39,21 @@ const router: Array<RouteRecordRaw> = [
                     parent: "user-panel",
                 },
                 components: {
-                    default: () => import("@/views/report/ReportDownloadView"),
+                    default: () => import("@/views/user-panel/user-reset-password/UserResetPasswordView"),
                     MainLeftSideBar: LayoutMainLeftSidebar,
                     MainHeader: LayoutMainHeader,
                 },
             },
             {
-                path: "record/:level2Slug",
-                name: "user-record",
+                path: "contract/:level2Slug",
+                name: "user-contract",
                 meta: {
                     // menu: true,
                     sort: 3,
                     parent: "user-panel",
                 },
                 components: {
-                    default: () => import("@/views/report/ReportDownloadView"),
+                    default: () => import("@/views/user-panel/user-contract/UserContractView"),
                     MainLeftSideBar: LayoutMainLeftSidebar,
                     MainHeader: LayoutMainHeader,
                 },
@@ -104,7 +104,7 @@ const router: Array<RouteRecordRaw> = [
             sort: 5,
         },
         components: {
-            default: () => import("@/views/report/ReportDownloadView"),
+            default: () => import("@/views/contact/ContactView"),
             MainLeftSideBar: LayoutMainLeftSidebar,
             MainHeader: LayoutMainHeader,
         },

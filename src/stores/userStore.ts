@@ -1,6 +1,6 @@
 import { ref } from "vue";
 import { defineStore } from "pinia";
-import type { UserPanelUserInfoInterface, UserPanelCompanyInterface, UserPanelSubAccountsInterface } from "@/views/user-panel/interface/userInterface";
+import type { UserPanelUserInfoInterface, UserPanelCompanyInterface, UserPanelSubAccountsInterface } from "@/views/user-panel/user-info/interface/userInterface";
 
 export const useUserStore = defineStore("userStore", () => {
     // 使用者資料

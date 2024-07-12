@@ -331,9 +331,7 @@ export default defineComponent({
                 <section>
                     <div class="relative py-[20px] xl:py-[30px] px-[20px] xl:px-[30px]">
                         <div class="xl:max-w-[1300px] mx-auto">
-                            <div class="mb-2">
-                                <Breadcrumb />
-                            </div>
+                            <Breadcrumb />
                             <h3 class="text-[28px] font-semibold mb-5 sm:mb-7">會員資料管理</h3>
                             {/** 公司資料區塊 */}
                             {CompanySection}

@@ -77,10 +77,11 @@ export default defineComponent({
         return () => (
             <div
                 class={[
-                    "relative",
-                    rightArrived.value
-                        ? "before:absolute before:h-full before:w-[30px] before:pointer-events-none before:top-0 before:left-0 before:shadow-[inset_12px_0px_8px_-8px_rgba(5,5,5,0.1)]"
-                        : "after:absolute after:h-full after:w-[30px] after:pointer-events-none after:top-0 after:right-0 after:shadow-[inset_-12px_0px_8px_-8px_rgba(5,5,5,0.1)",
+                    [
+                        "relative",
+                        leftArrived.value ? "" : "before:absolute before:h-full before:w-[30px] before:pointer-events-none before:top-0 before:left-0 before:shadow-[inset_12px_0px_8px_-8px_rgba(5,5,5,0.1)]",
+                        rightArrived.value ? "" : "after:absolute after:h-full after:w-[30px] after:pointer-events-none after:top-0 after:right-0 after:shadow-[inset_-12px_0px_8px_-8px_rgba(5,5,5,0.1)]",
+                    ],
                 ]}
             >
                 <div ref={scrollRef} class="relative m-auto overflow-x-auto">

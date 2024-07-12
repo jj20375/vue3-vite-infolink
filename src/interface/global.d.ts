@@ -12,6 +12,7 @@ export interface ColumnsInterface<Prop> {
     style: string;
     disabled?: boolean;
     span?: string;
+    row?: number;
     options?: { value: string; label: string }[];
     // 手機版是否隱藏 表單欄位標題
     mobileHideLabel?: boolean;

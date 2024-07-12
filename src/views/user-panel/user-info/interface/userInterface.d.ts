@@ -14,6 +14,8 @@ export interface UserPanelUserInfoInterface {
     messagingAppCustomName?: string;
     // 通訊軟體 id
     messagingAppId?: string;
+    // 國家
+    company?: string;
 }
 
 // 公司資料 type
