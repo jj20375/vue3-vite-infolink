@@ -2,10 +2,12 @@ import { createI18n } from "vue-i18n";
 import { getStorage } from "@/services/localStorage";
 import enUS from "@/i18n/locales/en.json";
 import zhTW from "@/i18n/locales/tw.json";
+import zhCN from "@/i18n/locales/cn.json";
 // 定義翻譯消息
 const messages = {
     en: enUS,
     tw: zhTW,
+    cn: zhCN,
 };
 
 // 創建 i18n 實例
@@ -16,6 +18,7 @@ const i18n = createI18n({
     fallbackLocale: {
         en: ["en", "en-US"],
         tw: ["tw", "zh-TW"],
+        cn: ["cn", "zh-CN"],
     },
     messages,
 });

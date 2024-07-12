@@ -11,4 +11,10 @@ export default {
         file: "tw.json",
         name: "繁中",
     },
+    cn: {
+        code: "cn",
+        iso: "zh-CN",
+        file: "tw.json",
+        name: "簡中",
+    },
 };
