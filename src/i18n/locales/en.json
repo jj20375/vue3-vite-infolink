@@ -8,7 +8,9 @@
         "user-contract": "歷年合約紀錄(en)",
         "report-download": "報告下載(en)",
         "data-factory": "DataFactory(en)",
-        "contact": "聯絡我們(en)"
+        "contact": "聯絡我們(en)",
+        "login": "會員登入(en)",
+        "forgot-password": "忘記密碼(en)"
     },
     "global": {
         "search": "Search"

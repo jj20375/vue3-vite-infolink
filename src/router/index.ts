@@ -27,20 +27,22 @@ router.beforeEach(async (to: RouteLocationNormalized, from: RouteLocationNormali
     // 取得 localstorage token 判斷有 token 情況下 代表有登入
     const token = localStorage.getItem("token");
     // 有登入情況下
-    if (to.name === "login" && token) {
+    if (to.name === "auth-login" && token) {
         return {
             name: "home",
+            params: { slug: "會員專區" },
         };
     }
 
     if (to.meta.requiresAuth && !token) {
         return {
-            name: "login",
+            name: "auth-login",
             params: { slug: "會員登入" },
             // 保存我们所在的位置，以便以后再来
             query: { redirect: to.fullPath },
         };
     }
+    return true;
 });
 router.afterEach(async (to: RouteLocationNormalized, from: RouteLocationNormalized) => {});
 

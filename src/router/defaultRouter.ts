@@ -5,6 +5,8 @@ import HomeView from "@/views/home/HomeView.vue";
 import NotFoundView from "@/views/NotFoundView";
 import { markRaw } from "vue";
 import type { RouteRecordRaw } from "vue-router";
+import LayoutDefaultFooter from "@/layouts/default/LayoutDefaultFooter";
+import LayoutDefaultHeader from "@/layouts/default/LayoutDefaultHeader";
 
 const router: Array<RouteRecordRaw> = [
     {
@@ -35,7 +37,18 @@ const router: Array<RouteRecordRaw> = [
         meta: {},
         components: {
             default: async () => await import("@/views/auth/LoginView"),
-            MainLeftSideBar: LayoutMainLeftSidebar,
+            DefaultHeader: LayoutDefaultHeader,
+            DefaultFooter: LayoutDefaultFooter,
+        },
+    },
+    {
+        path: "/auth/forgot-password/:slug",
+        name: "forgot-password",
+        meta: {},
+        components: {
+            default: async () => await import("@/views/auth/forgot-password/ForgotPasswordView"),
+            DefaultHeader: LayoutDefaultHeader,
+            DefaultFooter: LayoutDefaultFooter,
         },
     },
     {

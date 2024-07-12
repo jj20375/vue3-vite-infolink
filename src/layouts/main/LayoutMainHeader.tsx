@@ -35,13 +35,17 @@ export default defineComponent({
         function changeLanguage(lang: string) {
             locale.value = lang;
             setStorage("lang", lang);
+            if (route.meta.parent !== undefined) {
+                router.push({ name: route.name, params: { level2Slug: t(`router.${route.name as string}`) } });
+                return;
+            }
             router.push({ name: route.name, params: { slug: t(`router.${route.name as string}`) } });
         }
         /**
          * 登出
          */
         function logout() {
-            router.push({ name: "login", params: { slug: "會員登入" } });
+            router.push({ name: "login", params: { slug: t("router.login") } });
         }
         // 打開選單
         function openMenu() {

@@ -1,0 +1,14 @@
+<template>
+    <svg width="181" height="242" viewBox="0 0 181 242" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <g opacity="0.1">
+            <path d="M0.428572 60.0067L0.428604 1.76886L59.1911 60.0067H0.428572Z" fill="black" stroke="black" stroke-width="0.857143" />
+            <path d="M0.428572 120.237L0.428604 61.9996L59.1911 120.237H0.428572Z" fill="black" stroke="black" stroke-width="0.857143" />
+            <path d="M6.62333e-05 121.203L121.539 241.666H0L6.62333e-05 121.203Z" fill="#FFCA00" />
+            <path d="M60.6586 120.237L60.6586 61.9996L119.421 120.237H60.6586Z" fill="black" stroke="black" stroke-width="0.857143" />
+            <path d="M60.6586 180.469L60.6586 122.231L119.421 180.469H60.6586Z" fill="black" stroke="black" stroke-width="0.857143" />
+            <path d="M120.89 120.237L120.89 61.9996L179.652 120.237H120.89Z" fill="black" stroke="black" stroke-width="0.857143" />
+            <path d="M120.461 121.203L180.694 180.897H120.461L120.461 121.203Z" fill="#FFCA00" />
+            <path d="M120.89 240.699L120.89 182.461L179.652 240.699H120.89Z" fill="black" stroke="black" stroke-width="0.857143" />
+        </g>
+    </svg>
+</template>

@@ -1,3 +1,4 @@
+import type { DefineComponent } from "vue";
 export interface OptionsInterface {
     label: string;
     value: any;
@@ -13,6 +14,7 @@ export interface ColumnsInterface<Prop> {
     disabled?: boolean;
     span?: string;
     row?: number;
+    iconName: typeof DefineComponent;
     options?: { value: string; label: string }[];
     // 手機版是否隱藏 表單欄位標題
     mobileHideLabel?: boolean;

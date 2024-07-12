@@ -1,5 +1,5 @@
 import { defineComponent, computed } from "vue";
-import { useInitStore } from "../../stores/initStore";
+import { useInitStore } from "@/stores/initStore";
 export default defineComponent({
     setup(props, { emit }) {
         const initStore = useInitStore();

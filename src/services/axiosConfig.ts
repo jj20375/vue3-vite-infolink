@@ -29,7 +29,7 @@ instance.interceptors.response.use(
         const { status, data } = error.response;
         if (status == 401 && data.message === "Unauthenticated.") {
             removeStorage("token");
-            router.push({ name: "login" });
+            router.push({ name: "login", params: { slug: "會員登入" } });
         }
     }
 );
