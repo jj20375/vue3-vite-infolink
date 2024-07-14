@@ -52,6 +52,26 @@ const router: Array<RouteRecordRaw> = [
         },
     },
     {
+        path: "/auth/reset-password/:slug",
+        name: "reset-password",
+        meta: {},
+        components: {
+            default: async () => await import("@/views/auth/reset-password/ResetPasswordView"),
+            DefaultHeader: LayoutDefaultHeader,
+            DefaultFooter: LayoutDefaultFooter,
+        },
+    },
+    {
+        path: "/auth/verify-email/:slug",
+        name: "verify-email",
+        meta: {},
+        components: {
+            default: async () => await import("@/views/auth/verify-email/VerifyEmailView"),
+            DefaultHeader: LayoutDefaultHeader,
+            DefaultFooter: LayoutDefaultFooter,
+        },
+    },
+    {
         path: "/404",
         name: "404",
         meta: {},

@@ -10,7 +10,9 @@
         "data-factory": "DataFactory(cn)",
         "contact": "聯絡我們(cn)",
         "login": "會員登入(cn)",
-        "forgot-password": "忘記密碼(cn)"
+        "forgot-password": "忘記密碼(cn)",
+        "reset-password": "重設密碼(cn)",
+        "verify-email": "驗證信箱(cn)"
     },
     "global": {
         "search": "查尋(cn)"

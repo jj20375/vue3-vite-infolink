@@ -10,7 +10,9 @@
         "data-factory": "DataFactory",
         "contact": "聯絡我們",
         "login": "會員登入",
-        "forgot-password": "忘記密碼"
+        "forgot-password": "忘記密碼",
+        "reset-password": "重設密碼",
+        "verify-email": "驗證信箱"
     },
     "global": {
         "search": "查詢"
