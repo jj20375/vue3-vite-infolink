@@ -5,6 +5,8 @@ import HomeView from "@/views/home/HomeView.vue";
 import NotFoundView from "@/views/NotFoundView";
 import { markRaw } from "vue";
 import type { RouteRecordRaw } from "vue-router";
+import LayoutDefaultFooter from "@/layouts/default/LayoutDefaultFooter";
+import LayoutDefaultHeader from "@/layouts/default/LayoutDefaultHeader";
 
 const router: Array<RouteRecordRaw> = [
     {
@@ -35,7 +37,38 @@ const router: Array<RouteRecordRaw> = [
         meta: {},
         components: {
             default: async () => await import("@/views/auth/LoginView"),
-            MainLeftSideBar: LayoutMainLeftSidebar,
+            DefaultHeader: LayoutDefaultHeader,
+            DefaultFooter: LayoutDefaultFooter,
+        },
+    },
+    {
+        path: "/auth/forgot-password/:slug",
+        name: "forgot-password",
+        meta: {},
+        components: {
+            default: async () => await import("@/views/auth/forgot-password/ForgotPasswordView"),
+            DefaultHeader: LayoutDefaultHeader,
+            DefaultFooter: LayoutDefaultFooter,
+        },
+    },
+    {
+        path: "/auth/reset-password/:slug",
+        name: "reset-password",
+        meta: {},
+        components: {
+            default: async () => await import("@/views/auth/reset-password/ResetPasswordView"),
+            DefaultHeader: LayoutDefaultHeader,
+            DefaultFooter: LayoutDefaultFooter,
+        },
+    },
+    {
+        path: "/auth/verify-email/:slug",
+        name: "verify-email",
+        meta: {},
+        components: {
+            default: async () => await import("@/views/auth/verify-email/VerifyEmailView"),
+            DefaultHeader: LayoutDefaultHeader,
+            DefaultFooter: LayoutDefaultFooter,
         },
     },
     {

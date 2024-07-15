@@ -8,14 +8,18 @@
         "user-contract": "Historical Contract Records",
         "report-download": "Report Download",
         "data-factory": "DataFactory",
-        "contact": "Contact Us"
-    },
-    "home": {
-        "title": "Home",
-        "info": "Latest Announcements",
-        "product": "Product List"
+        "contact": "Contact Us",
+        "login": "會員登入(en)",
+        "forgot-password": "忘記密碼(en)",
+        "reset-password": "重設密碼(en)",
+        "verify-email": "驗證信箱(en)"
     },
     "global": {
         "search": "Search"
+    },
+    "home": {
+        "news-title": "最新公告(en)"
+		"info": "Latest Announcements",
+        "product": "Product List"
     }
 }
