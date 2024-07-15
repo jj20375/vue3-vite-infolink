@@ -16,5 +16,8 @@
     },
     "global": {
         "search": "查尋(cn)"
+    },
+    "home": {
+        "news-title": "最新公告(cn)"
     }
 }

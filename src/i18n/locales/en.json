@@ -16,5 +16,8 @@
     },
     "global": {
         "search": "Search"
+    },
+    "home": {
+        "news-title": "最新公告(en)"
     }
 }
