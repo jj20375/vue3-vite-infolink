@@ -10,12 +10,15 @@
         "data-factory": "DataFactory",
         "contact": "联系我们"
     },
-    "home": {
-        "title": "首页",
-        "info": "最新公告",
-        "product": "产品列表"
-    },
     "global": {
         "search": "查询"
+    },
+    "home": {
+        "news-title": "最新公告",
+        "product-title": "产品列表"
+    },
+    "user-panel": {
+        "company-info": "公司信息",
+        "personal-info": "个人信息"
     }
 }

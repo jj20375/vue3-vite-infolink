@@ -18,8 +18,11 @@
         "search": "Search"
     },
     "home": {
-        "news-title": "最新公告(en)"
-		"info": "Latest Announcements",
-        "product": "Product List"
+		"news-title": "Latest Announcements",
+        "product-title": "Product List"
+    },
+    "user-panel": {
+        "company-info": "Company Information",
+        "personal-info": "Personal Information"
     }
 }

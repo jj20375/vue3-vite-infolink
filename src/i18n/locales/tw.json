@@ -14,19 +14,15 @@
         "reset-password": "重設密碼",
         "verify-email": "驗證信箱"
     },
-    "home": {
-        "title": "首頁",
-        "info": "最新公告",
-        "product": "產品列表"
-    },
-    "user-panel": {
-        "company-info": "公司資訊",
-        "personal-info": "個人資訊"
-    },
     "global": {
         "search": "查詢"
     },
     "home": {
-        "news-title": "最新公告"
+        "news-title": "最新公告",
+        "product-title": "產品列表"
+    },
+    "user-panel": {
+        "company-info": "公司資訊",
+        "personal-info": "個人資訊"
     }
 }
