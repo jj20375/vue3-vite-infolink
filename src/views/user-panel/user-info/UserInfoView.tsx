@@ -7,6 +7,7 @@ import type { UserPanelUserInfoInterface } from "./interface/userInterface";
 import type { ColumnsInterface } from "@/interface/global.d";
 import Breadcrumb from "@/components/Breadcrumb";
 import { isEmpty } from "@/services/utils";
+import { useI18n } from "vue-i18n";
 
 interface FormColumnsInterface extends ColumnsInterface<"email" | "name" | "jobTitle" | "phone" | "messagingApp" | "messagingAppCustomName" | "messagingAppId"> {}
 
@@ -139,6 +140,7 @@ const UserForm = defineComponent({
     },
     emits: ["update:formColumns", "update:form"],
     setup(props, { emit }) {
+        const { t } = useI18n();
         const form = ref(props.form);
         const formColumns = ref(props.formColumns);
         const formRules = ref<any>(props.formRules);
@@ -204,6 +206,7 @@ export default defineComponent({
     props: {},
     emits: [],
     setup(props, { emit }) {
+        const { t } = useI18n();
         const loading = ref(false);
         const formRefDom = ref<FormInstance | null>(null);
         const userStore = useUserStore();
@@ -332,7 +335,7 @@ export default defineComponent({
                     <div class="relative py-[20px] xl:py-[30px] px-[20px] xl:px-[30px]">
                         <div class="xl:max-w-[1300px] mx-auto">
                             <Breadcrumb />
-                            <h3 class="text-[28px] font-semibold mb-5 sm:mb-7">會員資料管理</h3>
+                            <h3 class="text-[28px] font-semibold mb-5 sm:mb-7">{t("router.user-info")}</h3>
                             {/** 公司資料區塊 */}
                             {CompanySection}
                             <div class="xl:max-w-[1200px] bg-white p-5 mt-5 border-gray-600 border rounded-[4px]">

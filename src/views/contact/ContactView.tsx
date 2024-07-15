@@ -21,7 +21,6 @@ export default defineComponent({
             }
         }
         // 社群媒體
-        // 社群媒體
         const socialMedias = computed<{ icons: { iconName: any; alt: string; url: string }[] }>(() => {
             const arr: { iconName: any; alt: string; url: string }[] = [];
             if (initData.value.site.social_linkedin) {

@@ -1,6 +1,6 @@
 <template>
     <div class="border-gray-600 border bg-white p-[16px] sm:p-[36px] rounded-[4px]">
-        <h3 class="text-[20px] sm:text-[24px] font-semibold tracking-wider">最新公告</h3>
+        <h3 class="text-[20px] sm:text-[24px] font-semibold tracking-wider">{{t("home.info")}}</h3>
         <div class="mt-3 xl:mb-2 bg-yellow-900 w-full h-[3px]"></div>
         <el-collapse class="custom-collapse" v-model="activeNames" accordion>
             <el-collapse-item v-for="data in datas" :name="data.id" :key="data.id">
@@ -29,6 +29,8 @@
 import { useRoute } from "vue-router";
 import { ref } from "vue";
 import Pagination from "@/components/Pagination.vue";
+import {useI18n} from "vue-i18n";
+const { t } = useI18n();
 
 interface Props {
     datas: {
