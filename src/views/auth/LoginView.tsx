@@ -8,6 +8,8 @@ import type { ColumnsInterface } from "@/interface/global.d";
 import type { FormInstance } from "element-plus";
 import { setStorage, getStorage } from "@/services/localStorage";
 import { useI18n } from "vue-i18n";
+import { AuthUserLoginAPI } from "@/api/oauthAPI";
+import AuthEmailVerify from "./components/AuthEmailVerify";
 
 export default {
     name: "LoginView",
@@ -23,13 +25,16 @@ export default {
 
         const { t } = useI18n();
 
+        // 登入身份驗證彈窗
+        const authEmailVerifyRefDom = ref<typeof AuthEmailVerify>();
+
         const permissionStore = usePermissionStore();
 
         const formRefDom = ref<FormInstance | null>(null);
 
         const form = ref<LoginForm>({
-            email: "",
-            password: "",
+            email: "admin@admin.cc",
+            password: "Aa168168",
             saveInfo: false,
         });
 
@@ -82,17 +87,25 @@ export default {
                     setStorage("saveInfo", true);
                     setStorage("loginEmail", form.email);
                 }
-            } catch (err) {}
+                const { data } = await AuthUserLoginAPI(form);
+                console.log("AuthUserLoginAPI data =>", data);
+            } catch (err) {
+                console.log("AuthUserLoginAPI err =>", err);
+            }
         }
 
-        async function onSubmit() {
+        async function onSubmit(event: Event) {
+            console.log("event =->", event);
+            event.preventDefault();
             if (!formRefDom.value) {
                 return;
             }
             try {
                 await formRefDom.value.validate();
+                console.log("authEmailVerifyRefDom.value =>", authEmailVerifyRefDom.value);
                 await login(form.value);
-                await getPermissionRouter();
+                authEmailVerifyRefDom.value!.openDialog();
+                // await getPermissionRouter();
             } catch (err) {}
         }
 
@@ -108,39 +121,42 @@ export default {
         });
 
         return () => (
-            <section>
-                <div class="container">
-                    <div class="w-full sm:w-[400px] mx-auto mb-12">
-                        <h3 class="font-bold text-[22px] sm:text-[28px] text-center mb-6">報告下載專區</h3>
-                        <div class="w-[40px] h-[6px] bg-yellow-900 mx-auto mb-6 sm:mb-8"></div>
-                        <el-form class="login-form" ref={formRefDom} model={form.value} rules={rules.value} require-asterisk-position="right">
-                            <div class="grid gap-5">
-                                {formColumns.value.map((item) => (
-                                    <el-form-item key={item.prop} prop={item.prop}>
-                                        <el-input type={item.type} show-password={item.showPassword} placeholder={item.placeholder} v-model={form.value[item.prop]}>
-                                            {{
-                                                prefix: () => <item.iconName class="!w-[20px] !h-[20px] !ml-2 !mr-3 text-black-800" />,
-                                            }}
-                                        </el-input>
-                                    </el-form-item>
-                                ))}
+            <>
+                <section>
+                    <div class="container">
+                        <div class="w-full sm:w-[400px] mx-auto mb-12">
+                            <h3 class="font-bold text-[22px] sm:text-[28px] text-center mb-6">報告下載專區</h3>
+                            <div class="w-[40px] h-[6px] bg-yellow-900 mx-auto mb-6 sm:mb-8"></div>
+                            <el-form class="login-form" ref={formRefDom} model={form.value} rules={rules.value} require-asterisk-position="right">
+                                <div class="grid gap-5">
+                                    {formColumns.value.map((item) => (
+                                        <el-form-item key={item.prop} prop={item.prop}>
+                                            <el-input type={item.type} show-password={item.showPassword} placeholder={item.placeholder} v-model={form.value[item.prop]}>
+                                                {{
+                                                    prefix: () => <item.iconName class="!w-[20px] !h-[20px] !ml-2 !mr-3 text-black-800" />,
+                                                }}
+                                            </el-input>
+                                        </el-form-item>
+                                    ))}
 
-                                <div class="flex justify-between mt-1">
-                                    <el-form-item class="!mb-0" prop="saveInfo">
-                                        <el-checkbox class="!h-fit text-[15px] " v-model={form.value.saveInfo} label="記住我" size="large" />
-                                    </el-form-item>
-                                    <RouterLink to={{ name: "forgot-password", params: { slug: t("router.forgot-password") } }}>
-                                        <div class="text-[15px]">忘記密碼?</div>
-                                    </RouterLink>
+                                    <div class="flex justify-between mt-1">
+                                        <el-form-item class="!mb-0" prop="saveInfo">
+                                            <el-checkbox class="!h-fit text-[15px] " v-model={form.value.saveInfo} label="記住我" size="large" />
+                                        </el-form-item>
+                                        <RouterLink to={{ name: "forgot-password", params: { slug: t("router.forgot-password") } }}>
+                                            <div class="text-[15px]">忘記密碼?</div>
+                                        </RouterLink>
+                                    </div>
+                                    <button class="yellow-btn mt-4 !w-full" onClick={onSubmit}>
+                                        登入
+                                    </button>
                                 </div>
-                                <button class="yellow-btn mt-4 !w-full" onClick={() => onSubmit()}>
-                                    登入
-                                </button>
-                            </div>
-                        </el-form>
+                            </el-form>
+                        </div>
                     </div>
-                </div>
-            </section>
+                </section>
+                <AuthEmailVerify ref={authEmailVerifyRefDom} email={form.value.email} />
+            </>
         );
     },
 };

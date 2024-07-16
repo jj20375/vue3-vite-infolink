@@ -18,6 +18,7 @@ import IconLogout from "@/components/icons/IconLogout.vue";
 import { Vue3SlideUpDown } from "vue3-slide-up-down";
 import { useWindowResize } from "@/hooks/windowResize";
 import { setStorage } from "@/services/localStorage";
+import { AuthLogoutAPI } from "@/api/oauthAPI";
 // 語系選項
 import langs from "@/i18n/langs";
 
@@ -136,10 +137,17 @@ export default defineComponent({
             setStorage("lang", lang);
             router.push({ name: route.name, params: { slug: t(`router.${route.name as string}`) } });
         }
-
-        const logout = () => {
-            router.push({ name: "auth-login-slug", params: { slug: "會員登入" } });
-        };
+        /**
+         * 登出
+         */
+        async function logout() {
+            try {
+                await AuthLogoutAPI();
+                router.push({ name: "login", params: { slug: t("router.login") } });
+            } catch (err) {
+                console.log("AuthLogoutAPI err =>", err);
+            }
+        }
 
         return () => (
             <div

@@ -7,7 +7,7 @@
                 <el-form-item prop="verificationCode" class="flex-1">
                     <el-input v-model="form.verificationCode" placeholder="請輸入驗證碼" />
                 </el-form-item>
-                <VerificationButton :restarter="true" @resendVerification="resendVerification" ref="verificationButtonRef" />
+                <VerificationButton :startCount="true" @resendVerification="resendVerification" ref="verificationButtonRef" />
             </el-form>
             <div class="mt-4 text-center">沒收到驗證信件？ 請先確認您的垃圾郵件</div>
             <div class="flex flex-col gap-4 mt-6 md:flex-row">

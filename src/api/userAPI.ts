@@ -1,10 +1,11 @@
 import axios from "@/services/axiosConfig";
-const apiURL = import.meta.env.API_URL;
+import type { UserPanelUserInfoInterface } from "@/views/user-panel/user-info/interface/userInterface";
+const apiURL = import.meta.env.VITE_API_URL;
 
 /**
  * 取得使用者資料
  * @returns
  */
-export function GetUserProfileAPI() {
+export function GetUserProfileAPI(): Promise<{ data: UserPanelUserInfoInterface }> {
     return axios.get(`${apiURL}/member/profile`);
 }
