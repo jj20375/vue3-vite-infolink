@@ -101,25 +101,27 @@ export default defineComponent({
                                     <td class="min-w-[200px]">
                                         <RouterLink to={item.path}>{item.name}</RouterLink>
                                     </td>
-                                    <td class="min-w-[120px]">{item.period}</td>
+                                    <td class="min-w-[120px]">
+                                        {item.period}
+                                    </td>
                                     <td class="min-w-[145px]">
                                         <div class="flex gap-2">
                                             {isLargePad.value && item.fileType.map && item.fileType.map.length > 0
                                                 ? item.fileType.map((fileType) => (
-                                                      <el-tooltip key={fileType} effect="dark" content={`.${fileType}`} placement="top">
-                                                          <div class="w-8 h-8 cursor-pointer" onClick={() => openDialog(fileType, item.id)}>
-                                                              <img class="w-full h-full" src={`/img/report/${fileType}.svg`} />
-                                                          </div>
-                                                      </el-tooltip>
-                                                  ))
+                                                    <div key={fileType}>
+                                                        <div class="w-8 h-8 cursor-pointer" onClick={() => openDialog(fileType, item.id)}>
+                                                            <img class="w-full h-full" src={`/img/report/${fileType}.svg`} />
+                                                        </div>
+                                                    </div>
+                                                ))
                                                 : item.fileType.map && item.fileType.map.length > 0
                                                 ? item.fileType.map((fileType) => (
-                                                      <div key={fileType}>
-                                                          <div class="w-8 h-8 cursor-pointer" onClick={() => openDialog(fileType, item.id)}>
-                                                              <img class="w-full h-full" src={`/img/report/${fileType}.svg`} />
-                                                          </div>
-                                                      </div>
-                                                  ))
+                                                    <el-tooltip key={fileType} effect="dark" content={`.${fileType}`} placement="top">
+                                                        <div class="w-8 h-8 cursor-pointer" onClick={() => openDialog(fileType, item.id)}>
+                                                            <img class="w-full h-full" src={`/img/report/${fileType}.svg`} />
+                                                        </div>
+                                                    </el-tooltip>
+                                                    ))
                                                 : null}
                                         </div>
                                     </td>

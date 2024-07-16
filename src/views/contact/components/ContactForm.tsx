@@ -7,6 +7,7 @@ import type { FormInstance } from "element-plus";
 import type { ColumnsInterface } from "@/interface/global.d";
 import GoogleReCaptchaV2 from "@/components/GoogleRecaptchaV2";
 import ContactFileUpload from "./ContactFileUpload";
+import { useI18n } from "vue-i18n";
 
 export default defineComponent({
     name: "ContactForm",
@@ -14,6 +15,7 @@ export default defineComponent({
         GoogleReCaptchaV2,
     },
     setup(props, { emit }) {
+        const { t } = useI18n();
         // 聯絡我們表單欄位 key
         type ContactFormPropType = "email" | "name" | "company" | "phone" | "title" | "category" | "content" | "photo";
 
@@ -35,118 +37,120 @@ export default defineComponent({
             recaptchaToken: "",
         });
 
-        const rules = ref<any>({
-            name: [
-                {
-                    required: true,
-                    message: "請輸入姓名",
-                    trigger: "blur",
-                },
-            ],
-            email: [
-                {
-                    required: true,
-                    message: "請輸入電子信箱",
-                    trigger: "blur",
-                },
-                {
-                    required: true,
-                    validator: validateEmail,
-                    trigger: ["change", "blur"],
-                    message: "格式不正確",
-                },
-            ],
-            company: [
-                {
-                    required: true,
-                    message: "請輸入公司名稱",
-                    trigger: "blur",
-                },
-            ],
-            phone: [
-                {
-                    required: true,
-                    message: "請輸入聯絡電話",
-                    trigger: "blur",
-                },
-            ],
-            title: [
-                {
-                    required: true,
-                    message: "請選擇主旨",
-                    trigger: ["change", "blur"],
-                },
-            ],
-            category: [
-                {
-                    required: true,
-                    message: "請選擇詢問類別",
-                    trigger: ["change", "blur"],
-                },
-            ],
-            photo: [
-                {
-                    required: false,
-                    message: "請上傳圖片",
-                    trigger: ["change", "blur"],
-                },
-            ],
-            content: [
-                {
-                    required: true,
-                    message: "請輸入詢問內容",
-                    trigger: ["change", "blur"],
-                },
-            ],
+        const rules = computed<any>(() => {
+            return {
+                name: [
+                    {
+                        required: true,
+                        message: t("contact.name.warning"),
+                        trigger: "blur",
+                    },
+                ],
+                email: [
+                    {
+                        required: true,
+                        message: t("contact.email.warning"),
+                        trigger: "blur",
+                    },
+                    {
+                        required: true,
+                        validator: validateEmail,
+                        trigger: ["change", "blur"],
+                        message: t("contact.email.invalid"),
+                    },
+                ],
+                company: [
+                    {
+                        required: true,
+                        message: t("contact.company.warning"),
+                        trigger: "blur",
+                    },
+                ],
+                phone: [
+                    {
+                        required: true,
+                        message: t("contact.phone.warning"),
+                        trigger: "blur",
+                    },
+                ],
+                title: [
+                    {
+                        required: true,
+                        message: t("contact.title.warning"),
+                        trigger: ["change", "blur"],
+                    },
+                ],
+                category: [
+                    {
+                        required: true,
+                        message: t("contact.category.warning"),
+                        trigger: ["change", "blur"],
+                    },
+                ],
+                photo: [
+                    {
+                        required: false,
+                        message: t("contact.photo.warning"),
+                        trigger: ["change", "blur"],
+                    },
+                ],
+                content: [
+                    {
+                        required: true,
+                        message: t("contact.content.warning"),
+                        trigger: ["change", "blur"],
+                    },
+                ],
+            }
         });
 
-        const formColumns = ref<ColumnsInterface<ContactFormPropType>[]>([
+        const formColumns = computed<ColumnsInterface<ContactFormPropType>[]>(() => [
             {
                 prop: "email",
-                label: "帳號(Email)",
-                placeholder: "",
+                label: t("contact.email.label"),
+                placeholder: t("contact.email.placeholder"),
                 style: "input",
                 disabled: true,
             },
             {
                 prop: "name",
-                label: "會員名稱",
-                placeholder: "",
+                label: t("contact.name.label"),
+                placeholder: t("contact.name.placeholder"),
                 style: "input",
                 disabled: true,
             },
             {
                 prop: "company",
-                label: "所屬公司",
-                placeholder: "",
+                label: t("contact.company.label"),
+                placeholder: t("contact.company.placeholder"),
                 style: "input",
                 disabled: true,
             },
             {
                 prop: "phone",
-                label: "聯絡電話",
-                placeholder: "請輸入聯絡電話",
+                label: t("contact.phone.label"),
+                placeholder: t("contact.phone.placeholder"),
                 style: "input",
             },
             {
                 prop: "title",
-                label: "主旨",
-                placeholder: "",
+                label: t("contact.title.label"),
+                placeholder: t("contact.title.placeholder"),
                 style: "input",
                 span: "12",
             },
             {
                 prop: "category",
-                label: "詢問類別",
-                placeholder: "請選擇",
+                label: t("contact.category.label"),
+                placeholder: t("contact.category.placeholder"),
                 style: "select",
                 options: [],
                 span: "12",
             },
             {
                 prop: "content",
-                label: "詢問內容",
-                placeholder: "請輸入詢問內容",
+                label: t("contact.content.label"),
+                placeholder: t("contact.content.placeholder"),
                 style: "input",
                 row: 4,
                 type: "textarea",
@@ -154,8 +158,8 @@ export default defineComponent({
             },
             {
                 prop: "photo",
-                label: "問題圖片上傳",
-                placeholder: "請上傳照片",
+                label: t("contact.photo.label"),
+                placeholder: t("contact.photo.placeholder"),
                 type: "photo",
                 style: "file",
                 span: "12",
@@ -193,7 +197,7 @@ export default defineComponent({
             if (!form.value.recaptchaToken) {
                 ElMessage({
                     type: "error",
-                    message: `請勾選我不是機器人`,
+                    message: t("contact.recaptchaValidation"),
                 });
                 return;
             }
@@ -202,14 +206,12 @@ export default defineComponent({
         return () => (
             <div class="flex-[1.5]">
                 <div class="p-5 border border-gray-600 rounded-[4px] bg-white">
-                    <h2 class="font-medium mb-2">感謝您的造訪。</h2>
+                    <h2 class="font-medium mb-2">{t("contact.greeting")}</h2>
                     <p class="text-[15px] mb-6">
-                        請於下方表格說明您的疑問或需求，並留下您的聯絡方式，
-                        <br />
-                        我們會有專人回覆您的問題。
+                        {t("contact.description")}
                     </p>
                     <div class="h-[1px] w-full bg-black-100 mb-6"></div>
-                    <el-form class="custom-form" ref="formRefDom" model={form.value} rules={rules.value} require-asterisk-position="right">
+                    <el-form class="custom-form" ref={formRefDom} model={form.value} rules={rules.value} require-asterisk-position="right">
                         <div class="w-full grid grid-cols-12 gap-x-4 gap-y-6">
                             {formColumns.value.map((item) => (
                                 <el-form-item class={item.span ? `col-span-12 md:col-span-${item.span}` : "col-span-12 md:col-span-6"} prop={item.prop} label={item.label}>
@@ -231,7 +233,7 @@ export default defineComponent({
                         <GoogleReCaptchaV2 v-model={form.value.recaptchaToken} />
                     </div>
                     <button onClick={() => onSubmit} class={["yellow-btn", isMobile.value ? "w-full" : "btn-sm"]}>
-                        送出
+                        {t('global.submit')}
                     </button>
                 </div>
             </div>

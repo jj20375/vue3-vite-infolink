@@ -157,7 +157,7 @@ export default defineComponent({
                             </button>
                         </div>
                         <div class={["flex justify-between px-6 py-6 font-medium sm:px-7", { "hidden opacity-0": !expandMode.value && isDesktop.value }]}>
-                            您好，{user.value.name}
+                            {t('welcome', {name: user.value.name})}
                             <button onClick={() => setExpandMode()} class="hidden xl:block !w-6 !h-6 text-black-500 cursor-pointer hover:text-black-900 duration-300 transition-all">
                                 <IconArrowLeftDouble />
                             </button>

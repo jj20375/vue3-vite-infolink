@@ -1,112 +1,33 @@
-import { defineComponent, ref, computed, watch } from "vue";
-import type { PropType } from "vue";
-import { useUserStore } from "@/stores/userStore";
-import { useWindowResize } from "@/hooks/windowResize";
-import type { FormInstance } from "element-plus";
-import type { UserPanelUserInfoInterface } from "./interface/userInterface";
-import type { ColumnsInterface } from "@/interface/global.d";
+import {defineComponent, ref, computed, watch, toRefs} from "vue";
+import type {PropType} from "vue";
+import {useUserStore} from "@/stores/userStore";
+import {useWindowResize} from "@/hooks/windowResize";
+import type {FormInstance} from "element-plus";
+import type {UserPanelUserInfoInterface} from "./interface/userInterface";
+import type {ColumnsInterface} from "@/interface/global.d";
 import Breadcrumb from "@/components/Breadcrumb";
-import { isEmpty } from "@/services/utils";
-import { useI18n } from "vue-i18n";
+// import {isEmpty} from "@/services/utils";
+import {useI18n} from "vue-i18n";
 
-interface FormColumnsInterface extends ColumnsInterface<"email" | "name" | "jobTitle" | "phone" | "messagingApp" | "messagingAppCustomName" | "messagingAppId"> {}
+type UserFormProp =
+    "email"
+    | "name"
+    | "jobTitle"
+    | "phone"
+    | "messagingApp"
+    | "messagingAppCustomName"
+    | "messagingAppId";
+
+type FormColumnsInterface = ColumnsInterface<UserFormProp>;
 
 // 預設使用者資料表單
-const defaultUserForm: UserPanelUserInfoInterface = { email: "", name: "", jobTitle: "", phone: "", messagingApp: "", messagingAppId: "" };
-
-// 預設使用者資料欄位
-const defaultUserFormColumns: FormColumnsInterface[] = [
-    {
-        prop: "email",
-        label: "帳號(Email)",
-        placeholder: "",
-        style: "input",
-        disabled: true,
-        span: "6",
-    },
-    {
-        prop: "name",
-        label: "會員名稱",
-        placeholder: "請輸入會員名稱",
-        style: "input",
-        span: "6",
-    },
-    {
-        prop: "jobTitle",
-        label: "職稱",
-        placeholder: "請輸入職稱",
-        style: "input",
-        span: "6",
-    },
-    {
-        prop: "phone",
-        label: "聯絡電話",
-        placeholder: "請輸入聯絡電話",
-        style: "input",
-        span: "6",
-    },
-    {
-        prop: "messagingApp",
-        label: "通訊軟體",
-        placeholder: "請選擇",
-        style: "select",
-        span: "6",
-        options: [
-            { value: "wechat", label: "wechat" },
-            { value: "line", label: "line" },
-            { value: "whatsapp", label: "whatsapp" },
-            { value: "skype", label: "skype" },
-            { value: "other", label: "其他" },
-        ],
-        onChange(value: UserPanelUserInfoInterface) {
-            return;
-        },
-    },
-    {
-        prop: "messagingAppId",
-        label: "通訊軟體ID",
-        style: "input",
-        span: "6",
-    },
-];
-
-// 使用者表單預設表單驗證
-const defaultUserFormRules = {
-    email: [
-        {
-            required: true,
-            message: "請輸入帳號",
-            trigger: "blur",
-        },
-    ],
-    name: [
-        {
-            required: true,
-            message: "請輸入會員姓名",
-            trigger: "blur",
-        },
-    ],
-    phone: [
-        {
-            required: true,
-            message: "請輸入聯絡電話",
-            trigger: "blur",
-        },
-    ],
-    jobTitle: [
-        {
-            required: true,
-            message: "請選擇稱謂",
-            trigger: "blur",
-        },
-    ],
-    messagingAppCustomName: [
-        {
-            required: true,
-            message: "請輸入軟體名稱",
-            trigger: "blur",
-        },
-    ],
+const defaultUserForm: UserPanelUserInfoInterface = {
+    email: "",
+    name: "",
+    jobTitle: "",
+    phone: "",
+    messagingApp: "",
+    messagingAppId: ""
 };
 
 /**
@@ -127,70 +48,76 @@ const UserForm = defineComponent({
         },
         formColumns: {
             type: Array as PropType<FormColumnsInterface[]>,
-            default() {
-                return defaultUserFormColumns;
-            },
         },
         formRules: {
             type: Object as PropType<any>,
-            default() {
-                return {};
-            },
+        },
+        userInfo: {
+            type: Array as PropType<FormColumnsInterface[]>,
         },
     },
-    emits: ["update:formColumns", "update:form"],
-    setup(props, { emit }) {
-        const { t } = useI18n();
+    emits: ["update:userInfo", "update:form"],
+    setup(props, {emit}) {
         const form = ref(props.form);
-        const formColumns = ref(props.formColumns);
-        const formRules = ref<any>(props.formRules);
+        const userInfo = ref(props.userInfo);
+        const {formColumns, formRules} = toRefs(props);
         watch(form.value, (val) => {
-            if (!isEmpty(val.messagingApp)) {
-                formRules.value.messagingAppId = [
-                    {
-                        required: true,
-                        message: "請輸入通訊軟體 ID",
-                        trigger: "blur",
-                    },
-                ];
-            } else {
-                delete formRules.value.messagingAppId;
-            }
-            if (val.messagingApp === "other" && formColumns.value.find((item) => item.prop === "messagingAppCustomName") === undefined) {
-                formColumns.value.splice(formColumns.value.length - 1, 0, {
+            // if (!isEmpty(val.messagingApp) && userInfo.value) {
+            //     formRules.value.messagingAppId = [
+            //         {
+            //             required: true,
+            //             message: t("user-panel.user-info.messagingAppId.warning"),
+            //             trigger: "blur",
+            //         },
+            //     ];
+            // } else {
+            //     delete formRules.value.messagingAppId;
+            // }
+            if (userInfo.value && formColumns.value && val.messagingApp === "other" && formColumns.value.find((item) => item.prop === "messagingAppCustomName") === undefined) {
+                userInfo.value.splice(userInfo.value.length - 1, 0, {
                     prop: "messagingAppCustomName",
-                    label: "軟體名稱",
+                    label: "user-panel.user-info.messagingAppCustomName.label",
+                    placeholder: "user-panel.user-info.messagingAppCustomName.placeholder",
                     style: "input",
                     span: "4",
                 });
 
-                const messagingAppItemIndex = formColumns.value.findIndex((item) => item.prop === "messagingApp");
+                const messagingAppItemIndex = userInfo.value.findIndex((item) => item.prop === "messagingApp");
                 if (messagingAppItemIndex !== -1) {
-                    formColumns.value[messagingAppItemIndex].span = "2";
+                    userInfo.value[messagingAppItemIndex].span = "2";
                 }
-                emit("update:formColumns", formColumns.value);
-            } else if (val.messagingApp !== "other") {
-                formColumns.value = formColumns.value.filter((column) => column.prop !== "messagingAppCustomName");
+                emit("update:userInfo", userInfo.value);
+            } else if (userInfo.value && val.messagingApp !== "other") {
+                userInfo.value = userInfo.value.filter((column) => column.prop !== "messagingAppCustomName");
                 delete form.value.messagingAppCustomName;
-                const messagingAppItemIndex = formColumns.value.findIndex((item) => item.prop === "messagingApp");
+                const messagingAppItemIndex = userInfo.value.findIndex((item) => item.prop === "messagingApp");
                 if (messagingAppItemIndex !== -1) {
-                    formColumns.value[messagingAppItemIndex].span = "6";
+                    userInfo.value[messagingAppItemIndex].span = "6";
                 }
-                emit("update:formColumns", formColumns.value);
+                emit("update:userInfo", userInfo.value);
             }
             emit("update:form", val);
         });
         return () => (
-            <el-form class="custom-form" ref={props.formRefDom} model={form.value} rules={formRules.value} require-asterisk-position="right">
+            <el-form class="custom-form" ref={props.formRefDom} model={form.value} rules={formRules.value}
+                     userInfo={userInfo.value} require-asterisk-position="right">
                 <div class="w-full grid grid-cols-12 gap-x-4 gap-y-6">
                     {formColumns.value &&
                         formColumns.value.map((item) => (
-                            <el-form-item class={[item.span ? `md:col-span-${item.span} col-span-12` : "md:col-span-6 col-span-12"]} prop={item.prop as string} label={item.label}>
-                                {item.style === "input" && <el-input type={item.type ? item.type : "text"} show-password={item.showPassword} disabled={item.disabled} placeholder={item.placeholder} v-model={form.value[item.prop]}></el-input>}
+                            <el-form-item
+                                class={[item.span ? `md:col-span-${item.span} col-span-12` : "md:col-span-6 col-span-12"]}
+                                prop={item.prop as string} label={item.label}>
+                                {item.style === "input" &&
+                                  <el-input type={item.type ? item.type : "text"} show-password={item.showPassword}
+                                            disabled={item.disabled} placeholder={item.placeholder}
+                                            v-model={form.value[item.prop]}></el-input>}
 
                                 {item.style === "select" && (
-                                    <el-select v-model={form.value[item.prop]} placeholder={item.placeholder} onChange={() => (item.onChange !== undefined ? item.onChange!(form.value) : null)}>
-                                        {item.options && item.options.map((option) => <el-option key={option.value} label={option.label} value={option.value} />)}
+                                    <el-select v-model={form.value[item.prop]} placeholder={item.placeholder}
+                                               onChange={() => (item.onChange !== undefined ? item.onChange!(form.value) : null)}>
+                                        {item.options && item.options.map((option) => <el-option key={option.value}
+                                                                                                 label={option.label}
+                                                                                                 value={option.value}/>)}
                                     </el-select>
                                 )}
                             </el-form-item>
@@ -205,12 +132,12 @@ export default defineComponent({
     name: "UserInfo",
     props: {},
     emits: [],
-    setup(props, { emit }) {
-        const { t } = useI18n();
+    setup(props, {emit}) {
+        const {t} = useI18n();
         const loading = ref(false);
         const formRefDom = ref<FormInstance | null>(null);
         const userStore = useUserStore();
-        const { isMobile } = useWindowResize();
+        const {isMobile} = useWindowResize();
         // 使用者資料
         const user = computed(() => userStore.user);
         // 公司資料
@@ -221,48 +148,161 @@ export default defineComponent({
         // 使用者資料表單
         const form = ref<UserPanelUserInfoInterface>(user.value);
         // 使用者資料欄位
-        const formColumns = ref<FormColumnsInterface[]>(defaultUserFormColumns);
+        const userInfo = ref<FormColumnsInterface[]>([
+            {
+                prop: "email",
+                label: "user-panel.user-info.email.label",
+                placeholder: "user-panel.user-info.email.placeholder",
+                style: "input",
+                disabled: true,
+                span: "6",
+            },
+            {
+                prop: "name",
+                label: "user-panel.user-info.name.label",
+                placeholder: "user-panel.user-info.name.placeholder",
+                style: "input",
+                span: "6",
+            },
+            {
+                prop: "jobTitle",
+                label: "user-panel.user-info.jobTitle.label",
+                placeholder: "user-panel.user-info.jobTitle.placeholder",
+                style: "input",
+                span: "6",
+            },
+            {
+                prop: "phone",
+                label: "user-panel.user-info.phone.label",
+                placeholder: "user-panel.user-info.phone.placeholder",
+                style: "input",
+                span: "6",
+            },
+            {
+                prop: "messagingApp",
+                label: "user-panel.user-info.messagingApp.label",
+                placeholder: "user-panel.user-info.messagingApp.placeholder",
+                style: "select",
+                span: "6",
+                options: [
+                    {value: "wechat", label: "wechat"},
+                    {value: "line", label: "line"},
+                    {value: "whatsapp", label: "whatsapp"},
+                    {value: "skype", label: "skype"},
+                    {value: "other", label: "other"},
+                ],
+                onChange(value: UserPanelUserInfoInterface) {
+                    return;
+                },
+            },
+            {
+                prop: "messagingAppId",
+                label: "user-panel.user-info.messagingAppId.label",
+                placeholder: "user-panel.user-info.messagingAppId.placeholder",
+                style: "input",
+                span: "6",
+            },
+        ])
+
+        const formColumns = computed<FormColumnsInterface[]>(() => userInfo.value.map(info => ({
+            prop: info.prop,
+            label: t(info.label ? info.label : ''),
+            placeholder: t(info.placeholder ? info.placeholder : ''),
+            style: info.style,
+            span: info.span,
+            disabled: info.disabled,
+            options: info.prop === 'messagingApp' ? info.options && info.options.map(option => ({
+                value: option.value,
+                label: option.label === 'other' ? t('global.other') : option.label
+            })) : info.options,
+            onChange: info.onChange,
+        })));
+
         // 使用者表單驗證
-        const formRules = ref<any>(defaultUserFormRules);
+        const formRules = computed(() => {
+            return {
+                email: [
+                    {
+                        required: true,
+                        message: t('user-panel.user-info.email.warning'),
+                        trigger: "blur",
+                    },
+                ],
+                name: [
+                    {
+                        required: true,
+                        message: t('user-panel.user-info.name.warning'),
+                        trigger: "blur",
+                    },
+                ],
+                phone: [
+                    {
+                        required: true,
+                        message: t('user-panel.user-info.phone.warning'),
+                        trigger: "blur",
+                    },
+                ],
+                jobTitle: [
+                    {
+                        required: true,
+                        message: t('user-panel.user-info.jobTitle.warning'),
+                        trigger: "blur",
+                    },
+                ],
+                messagingAppCustomName: [
+                    {
+                        required: true,
+                        message: t('user-panel.user-info.messagingAppCustomName.warning'),
+                        trigger: "blur",
+                    },
+                ],
+            }
+
+        });
 
         // 公司資料表單
         const companyForm = ref(company.value);
 
         // 公司資料欄位
-        const companyColumns = ref<{ prop: "name" | "webURL" | "region" | "address"; label: string }[]>([
+        const companyColumns = computed<{ prop: "name" | "webURL" | "region" | "address"; label: string }[]>(() => [
             {
                 prop: "name",
-                label: "所屬公司",
+                label: t('user-panel.company-info.name'),
             },
             {
                 prop: "webURL",
-                label: "公司網站",
+                label: t('user-panel.company-info.webURL'),
             },
             {
                 prop: "region",
-                label: "公司所在國家",
+                label: t('user-panel.company-info.region'),
             },
             {
                 prop: "address",
-                label: "公司地址",
+                label: t('user-panel.company-info.address'),
             },
         ]);
 
         // 子帳號資料
         const subAccountsForm = ref(subAccounts.value);
         // 子帳號列表表單欄位
-        const subAccountsColumns = ref<{ prop: "solarEnergySubAccounts" | "storedEnergySubAccounts"; label: string; memo: string }[]>([
+        const subAccountsColumns = computed<{
+            prop: "solarEnergySubAccounts" | "storedEnergySubAccounts";
+            label: string;
+            memo: string
+        }[]>(() => [
             {
                 prop: "solarEnergySubAccounts",
-                label: "子帳號列表-太陽能",
-                memo: "* 如須修改，請洽負責業務或來信 service@infolink-group.com",
+                label: t('user-panel.sub-accounts.solarEnergySubAccounts'),
+                memo: t('user-panel.sub-accounts.memo'),
             },
             {
                 prop: "storedEnergySubAccounts",
-                label: "子帳號列表-儲能",
-                memo: "* 如須修改，請洽負責業務或來信 service@infolink-group.com",
+                label: t('user-panel.sub-accounts.storedEnergySubAccounts'),
+                memo: t('user-panel.sub-accounts.memo'),
             },
         ]);
+
         /**
          * 表單發送
          */
@@ -273,7 +313,8 @@ export default defineComponent({
                 }
                 await save(form.value);
                 return;
-            } catch (err) {}
+            } catch (err) {
+            }
         }
 
         /**
@@ -288,7 +329,7 @@ export default defineComponent({
             // 公司資料區塊
             const CompanySection = (
                 <div class="xl:max-w-[1200px] bg-white p-5 border-gray-600 border rounded-[4px]">
-                    <h5 class="text-[24px] font-semibold mb-4">公司資訊</h5>
+                    <h5 class="text-[24px] font-semibold mb-4">{t("user-panel.company-info.title")}</h5>
                     <div class="w-full grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-6 custom-form">
                         {/** 因為資料要完整呈現所以不使用input */}
                         {companyColumns.value &&
@@ -298,7 +339,8 @@ export default defineComponent({
                                     <div class="el-form-item__content">
                                         <div class="el-input is-disabled">
                                             <div class="el-input__wrapper">
-                                                <div class="el-input__inner !h-auto break-all">{companyForm.value[item.prop]}</div>
+                                                <div
+                                                    class="el-input__inner !h-auto break-all">{companyForm.value[item.prop]}</div>
                                             </div>
                                         </div>
                                     </div>
@@ -315,18 +357,19 @@ export default defineComponent({
                     {/** 因為資料要完整呈現所以不使用input */}
                     {subAccountsColumns.value.length > 0
                         ? subAccountsColumns.value.map((subAccountColumn) => (
-                              <div class="el-form-item">
-                                  <div class="el-form-item__label">{subAccountColumn.label}</div>
-                                  <div class="el-form-item__content">
-                                      <div class="el-input is-disabled">
-                                          <div class="el-input__wrapper">
-                                              <div class="el-input__inner !h-auto break-all">{subAccountsForm.value[subAccountColumn.prop]!.join(" , ")}</div>
-                                          </div>
-                                      </div>
-                                  </div>
-                                  <div class="text-[12px] text-red-500 mt-[4px] leading-4">{subAccountColumn.memo}</div>
-                              </div>
-                          ))
+                            <div class="el-form-item">
+                                <div class="el-form-item__label">{subAccountColumn.label}</div>
+                                <div class="el-form-item__content">
+                                    <div class="el-input is-disabled">
+                                        <div class="el-input__wrapper">
+                                            <div
+                                                class="el-input__inner !h-auto break-all">{subAccountsForm.value[subAccountColumn.prop]!.join(" , ")}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="text-[12px] text-red-500 mt-[4px] leading-4">{subAccountColumn.memo}</div>
+                            </div>
+                        ))
                         : null}
                 </div>
             );
@@ -334,18 +377,20 @@ export default defineComponent({
                 <section>
                     <div class="relative py-[20px] xl:py-[30px] px-[20px] xl:px-[30px]">
                         <div class="xl:max-w-[1300px] mx-auto">
-                            <Breadcrumb />
+                            <Breadcrumb/>
                             <h3 class="text-[28px] font-semibold mb-5 sm:mb-7">{t("router.user-info")}</h3>
                             {/** 公司資料區塊 */}
                             {CompanySection}
                             <div class="xl:max-w-[1200px] bg-white p-5 mt-5 border-gray-600 border rounded-[4px]">
-                                <h5 class="text-[24px] font-semibold mb-4">個人資訊</h5>
+                                <h5 class="text-[24px] font-semibold mb-4">{t("user-panel.user-info.title")}</h5>
                                 {/** 使用者表單資料 */}
-                                <UserForm v-model:form={form.value} formRefDom={formRefDom.value} v-model:formColumns={formColumns.value} v-model:formRules={formRules} />
+                                <UserForm v-model:form={form.value} formRefDom={formRefDom.value}
+                                          v-model:formColumns={formColumns.value} v-model:formRules={formRules} v-model:userInfo={userInfo.value}/>
                                 {/** 子帳號列表區塊 TODO 加判斷(只有主帳號才出出現的區塊) */}
                                 {SubAccountsSection}
-                                <button onClick={() => onSubmit()} class={["yellow-btn mt-6", isMobile.value ? "w-full" : "btn-sm"]}>
-                                    儲存
+                                <button onClick={() => onSubmit()}
+                                        class={["yellow-btn mt-6", isMobile.value ? "w-full" : "btn-sm"]}>
+                                    {t("global.save")}
                                 </button>
                             </div>
                         </div>

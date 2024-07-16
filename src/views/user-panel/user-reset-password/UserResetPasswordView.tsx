@@ -1,17 +1,19 @@
-import { defineComponent, ref } from "vue";
+import {computed, defineComponent, ref} from "vue";
 import { validatePassword } from "@/services/formValidator";
 import type { FormInstance } from "element-plus";
 import type { ColumnsInterface } from "@/interface/global.d";
 import { useWindowResize } from "@/hooks/windowResize";
 import Breadcrumb from "@/components/Breadcrumb";
+import {useI18n} from "vue-i18n";
 
 export default defineComponent({
     name: "UserResetPassword",
     props: {},
     emits: [],
     setup(props, { emit }) {
+        const {t} = useI18n();
         // 重置密碼表單欄位 key
-        type UserResetPasswordFormPropType = "newPassword" | "newPasswordConfirmation";
+        type UserResetPasswordFormPropType = "oldPassword" | "newPassword" | "newPasswordConfirmation";
 
         interface ResetPasswordForm {
             oldPassword: string;
@@ -29,76 +31,78 @@ export default defineComponent({
             newPasswordConfirmation: "",
         });
 
-        const formColumns = ref<ColumnsInterface<UserResetPasswordFormPropType>>([
+        const formColumns = computed<ColumnsInterface<UserResetPasswordFormPropType>[]>(() => [
             {
                 prop: "oldPassword",
-                label: "舊密碼",
-                placeholder: "請輸入舊密碼",
+                label: t("user-reset-password.old-password.label"),
+                placeholder: t("user-reset-password.old-password.placeholder"),
                 style: "input",
                 showPassword: true,
             },
             {
                 prop: "newPassword",
-                label: "新密碼",
-                placeholder: "請輸入新密碼",
+                label: t("user-reset-password.new-password.label"),
+                placeholder:  t("user-reset-password.new-password.placeholder"),
                 style: "input",
                 showPassword: true,
             },
             {
                 prop: "newPasswordConfirmation",
-                label: "確認密碼",
-                placeholder: "請再次輸入密碼",
+                label: t("user-reset-password.confirm-password.label"),
+                placeholder: t("user-reset-password.confirm-password.placeholder"),
                 style: "input",
                 showPassword: true,
             },
         ]);
 
-        const rules = ref<any>({
-            oldPassword: [
-                {
-                    required: true,
-                    message: "請輸入舊密碼",
-                    trigger: ["change", "blur"],
-                },
-                {
-                    required: true,
-                    validator: validatePassword,
-                    trigger: ["change", "blur"],
-                    message: "必須包含至少一個大寫字母、一個小寫字母和一個數字，並且長度至少為 8 個字元。",
-                },
-            ],
-            newPassword: [
-                {
-                    required: true,
-                    message: "請輸入新密碼",
-                    trigger: ["change", "blur"],
-                },
-                {
-                    required: true,
-                    validator: validatePassword,
-                    trigger: ["change", "blur"],
-                    message: "必須包含至少一個大寫字母、一個小寫字母和一個數字，並且長度至少為 8 個字元。",
-                },
-            ],
-            newPasswordConfirmation: [
-                {
-                    required: true,
-                    message: "請輸入確認密碼",
-                    trigger: ["change", "blur"],
-                },
-                {
-                    required: true,
-                    message: "密碼不一致",
-                    validator: (rule: InternalRuleItem, value: string, callback: (error?: string | Error) => void) => {
-                        if (value !== form.value.newPassword) {
-                            callback(new Error());
-                        } else {
-                            callback();
-                        }
+        const rules = computed<any>(() => {
+            return {
+                oldPassword: [
+                    {
+                        required: true,
+                        message: t("user-reset-password.old-password.warning"),
+                        trigger: ["change", "blur"],
                     },
-                    trigger: ["change", "blur"],
-                },
-            ],
+                    {
+                        required: true,
+                        validator: validatePassword,
+                        trigger: ["change", "blur"],
+                        message: t("user-reset-password.password-rule"),
+                    },
+                ],
+                newPassword: [
+                    {
+                        required: true,
+                        message: t("user-reset-password.new-password.warning"),
+                        trigger: ["change", "blur"],
+                    },
+                    {
+                        required: true,
+                        validator: validatePassword,
+                        trigger: ["change", "blur"],
+                        message: t("user-reset-password.new-password.invalid"),
+                    },
+                ],
+                newPasswordConfirmation: [
+                    {
+                        required: true,
+                        message: t("user-reset-password.confirm-password.warning"),
+                        trigger: ["change", "blur"],
+                    },
+                    {
+                        required: true,
+                        message: t("user-reset-password.confirm-password.invalid"),
+                        validator: (rule: InternalRuleItem, value: string, callback: (error?: string | Error) => void) => {
+                            if (value !== form.value.newPassword) {
+                                callback(new Error());
+                            } else {
+                                callback();
+                            }
+                        },
+                        trigger: ["change", "blur"],
+                    },
+                ],
+            }
         });
 
         async function onSubmit() {
@@ -166,7 +170,7 @@ export default defineComponent({
                 <div class="relative py-[20px] xl:py-[30px] px-[20px] xl:px-[30px]">
                     <div class="xl:max-w-[1300px] mx-auto">
                         <Breadcrumb />
-                        <h3 class="text-[28px] font-semibold mb-5 sm:mb-7">變更密碼</h3>
+                        <h3 class="text-[28px] font-semibold mb-5 sm:mb-7">{t("router.user-change-password")}</h3>
                         <div class="xl:max-w-[1200px] bg-white p-5 mt-5 border-gray-600 border rounded-[4px]">
                             <el-form class="custom-form" ref={formRefDom} model={form.value} rules={rules.value} require-asterisk-position="right">
                                 <div class="w-full md:w-1/2 xl:w-1/3 flex flex-col gap-6">
@@ -177,7 +181,7 @@ export default defineComponent({
                                     ))}
                                 </div>
                                 <button onClick={() => onSubmit()} class={["yellow-btn mt-6", isMobile.value ? "w-full" : "btn-sm"]}>
-                                    確認變更
+                                    {t("global.confirm")}
                                 </button>
                             </el-form>
                         </div>

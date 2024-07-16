@@ -2,12 +2,14 @@ import { defineComponent, ref } from "vue";
 import { validatePassword } from "@/services/formValidator";
 import type { ColumnsInterface } from "@/interface/global.d";
 import type { FormInstance } from "element-plus";
+import { useI18n } from "vue-i18n";
 
 export default defineComponent({
     name: "ResetPasswordView",
     props: {},
     emits: [],
     setup(props, { emit }) {
+        const { t } = useI18n();
         type ResetPasswordFormPropType = "newPassword" | "newPasswordConfirmation";
 
         interface ResetPasswordFormInterface {
@@ -95,7 +97,7 @@ export default defineComponent({
             <section>
                 <div class="container">
                     <div class="w-full sm:w-fit mx-auto mb-12">
-                        <h3 class="font-bold text-center text-[22px] md:text-[28px] mb-5">重設密碼</h3>
+                        <h3 class="font-bold text-center text-[22px] md:text-[28px] mb-5">{t("router.reset-password")}</h3>
                         <p class="mb-7 text-center text-[15px]">請填入新的密碼，完成後須以新密碼登入系統</p>
                         <el-form ref={formRefDom} class="login-form sm:w-[400px]" model={form.value} rules={rules.value} require-asterisk-position="right">
                             <div class="grid gap-5">

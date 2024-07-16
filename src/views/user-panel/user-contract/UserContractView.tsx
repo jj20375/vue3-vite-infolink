@@ -1,4 +1,4 @@
-import { defineComponent, ref, watch, markRaw } from "vue";
+import {defineComponent, ref, watch, markRaw, computed} from "vue";
 import type { PropType } from "vue";
 import type { UserContractDataInterface } from "../interface/userContractInterface.d";
 import type { OptionsInterface, ColumnsInterface } from "@/interface/global.d";
@@ -7,6 +7,7 @@ import IconSearch from "@/components/icons/IconSearch.vue";
 import Pagination from "@/components/Pagination.vue";
 import Breadcrumb from "@/components/Breadcrumb";
 import UserContractTable from "./components/UserContractTable";
+import {useI18n} from "vue-i18n";
 
 interface FilterInterFace {
     // 報告名稱(分類)
@@ -28,6 +29,7 @@ const ContractSearch = defineComponent({
     },
     emits: ["update:searchFilter"],
     setup(props, { emit }) {
+        const {t} = useI18n();
         // 歷年合約紀錄表單欄位 key
         type UserContractSearchFormPropType = "category" | "name";
 
@@ -45,18 +47,18 @@ const ContractSearch = defineComponent({
             },
         ]);
 
-        const filterColumns = ref<ColumnsInterface<UserContractSearchFormPropType>[]>([
+        const filterColumns = computed<ColumnsInterface<UserContractSearchFormPropType>[]>(() => [
             {
                 prop: "category",
-                label: "購買報告項目",
-                placeholder: "選擇報告項目",
+                label: t("user-contract.category.label"),
+                placeholder: t("user-contract.category.placeholder"),
                 style: "muti-select",
                 options: categoryOptions.value,
             },
             {
                 prop: "name",
-                label: " ",
-                placeholder: "搜尋購買報告項目",
+                label: t("user-contract.name.label"),
+                placeholder: t("user-contract.name.placeholder"),
                 style: "input",
                 iconName: markRaw(IconSearch),
             },
@@ -119,7 +121,7 @@ const ContractSearch = defineComponent({
                     <div class="hidden xl:block xl:h-[40px]"></div>
                     <div class="flex sm:inline-flex gap-2 justify-center items-center yellow-btn" onClick={() => onSubmit(filterForm.value)}>
                         <IconSearch class="text-black-900" />
-                        查詢
+                        {t("global.search")}
                     </div>
                 </div>
             </div>
@@ -132,6 +134,7 @@ export default defineComponent({
     props: {},
     emits: [],
     setup(props, { emit }) {
+        const {t} = useI18n();
         const filterForm = ref<any>(defaultFilter);
         // 排序 key
         const sortField = ref(null);
@@ -139,21 +142,21 @@ export default defineComponent({
         const sortAscend = ref(null);
 
         // 表單標題
-        const tableHeadData = ref([
+        const tableHeadData = computed(() => [
             {
                 sortKey: "contractIssuedDate",
-                label: "合約開立日",
+                label: t("user-contract.table.contractIssuedDate"),
             },
             {
                 sortKey: "contractEffectiveDate",
-                label: "合約生效日",
+                label: t("user-contract.table.contractEffectiveDate"),
             },
             {
                 sortKey: "contractExpiryDate",
-                lable: "合約到期日",
+                label: t("user-contract.table.contractExpiryDate"),
             },
             {
-                label: "購買報告項目",
+                label: t("user-contract.table.contractItem"),
             },
         ]);
 
@@ -189,7 +192,7 @@ export default defineComponent({
             <section>
                 <div class="relative py-[20px] xl:py-[30px] px-[20px] xl:px-[30px]">
                     <Breadcrumb />
-                    <h3 class="text-[28px] font-semibold mb-5 sm:mb-7">歷年合約紀錄</h3>
+                    <h3 class="text-[28px] font-semibold mb-5 sm:mb-7">{t('router.user-contract')}</h3>
                     <div class="custom-form xl:max-w-[1200px]">
                         <ContractSearch searchFilter={filterForm.value} />
                     </div>

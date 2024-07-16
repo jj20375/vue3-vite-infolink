@@ -1,5 +1,5 @@
 {
-    "welcome": "Hello world",
+    "welcome": "Hello {name}",
     "router": {
         "home": "Home",
         "user-panel": "User Panel",
@@ -15,14 +15,43 @@
         "verify-email": "驗證信箱(en)"
     },
     "global": {
-        "search": "Search"
+        "save": "save",
+        "confirm": "confirm",
+        "submit": "submit",
+        "search": "search",
+        "enter": "enter",
+        "select": "select",
+        "other": "other",
+        "reset": "reset",
+        "totalPages": "{total} in total",
+        "currentPage": "{current} / {total} pages"
     },
     "home": {
 		"news-title": "Latest Announcements",
         "product-title": "Product List"
     },
     "user-panel": {
-        "company-info": "Company Information",
-        "personal-info": "Personal Information"
+        "company-info": {
+            "title": "Company Info",
+            "name": "Company Name",
+            "webURL": "Company Website",
+            "region": "Company Region",
+            "address": "Company Address"
+        },
+        "user-info": {
+            "title": "User Info",
+            "email": "Account(Email)",
+            "name": "Name",
+            "jobTitle": "Job Title",
+            "phone": "phone",
+            "messagingApp": "App",
+            "messagingAppId": "App ID",
+            "messagingAppCustomName": "App name"
+        },
+        "sub-accounts": {
+            "solarEnergySubAccounts": "Solar Energy Sub-Accounts",
+            "storedEnergySubAccounts": "Stored Energy Sub-Accounts",
+            "memo": "* For modifications, please contact your account manager or email service@infolink-group.com"
+        }
     }
 }

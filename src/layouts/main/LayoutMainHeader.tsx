@@ -64,7 +64,7 @@ export default defineComponent({
                                     } alt={import.meta.env.WEB_SITE} /> */}
                                 </RouterLink>
                                 <div class="relative flex w-[1px] h-[1rem] bg-black-700"></div>
-                                <div class="text-white">報告下載專區</div>
+                                <div class="text-white">{t("global.title")}</div>
                             </div>
                             {/**  電腦版顯示語系及登出按鈕 */}
                             <div class="hidden xl:flex gap-3 items-center">
@@ -80,7 +80,7 @@ export default defineComponent({
                                 <div class="relative flex w-[1px] h-[1rem] bg-black-700"></div>
                                 <button onClick={() => logout()} class="flex gap-2 p-2 items-center text-white text-[14px]">
                                     <IconLogout />
-                                    登出
+                                    {t("global.logout")}
                                 </button>
                             </div>
                             {/**   手機版顯示收合選單  */}
