@@ -7,7 +7,7 @@
                 <el-form-item prop="verificationCode" class="flex-1">
                     <el-input v-model="form.verificationCode" :placeholder="t('download.code.placeholder')" />
                 </el-form-item>
-                <VerificationButton :restarter="true" @resendVerification="resendVerification" ref="verificationButtonRef" />
+                <VerificationButton :startCount="true" @resendVerification="resendVerification" ref="verificationButtonRef" />
             </el-form>
             <div class="mt-4 text-center">{{ t("download.tip") }}</div>
             <div class="flex flex-col gap-4 mt-6 md:flex-row">
