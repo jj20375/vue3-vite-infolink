@@ -88,17 +88,17 @@ const ReportSearch = defineComponent({
             },
         ]);
 
-        const languageOptions = ref<OptionsInterface[]>([
+        const languageOptions = computed<OptionsInterface[]>(() => [
             {
-                label: "繁體中文",
+                label: t("global.language.zh-tw"),
                 value: "繁體中文",
             },
             {
-                label: "簡體中文",
+                label: t("global.language.zh-cn"),
                 value: "簡體中文",
             },
             {
-                label: "英文",
+                label: t("global.language.en"),
                 value: "英文",
             },
         ]);
@@ -203,7 +203,7 @@ const ReportSearch = defineComponent({
                                 {{
                                     header: () => (
                                         <el-checkbox class="w-full" v-model={checkAll.value[index]} onChange={() => handleCheckAll(item, index)}>
-                                            全部
+                                            {t("global.all")}
                                         </el-checkbox>
                                     ),
                                     default: () => {

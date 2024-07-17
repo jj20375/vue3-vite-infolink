@@ -1,13 +1,15 @@
 <template>
     <div class="flex items-center">
         <div class="bg-transparent w-[125px] border tracking-wide border-black-300 rounded-full transition-all duration-300 py-1 text-center text-[14px] " @click="restartTimer" :class="countdownTimer > 0 ? 'cursor-not-allowed text-black-300':'cursor-pointer text-black-800 hover:border-black-800'">
-            {{ countdownTimer > 0 ? `倒數 ${formatTime(countdownTimer)} 重發` : "重新發送驗證信" }}
+            {{ countdownTimer > 0 ?  t("download.countdown", { time: formatTime(countdownTimer)}) : t("download.resend") }}
         </div>
     </div>
 </template>
 <script setup lang="ts">
 import { ref, onMounted, onBeforeUnmount } from "vue";
+import { useI18n } from "vue-i18n";
 
+const { t } = useI18n();
 const countdownTimer = ref(180); // 設置初始倒數時間為 180 秒
 let timerId: any; // 用於儲存計時器的 ID
 const emit = defineEmits(["resendVerification"]);

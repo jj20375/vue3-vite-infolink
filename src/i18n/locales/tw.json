@@ -16,7 +16,7 @@
     },
     "global": {
         "save": "儲存",
-        "confirm": "確認變更",
+        "confirm": "確認",
         "submit": "送出",
         "search": "查詢",
         "enter": "請輸入",
@@ -26,10 +26,18 @@
         "forgot": "忘記密碼",
         "login": "登入",
         "logout": "登出",
+        "back": "返回",
         "title": "報告下載專區",
         "remember-me": "記住我",
+        "all": "全部",
         "totalPages": "共 {total} 頁",
-        "currentPage": "第 {current} / {total} 頁"
+        "currentPage": "第 {current} / {total} 頁",
+        "download": "下載",
+        "language": {
+            "zh-tw": "繁體中文",
+            "zh-cn": "簡體中文",
+            "en": "English"
+        }
     },
     "login": {
         "email": {
@@ -52,6 +60,22 @@
             "warning": "請輸入電子郵件地址",
             "invalid": "格式不正確"
         }
+    },
+    "reset-password": {
+        "description": "請填入新的密碼，完成後須以新密碼登入系統",
+        "password": {
+            "label": "請輸入新密碼",
+            "placeholder": "密碼，8碼以上英數混合且1碼需大寫",
+            "warning": "請輸入新密碼",
+            "invalid": "必須包含至少一個大寫字母、一個小寫字母和一個數字，並且長度至少為 8 個字元"
+        },
+        "confirm-password": {
+            "label": "確認新密碼",
+            "placeholder": "請再次輸入新密碼",
+            "warning": "請再次輸入新密碼",
+            "invalid": "密碼不一致"
+        },
+        "submit": "確認變更"
     },
     "home": {
         "news-title": "最新公告",
@@ -231,5 +255,18 @@
             "invalidType": "不符合圖片類型(jpg,jpeg,png,gif)"
         },
         "recaptchaValidation": "請勾選我不是機器人"
+    },
+    "download": {
+        "title": "身份驗證",
+        "description": "已將驗證碼碼發送到 {email}",
+        "code": {
+            "label": "驗證碼",
+            "placeholder": "請輸入驗證碼",
+            "warning": "請輸入驗證碼"
+        },
+        "tip": "沒收到驗證信件？ 請先確認您的垃圾郵件",
+        "success": "檔案下載成功",
+        "countdown": "倒數 {time} 重發",
+        "resend": "重新發送驗證信"
     }
 }

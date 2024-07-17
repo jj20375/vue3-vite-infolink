@@ -181,7 +181,7 @@ export default defineComponent({
                                     ))}
                                 </div>
                                 <button onClick={() => onSubmit()} class={["yellow-btn mt-6", isMobile.value ? "w-full" : "btn-sm"]}>
-                                    {t("global.confirm")}
+                                    {t("reset-password.submit")}
                                 </button>
                             </el-form>
                         </div>

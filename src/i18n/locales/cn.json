@@ -1,24 +1,272 @@
 {
-    "welcome": "你好 欢迎",
+    "welcome": "您好，{name}",
     "router": {
         "home": "首页",
         "user-panel": "会员专区",
         "user-info": "会员资料管理",
-        "user-change-password": "更改密码",
+        "user-change-password": "变更密码",
         "user-contract": "历年合约记录",
         "report-download": "报告下载",
         "data-factory": "DataFactory",
-        "contact": "联系我们"
+        "contact": "联系我们",
+        "login": "会员登录",
+        "forgot-password": "忘记密码",
+        "reset-password": "重设密码",
+        "verify-email": "验证邮箱"
     },
     "global": {
-        "search": "查询"
+        "save": "保存",
+        "confirm": "确认",
+        "submit": "提交",
+        "search": "查询",
+        "enter": "请输入",
+        "select": "请选择",
+        "other": "其他",
+        "reset": "重置",
+        "forgot": "忘记密码",
+        "login": "登录",
+        "logout": "登出",
+        "back": "返回",
+        "title": "报告下载专区",
+        "remember-me": "记住我",
+        "all": "全部",
+        "totalPages": "共 {total} 页",
+        "currentPage": "第 {current} / {total} 页",
+        "download": "下载",
+        "language": {
+            "zh-tw": "繁体中文",
+            "zh-cn": "简体中文",
+            "en": "English"
+        }
+    },
+    "login": {
+        "email": {
+            "placeholder": "会员账号(Email)",
+            "warning": "请输入电子邮件地址",
+            "invalid": "格式不正确"
+        },
+        "password": {
+            "placeholder": "密码，8码以上英数混合且1码大写",
+            "warning": "请输入密码"
+        }
+    },
+    "forgot-password": {
+        "description": "请输入您的会员账号 (Email)，我们将发送重设密码信件给您",
+        "submit": "确认提交",
+        "back": "返回登录页",
+        "email": {
+            "label": "Email(账号)",
+            "placeholder": "请输入电子邮箱",
+            "warning": "请输入电子邮件地址",
+            "invalid": "格式不正确"
+        }
+    },
+    "reset-password": {
+        "description": "请填入新的密码，完成后须以新密码登录系统",
+        "password": {
+            "label": "请输入新密码",
+            "placeholder": "密码，8码以上英数混合且1码需大写",
+            "warning": "请输入新密码",
+            "invalid": "必须包含至少一个大写字母、一个小写字母和一个数字，并且长度至少为 8 个字符"
+        },
+        "confirm-password": {
+            "label": "确认新密码",
+            "placeholder": "请再次输入新密码",
+            "warning": "请再次输入新密码",
+            "invalid": "密码不一致"
+        },
+        "submit": "确认变更"
     },
     "home": {
         "news-title": "最新公告",
         "product-title": "产品列表"
     },
     "user-panel": {
-        "company-info": "公司信息",
-        "personal-info": "个人信息"
+        "company-info": {
+            "title": "公司信息",
+            "name": "所属公司",
+            "webURL": "公司网站",
+            "region": "公司所在国家",
+            "address": "公司地址"
+        },
+        "user-info": {
+            "title": "个人信息",
+            "email": {
+                "label": "账号(Email)",
+                "placeholder": "请输入您的电子邮件地址",
+                "warning": "请输入电子邮件地址"
+            },
+            "name": {
+                "label": "会员名称",
+                "placeholder": "请输入您的姓名",
+                "warning": "请输入您的姓名"
+            },
+            "jobTitle": {
+                "label": "职称",
+                "placeholder": "请输入您的职称",
+                "warning": "请输入您的职称"
+            },
+            "phone": {
+                "label": "联系电话",
+                "placeholder": "请输入您的联系电话",
+                "warning": "请输入联系电话"
+            },
+            "messagingApp": {
+                "label": "通讯软件",
+                "placeholder": "请选择"
+            },
+            "messagingAppId": {
+                "label": "通讯软件ID",
+                "placeholder": "请输入通讯软件ID",
+                "warning": "请输入通讯软件ID"
+            },
+            "messagingAppCustomName": {
+                "label": "通讯软件名称",
+                "placeholder": "请输入通讯软件名称",
+                "warning": "请输入通讯软件名称"
+            }
+        },
+        "sub-accounts": {
+            "solarEnergySubAccounts": "子账号列表-太阳能",
+            "storedEnergySubAccounts": "子账号列表-储能",
+            "memo": "* 如需修改，请联系负责业务或来信 service@infolink-group.com"
+        }
+    },
+    "user-reset-password": {
+        "old-password": {
+            "label": "旧密码",
+            "placeholder": "请输入旧密码",
+            "warning": "请输入旧密码"
+        },
+        "new-password": {
+            "label": "新密码",
+            "placeholder": "请输入新密码",
+            "warning": "请输入新密码",
+            "invalid": "必须包含至少一个大写字母、一个小写字母和一个数字，并且长度至少为 8 个字符"
+        },
+        "confirm-password": {
+            "label": "确认密码",
+            "placeholder": "请输入新密码",
+            "warning": "请再次输入新密码",
+            "invalid": "密码不一致"
+        }
+    },
+    "user-contract": {
+        "category": {
+            "label": "购买报告项目",
+            "placeholder": "选择报告项目"
+        },
+        "name": {
+            "label": " ",
+            "placeholder": "搜索购买报告项目"
+        },
+        "table": {
+            "contractIssuedDate": "合约开立日",
+            "contractEffectiveDate": "合约生效日",
+            "contractExpiryDate": "合约到期日",
+            "contractItem": "购买报告项目"
+        }
+    },
+    "report-download": {
+        "industry": {
+            "label": "产业别",
+            "placeholder": "选择产业"
+        },
+        "language": {
+            "label": "报告语系",
+            "placeholder": "选择语系"
+        },
+        "period": {
+            "label": "期数",
+            "placeholderStart": "开始日期",
+            "placeholderEnd": "结束日期"
+        },
+        "category": {
+            "label": "报告名称",
+            "placeholder": "选择报告名称"
+        },
+        "name": {
+            "label": " ",
+            "placeholder": "搜索报告名称"
+        },
+        "table": {
+            "industry": "产业别",
+            "language": "语系",
+            "reportName": "报告名称",
+            "period": "期数",
+            "fileType": "文件类型",
+            "publishTime": "发布时间",
+            "downloadCount": "下载次数"
+        },
+        "manual": {
+            "zh-tw": "宏使用说明书(中文)",
+            "en": "宏使用说明书(英文)"
+        }
+    },
+    "contact": {
+        "greeting": "感谢您的访问。",
+        "description": "请于下方表格说明您的疑问或需求，并留下您的联系方式，我们会有专人回复您的问题。",
+        "contact-us": "与我们联系：",
+        "salesService": "售后服务",
+        "businessContact": "业务联系",
+        "email": {
+            "label": "账号(Email)",
+            "placeholder": "请输入电子邮箱",
+            "warning": "请输入电子邮箱",
+            "invalid": "格式不正确"
+        },
+        "name": {
+            "label": "会员名称",
+            "placeholder": "请输入姓名",
+            "warning": "请输入姓名"
+        },
+        "company": {
+            "label": "所属公司",
+            "placeholder": "请输入公司名称",
+            "warning": "请输入公司名称"
+        },
+        "phone": {
+            "label": "联系电话",
+            "placeholder": "请输入联系电话",
+            "warning": "请输入联系电话"
+        },
+        "title": {
+            "label": "主旨",
+            "placeholder": "请选择主旨",
+            "warning": "请选择主旨"
+        },
+        "category": {
+            "label": "询问类别",
+            "placeholder": "请选择",
+            "warning": "请选择询问类别"
+        },
+        "content": {
+            "label": "询问内容",
+            "placeholder": "请输入询问内容",
+            "warning": "请输入询问内容"
+        },
+        "photo": {
+            "label": "问题图片上传",
+            "placeholder": "请上传照片",
+            "warning": "请上传图片",
+            "direction": "请点击上传照片",
+            "limit": "(仅限JPEG、PNG，且不得超过10mb)",
+            "invalidSize": "图片尺寸不得超过 10MB",
+            "invalidType": "不符合图片类型(jpg,jpeg,png,gif)"
+        },
+        "recaptchaValidation": "请勾选我不是机器人"
+    },
+    "download": {
+        "title": "身份验证",
+        "description": "已将验证码发送到 {email}",
+        "code": {
+            "label": "验证码",
+            "placeholder": "请输入验证码",
+            "warning": "请输入验证码"
+        },
+        "tip": "没收到验证信件？ 请先确认您的垃圾邮件",
+        "success": "文件下载成功",
+        "countdown": "倒数 {time} 重发",
+        "resend": "重新发送验证信"
     }
 }

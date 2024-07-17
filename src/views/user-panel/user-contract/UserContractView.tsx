@@ -105,7 +105,7 @@ const ContractSearch = defineComponent({
                                 {{
                                     header: () => (
                                         <el-checkbox class="w-full" v-model={checkAll.value[index]} onChange={() => handleCheckAll(item, index)}>
-                                            全部
+                                            {t("global.all")}
                                         </el-checkbox>
                                     ),
                                     default: () => {
