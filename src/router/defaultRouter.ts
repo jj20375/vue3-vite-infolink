@@ -24,7 +24,6 @@ const router: Array<RouteRecordRaw> = [
             icon: markRaw(IconHome),
             menu: true,
             sort: 1,
-            requiresAuth: true,
         },
         components: {
             default: HomeView,

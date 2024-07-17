@@ -1,8 +1,6 @@
 import { ref } from "vue";
 import { defineStore } from "pinia";
 import type { UserPanelUserInfoInterface, UserPanelCompanyInterface, UserPanelSubAccountsInterface } from "@/views/user-panel/user-info/interface/userInterface";
-import { removeStorage } from "@/services/localStorage";
-import { GetUserProfileAPI } from "@/api/userAPI";
 
 export const useUserStore = defineStore("userStore", () => {
     // 使用者資料
@@ -44,9 +42,7 @@ export const useUserStore = defineStore("userStore", () => {
      * 清除使用者資料
      */
     function clearUser() {
-        removeStorage("token");
-        user.value = {};
-        return;
+        return (user.value = {});
     }
     /**
      * 清除是否登入
@@ -57,13 +53,7 @@ export const useUserStore = defineStore("userStore", () => {
     /**
      * 取得使用者資料
      */
-    async function getUserPorfile() {
-        try {
-            const { data } = await GetUserProfileAPI();
-            console.log("GetUserProfileAPI data =>", data);
-        } catch (err) {
-            console.log("GetUserProfileAPI err =>", err);
-        }
+    function getUserPorfile() {
         return user.value;
     }
     /**
@@ -74,5 +64,5 @@ export const useUserStore = defineStore("userStore", () => {
         clearIsAuth();
     }
 
-    return { user, company, subAccounts, isAuth, setUser, setIsAuth, getUserPorfile, removeUser };
+    return { user, company, subAccounts, isAuth, setUser, setIsAuth };
 });

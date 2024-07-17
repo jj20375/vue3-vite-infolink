@@ -1,5 +1,5 @@
 import axios from "@/services/axiosConfig";
-const apiURL = import.meta.env.VITE_API_URL;
+const apiURL = import.meta.env.API_URL;
 
 /**
  * 上傳檔案

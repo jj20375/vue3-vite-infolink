@@ -14,8 +14,6 @@ import { useI18n } from "vue-i18n";
 import { defineComponent, ref, computed } from "vue";
 import style from "./layoutMain.module.scss";
 import IconLogo2 from "@/assets/img/logo/logo-2.svg";
-import { AuthLogoutAPI } from "@/api/oauthAPI";
-
 export default defineComponent({
     name: "LayoutMainHeader",
     props: {},
@@ -46,13 +44,8 @@ export default defineComponent({
         /**
          * 登出
          */
-        async function logout() {
-            try {
-                await AuthLogoutAPI();
-                router.push({ name: "login", params: { slug: t("router.login") } });
-            } catch (err) {
-                console.log("AuthLogoutAPI err =>", err);
-            }
+        function logout() {
+            router.push({ name: "login", params: { slug: t("router.login") } });
         }
         // 打開選單
         function openMenu() {

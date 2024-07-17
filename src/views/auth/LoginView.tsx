@@ -8,8 +8,6 @@ import type { ColumnsInterface } from "@/interface/global.d";
 import type { FormInstance } from "element-plus";
 import { setStorage, getStorage } from "@/services/localStorage";
 import { useI18n } from "vue-i18n";
-import { AuthUserLoginAPI } from "@/api/oauthAPI";
-import AuthEmailVerify from "./components/AuthEmailVerify";
 
 export default {
     name: "LoginView",
@@ -25,16 +23,13 @@ export default {
 
         const { t } = useI18n();
 
-        // 登入身份驗證彈窗
-        const authEmailVerifyRefDom = ref<typeof AuthEmailVerify>();
-
         const permissionStore = usePermissionStore();
 
         const formRefDom = ref<FormInstance | null>(null);
 
         const form = ref<LoginForm>({
-            email: "admin@admin.cc",
-            password: "Aa168168",
+            email: "",
+            password: "",
             saveInfo: false,
         });
 
@@ -89,25 +84,17 @@ export default {
                     setStorage("saveInfo", true);
                     setStorage("loginEmail", form.email);
                 }
-                const { data } = await AuthUserLoginAPI(form);
-                console.log("AuthUserLoginAPI data =>", data);
-            } catch (err) {
-                console.log("AuthUserLoginAPI err =>", err);
-            }
+            } catch (err) {}
         }
 
-        async function onSubmit(event: Event) {
-            console.log("event =->", event);
-            event.preventDefault();
+        async function onSubmit() {
             if (!formRefDom.value) {
                 return;
             }
             try {
                 await formRefDom.value.validate();
-                console.log("authEmailVerifyRefDom.value =>", authEmailVerifyRefDom.value);
                 await login(form.value);
-                authEmailVerifyRefDom.value!.openDialog();
-                // await getPermissionRouter();
+                await getPermissionRouter();
             } catch (err) {}
         }
 
@@ -154,9 +141,8 @@ export default {
                             </div>
                         </el-form>
                     </div>
-                </section>
-                <AuthEmailVerify ref={authEmailVerifyRefDom} email={form.value.email} />
-            </>
+                </div>
+            </section>
         );
     },
 };

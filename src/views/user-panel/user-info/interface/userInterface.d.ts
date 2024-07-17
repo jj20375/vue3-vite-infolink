@@ -1,13 +1,13 @@
 // 使用者資料 type
 export interface UserPanelUserInfoInterface {
     // 信箱
-    email?: string;
+    email: string;
     // 使用者名稱
-    name?: string;
+    name: string;
     // 手機號碼
-    phone?: string;
+    phone: string;
     // 頭銜
-    jobTitle?: string;
+    jobTitle: string;
     // 通訊軟體名稱
     messagingApp?: string;
     // 通訊軟體自訂名稱
