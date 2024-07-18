@@ -38,10 +38,16 @@ export default defineComponent({
             locale.value = lang;
             setStorage("lang", lang);
             if (route.meta.parent !== undefined) {
-                router.push({ name: route.name, params: { level2Slug: t(`router.${route.name as string}`) } });
+                router.push({
+                    name: route.name,
+                    params: { level2Slug: t(`router.${route.name as string}`) },
+                });
                 return;
             }
-            router.push({ name: route.name, params: { slug: t(`router.${route.name as string}`) } });
+            router.push({
+                name: route.name,
+                params: { slug: t(`router.${route.name as string}`) },
+            });
         }
         /**
          * 登出
@@ -49,7 +55,10 @@ export default defineComponent({
         async function logout() {
             try {
                 await AuthLogoutAPI();
-                router.push({ name: "login", params: { slug: t("router.login") } });
+                router.push({
+                    name: "login",
+                    params: { slug: t("router.login") },
+                });
             } catch (err) {
                 console.log("AuthLogoutAPI err =>", err);
             }
@@ -64,34 +73,66 @@ export default defineComponent({
                     <div class="fixed w-full bg-black-900">
                         <nav class=" mx-[24px] xl:mx-[30px] flex justify-between items-center h-header2">
                             <div class="flex gap-4 items-center">
-                                <RouterLink class="block mx-auto" to={{ name: "index" }}>
+                                <RouterLink
+                                    class="block mx-auto"
+                                    to={{ name: "index" }}
+                                >
                                     <IconLogo2 />
                                     {/* <img class="" src={initData.value.site.site_logo2
 
                                     } alt={import.meta.env.WEB_SITE} /> */}
                                 </RouterLink>
                                 <div class="relative flex w-[1px] h-[1rem] bg-black-700"></div>
-                                <div class="text-white">報告下載專區</div>
+                                <div class="text-white">
+                                    {t("global.title")}
+                                </div>
                             </div>
                             {/**  電腦版顯示語系及登出按鈕 */}
                             <div class="hidden xl:flex gap-3 items-center">
                                 <el-form class="flex gap-2 w-[80px] header-form white">
                                     <el-form-item>
-                                        <el-select class="!w-[80px]" v-model={currentLang.value} onChange={() => changeLanguage(currentLang.value)}>
-                                            {Object.values(langsOptions.value).map((langValue) => {
-                                                return <el-option class="text-center" key={langValue.code} value={langValue["code"]} label={langValue["name"]}></el-option>;
+                                        <el-select
+                                            class="!w-[80px]"
+                                            v-model={currentLang.value}
+                                            onChange={() =>
+                                                changeLanguage(
+                                                    currentLang.value
+                                                )
+                                            }
+                                        >
+                                            {Object.values(
+                                                langsOptions.value
+                                            ).map((langValue) => {
+                                                return (
+                                                    <el-option
+                                                        class="text-center"
+                                                        key={langValue.code}
+                                                        value={
+                                                            langValue["code"]
+                                                        }
+                                                        label={
+                                                            langValue["name"]
+                                                        }
+                                                    ></el-option>
+                                                );
                                             })}
                                         </el-select>
                                     </el-form-item>
                                 </el-form>
                                 <div class="relative flex w-[1px] h-[1rem] bg-black-700"></div>
-                                <button onClick={() => logout()} class="flex gap-2 p-2 items-center text-white text-[14px]">
+                                <button
+                                    onClick={() => logout()}
+                                    class="flex gap-2 p-2 items-center text-white text-[14px]"
+                                >
                                     <IconLogout />
-                                    登出
+                                    {t("global.logout")}
                                 </button>
                             </div>
                             {/**   手機版顯示收合選單  */}
-                            <div class="p-2 xl:hidden" onClick={() => openMenu()}>
+                            <div
+                                class="p-2 xl:hidden"
+                                onClick={() => openMenu()}
+                            >
                                 <span class={style["svg-path"]}>
                                     <IconMenu />
                                 </span>

@@ -1,6 +1,10 @@
 import { ref } from "vue";
 import { defineStore } from "pinia";
-import type { UserPanelUserInfoInterface, UserPanelCompanyInterface, UserPanelSubAccountsInterface } from "@/views/user-panel/user-info/interface/userInterface";
+import type {
+    UserPanelUserInfoInterface,
+    UserPanelCompanyInterface,
+    UserPanelSubAccountsInterface,
+} from "@/views/user-panel/user-info/interface/userInterface";
 import { removeStorage } from "@/services/localStorage";
 import { GetUserProfileAPI } from "@/api/userAPI";
 import { useRouter } from "vue-router";
@@ -26,8 +30,22 @@ export const useUserStore = defineStore("userStore", () => {
     });
     // 子帳號資料
     const subAccounts = ref<UserPanelSubAccountsInterface>({
-        solarEnergySubAccounts: ["ili.wang@codepulse.com.tw", "gina.chen@codepulse.com.tw", "joe.lee@codepulse.com.tw", "ili.wang@codepulse.com.tw", "gina.chen@codepulse.com.tw", "joe.lee@codepulse.com.tw"],
-        storedEnergySubAccounts: ["ili.wang@codepulse.com.tw", "gina.chen@codepulse.com.tw", "joe.lee@codepulse.com.tw", "ili.wang@codepulse.com.tw", "gina.chen@codepulse.com.tw", "joe.lee@codepulse.com.tw"],
+        solarEnergySubAccounts: [
+            "ili.wang@codepulse.com.tw",
+            "gina.chen@codepulse.com.tw",
+            "joe.lee@codepulse.com.tw",
+            "ili.wang@codepulse.com.tw",
+            "gina.chen@codepulse.com.tw",
+            "joe.lee@codepulse.com.tw",
+        ],
+        storedEnergySubAccounts: [
+            "ili.wang@codepulse.com.tw",
+            "gina.chen@codepulse.com.tw",
+            "joe.lee@codepulse.com.tw",
+            "ili.wang@codepulse.com.tw",
+            "gina.chen@codepulse.com.tw",
+            "joe.lee@codepulse.com.tw",
+        ],
     });
     // 判斷是否有登入
     const isAuth = ref(false);
@@ -49,9 +67,7 @@ export const useUserStore = defineStore("userStore", () => {
      * 清除使用者資料
      */
     function clearUser() {
-        removeStorage("token");
-        user.value = {};
-        return;
+        return (user.value = {});
     }
     /**
      * 清除是否登入
@@ -67,7 +83,10 @@ export const useUserStore = defineStore("userStore", () => {
             const { data }: any = await GetUserProfileAPI();
             // 判斷需要重設初始化密碼時
             if (data.data.initial_password) {
-                return router.push({ name: "reset-password", params: { slug: t("router.reset-password") } });
+                return router.push({
+                    name: "reset-password",
+                    params: { slug: t("router.reset-password") },
+                });
             }
             user.value = data.data;
             console.log("GetUserProfileAPI data =>", data);
@@ -84,5 +103,13 @@ export const useUserStore = defineStore("userStore", () => {
         clearIsAuth();
     }
 
-    return { user, company, subAccounts, isAuth, setUser, setIsAuth, getUserPorfile, removeUser };
+    return {
+        user,
+        company,
+        subAccounts,
+        isAuth,
+        setUser,
+        setIsAuth,
+        getUserPorfile,
+    };
 });

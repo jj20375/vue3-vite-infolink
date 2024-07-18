@@ -4,11 +4,12 @@ export interface OptionsInterface {
     value: any;
 }
 
-export interface ColumnsInterface<Prop> {
+export interface ColumnsInterface<Prop extends string> {
     type?: string;
     showPassword?: boolean;
     prop: Prop;
-    label?: string;
+    key?: string;
+    label?: string | undefined;
     placeholder?: string;
     style: string;
     disabled?: boolean;

@@ -2,7 +2,7 @@ import type { PropType } from "vue";
 import type { OptionsInterface } from "@/interface/global.d";
 import type { ReportDownloadFilterColumnsInterface, ReportDownloadDataInterface } from "./interface/reportDownloadInterface.d";
 import type { RouteLocationNormalizedLoaded } from "vue-router";
-import { defineComponent, ref, markRaw, watch } from "vue";
+import {defineComponent, ref, markRaw, watch, computed} from "vue";
 import { useRoute } from "vue-router";
 import { useWindowResize } from "@/hooks/windowResize";
 import Breadcrumb from "@/components/Breadcrumb";
@@ -88,17 +88,17 @@ const ReportSearch = defineComponent({
             },
         ]);
 
-        const languageOptions = ref<OptionsInterface[]>([
+        const languageOptions = computed<OptionsInterface[]>(() => [
             {
-                label: "繁體中文",
+                label: t("global.language.zh-tw"),
                 value: "繁體中文",
             },
             {
-                label: "簡體中文",
+                label: t("global.language.zh-cn"),
                 value: "簡體中文",
             },
             {
-                label: "英文",
+                label: t("global.language.en"),
                 value: "英文",
             },
         ]);
@@ -115,38 +115,40 @@ const ReportSearch = defineComponent({
         ]);
 
         // 搜尋條件欄位
-        const filterColumns = ref<ReportDownloadFilterColumnsInterface[]>([
+        const filterColumns = computed<ReportDownloadFilterColumnsInterface[]>(() => [
             {
                 prop: "industry",
-                label: "產業別",
-                placeholder: "選擇產業",
+                label: t("report-download.industry.label"),
+                placeholder: t("report-download.industry.placeholder"),
                 style: "muti-select",
                 options: industryOptions.value,
             },
             {
                 prop: "language",
-                label: "報告語系",
-                placeholder: "選擇語系",
+                label: t("report-download.language.label"),
+                placeholder: t("report-download.language.placeholder"),
                 style: "muti-select",
                 options: languageOptions.value,
             },
             {
                 prop: "period",
-                label: "期數",
+                label: t("report-download.period.label"),
                 style: "datepicker",
+                placeholderStart: t("report-download.period.placeholderStart"),
+                placeholderEnd: t("report-download.period.placeholderEnd"),
             },
             {
                 prop: "category",
-                label: "報告名稱",
-                placeholder: "選擇報告名稱",
+                label: t("report-download.category.label"),
+                placeholder: t("report-download.category.placeholder"),
                 style: "muti-select",
                 options: categoryOptions.value,
             },
             {
                 prop: "name",
-                label: " ",
+                label: t("report-download.name.label"),
                 mobileHideLabel: true,
-                placeholder: "搜尋報告名稱",
+                placeholder: t("report-download.name.placeholder"),
                 style: "input",
                 iconName: markRaw(IconSearch),
             },
@@ -201,7 +203,7 @@ const ReportSearch = defineComponent({
                                 {{
                                     header: () => (
                                         <el-checkbox class="w-full" v-model={checkAll.value[index]} onChange={() => handleCheckAll(item, index)}>
-                                            全部
+                                            {t("global.all")}
                                         </el-checkbox>
                                     ),
                                     default: () => {
@@ -210,7 +212,7 @@ const ReportSearch = defineComponent({
                                 }}
                             </el-select>
                         )}
-                        {item.style === "datepicker" && <el-date-picker v-model={filterForm.value[item.prop]} type="daterange" valueFormat="YYYY-MM-DD" start-placeholder="開始日期" end-placeholder="結束日期" disabled={item.disabled} placeholder={item.placeholder} popper-class="date-box" />}
+                        {item.style === "datepicker" && <el-date-picker v-model={filterForm.value[item.prop]} type="daterange" valueFormat="YYYY-MM-DD" start-placeholder={item.placeholderStart} end-placeholder={item.placeholderEnd} disabled={item.disabled} placeholder={item.placeholder} popper-class="date-box" />}
                     </el-form-item>
                 ))}
                 <div class="flex flex-col gap-4 sm:block">
@@ -221,7 +223,7 @@ const ReportSearch = defineComponent({
                     </div>
                     <div class="flex sm:inline-flex gap-2 justify-center items-center transparent-btn" onClick={() => resetFilter(filterForm.value)}>
                         <IconReset class="text-black-900" />
-                        重置
+                        {t("global.reset")}
                     </div>
                 </div>
             </div>
@@ -235,6 +237,7 @@ export default defineComponent({
     props: {},
     emits: [],
     setup(props, { emit, attrs }) {
+        const { t } = useI18n();
         const route: RouteLocationNormalizedLoaded = useRoute();
         // 解析搜尋條件
         let parseRouterParams: { [key: string]: string } = {};
@@ -256,7 +259,15 @@ export default defineComponent({
         const filterForm = ref<FilterInterFace>(defaultFilter);
 
         // 表格資料
-        const tableHeadData = ref(["產業別", "語系", "報告名稱", "期數", "檔案類型", "發布時間", "下載次數"]);
+        const tableHeadData = computed(() => [
+            t("report-download.table.industry"),
+            t("report-download.table.language"),
+            t("report-download.table.reportName"),
+            t("report-download.table.period"),
+            t("report-download.table.fileType"),
+            t("report-download.table.publishTime"),
+            t("report-download.table.downloadCount"),
+        ]);
         const tableBodyData = ref<ReportDownloadDataInterface[]>([
             {
                 id: 1,
@@ -304,7 +315,7 @@ export default defineComponent({
             <section>
                 <div class="relative py-[20px] xl:py-[30px] px-[20px] xl:px-[30px]">
                     <Breadcrumb />
-                    <h3 class="text-[28px] font-semibold mb-5 sm:mb-7">報告下載</h3>
+                    <h3 class="text-[28px] font-semibold mb-5 sm:mb-7">{t("router.report-download")}</h3>
                     <div class="xl:max-w-[1200px] min">
                         <ReportSearch searchFilter={filterForm.value} />
                     </div>
@@ -313,19 +324,19 @@ export default defineComponent({
                             {downloadManualData.value.chinese !== undefined && (
                                 <a target="_blank" href={downloadManualData.value.chinese} class="flex gap-2 p-2 items-center text-[14px] cursor-pointer hover:text-black-700 transition-all duration-300">
                                     <IconDownload class="!w-4 !h-4" />
-                                    巨集使用說明書(中文)
+                                    {t("report-download.manual.zh-tw")}
                                 </a>
                             )}
                             {downloadManualData.value.english !== undefined && (
                                 <a target="_blank" href={downloadManualData.value.english} class="flex gap-2 p-2 items-center text-[14px] cursor-pointer hover:text-black-700 transition-all duration-300">
                                     <IconDownload class="!w-4 !h-4" />
-                                    巨集使用說明書(英文)
+                                    {t("report-download.manual.en")}
                                 </a>
                             )}
                         </div>
                         <ReportDownloadTable tableHeadData={tableHeadData.value} tableBodyData={tableBodyData.value} />
                         <div class="flex flex-col lg:flex-row justify-between items-start lg:items-center mt-6">
-                            <div class="order-2 lg:order-1 text-[14px]">共有 32 筆資料，第 1 / 10 頁</div>
+                            <div class="order-2 lg:order-1 text-[14px]">{ t('global.totalPages', { total: 3 }) }，{ t('global.currentPage', { current: 1, total: 3 }) }</div>
                             <Pagination class="order-1 lg:order-2 mb-4 lg:mb-0" total={100} pageSize={10} page={currentPage.value} onHandlePageChange={handlePageChange(1)} />
                         </div>
                     </div>

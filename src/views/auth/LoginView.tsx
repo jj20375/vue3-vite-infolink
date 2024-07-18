@@ -38,44 +38,48 @@ export default {
             saveInfo: false,
         });
 
-        const formColumns = ref<ColumnsInterface<LoginFormPropType>[]>([
-            {
-                iconName: markRaw(IconMember),
-                prop: "email",
-                placeholder: "會員帳號 (Email)",
-                style: "input",
-            },
-            {
-                iconName: markRaw(IconPassword),
-                prop: "password",
-                placeholder: "密碼，8碼以上英數混合且1碼大寫",
-                style: "input",
-                type: "password",
-                showPassword: true,
-            },
-        ]);
+        const formColumns = computed<ColumnsInterface<LoginFormPropType>[]>(
+            () => [
+                {
+                    iconName: markRaw(IconMember),
+                    prop: "email",
+                    placeholder: t("login.email.placeholder"),
+                    style: "input",
+                },
+                {
+                    iconName: markRaw(IconPassword),
+                    prop: "password",
+                    placeholder: t("login.password.placeholder"),
+                    style: "input",
+                    type: "password",
+                    showPassword: true,
+                },
+            ]
+        );
 
-        const rules = ref<any>({
-            email: [
-                {
-                    required: true,
-                    message: "請輸入信箱",
-                    trigger: "blur",
-                },
-                {
-                    required: true,
-                    validator: validateEmail,
-                    trigger: ["change", "blur"],
-                    message: "格式不正確",
-                },
-            ],
-            password: [
-                {
-                    required: true,
-                    message: "請輸入密碼",
-                    trigger: "blur",
-                },
-            ],
+        const rules = computed<any>(() => {
+            return {
+                email: [
+                    {
+                        required: true,
+                        message: t("login.email.warning"),
+                        trigger: "blur",
+                    },
+                    {
+                        required: true,
+                        validator: validateEmail,
+                        trigger: ["change", "blur"],
+                        message: t("login.email.invalid"),
+                    },
+                ],
+                password: [
+                    {
+                        required: true,
+                        message: t("login.password.warning"),
+                        trigger: "blur",
+                    },
+                ],
+            };
         });
         async function getPermissionRouter() {
             await permissionStore.getPermissionRouter();
@@ -123,37 +127,82 @@ export default {
                 <section>
                     <div class="container">
                         <div class="w-full sm:w-[400px] mx-auto mb-12">
-                            <h3 class="font-bold text-[22px] sm:text-[28px] text-center mb-6">報告下載專區</h3>
+                            <h3 class="font-bold text-[22px] sm:text-[28px] text-center mb-6">
+                                {t("global.title")}
+                            </h3>
                             <div class="w-[40px] h-[6px] bg-yellow-900 mx-auto mb-6 sm:mb-8"></div>
-                            <el-form class="login-form" ref={formRefDom} model={form.value} rules={rules.value} require-asterisk-position="right">
+                            <el-form
+                                class="login-form"
+                                ref={formRefDom}
+                                model={form.value}
+                                rules={rules.value}
+                                require-asterisk-position="right"
+                            >
                                 <div class="grid gap-5">
                                     {formColumns.value.map((item) => (
-                                        <el-form-item key={item.prop} prop={item.prop}>
-                                            <el-input type={item.type} show-password={item.showPassword} placeholder={item.placeholder} v-model={form.value[item.prop]}>
+                                        <el-form-item
+                                            key={item.prop}
+                                            prop={item.prop}
+                                        >
+                                            <el-input
+                                                type={item.type}
+                                                show-password={
+                                                    item.showPassword
+                                                }
+                                                placeholder={item.placeholder}
+                                                v-model={form.value[item.prop]}
+                                            >
                                                 {{
-                                                    prefix: () => <item.iconName class="!w-[20px] !h-[20px] !ml-2 !mr-3 text-black-800" />,
+                                                    prefix: () => (
+                                                        <item.iconName class="!w-[20px] !h-[20px] !ml-2 !mr-3 text-black-800" />
+                                                    ),
                                                 }}
                                             </el-input>
                                         </el-form-item>
                                     ))}
 
                                     <div class="flex justify-between mt-1">
-                                        <el-form-item class="!mb-0" prop="saveInfo">
-                                            <el-checkbox class="!h-fit text-[15px] " v-model={form.value.saveInfo} label="記住我" size="large" />
+                                        <el-form-item
+                                            class="!mb-0"
+                                            prop="saveInfo"
+                                        >
+                                            <el-checkbox
+                                                class="!h-fit text-[15px] "
+                                                v-model={form.value.saveInfo}
+                                                label={t("global.remember-me")}
+                                                size="large"
+                                            />
                                         </el-form-item>
-                                        <RouterLink to={{ name: "forgot-password", params: { slug: t("router.forgot-password") } }}>
-                                            <div class="text-[15px]">忘記密碼?</div>
+                                        <RouterLink
+                                            to={{
+                                                name: "forgot-password",
+                                                params: {
+                                                    slug: t(
+                                                        "router.forgot-password"
+                                                    ),
+                                                },
+                                            }}
+                                        >
+                                            <div class="text-[15px]">
+                                                {t("router.forgot-password")}?
+                                            </div>
                                         </RouterLink>
                                     </div>
-                                    <button class="yellow-btn mt-4 !w-full" onClick={onSubmit}>
-                                        登入
+                                    <button
+                                        class="yellow-btn mt-4 !w-full"
+                                        onClick={() => onSubmit()}
+                                    >
+                                        {t("global.login")}
                                     </button>
                                 </div>
                             </el-form>
                         </div>
                     </div>
                 </section>
-                <AuthEmailVerify ref={authEmailVerifyRefDom} email={form.value.email} />
+                <AuthEmailVerify
+                    ref={authEmailVerifyRefDom}
+                    email={form.value.email}
+                />
             </>
         );
     },

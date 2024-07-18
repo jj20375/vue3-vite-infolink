@@ -1,23 +1,272 @@
 {
-    "welcome": "Hello world",
+    "welcome": "Hello, {name}",
     "router": {
         "home": "Home",
-        "user-panel": "會員專區(en)",
-        "user-info": "會員資料管理(en)",
-        "user-change-password": "變更密碼(en)",
-        "user-contract": "歷年合約紀錄(en)",
-        "report-download": "報告下載(en)",
-        "data-factory": "DataFactory(en)",
-        "contact": "聯絡我們(en)",
-        "login": "會員登入(en)",
-        "forgot-password": "忘記密碼(en)",
-        "reset-password": "重設密碼(en)",
-        "verify-email": "驗證信箱(en)"
+        "user-panel": "User Panel",
+        "user-info": "User Info Management",
+        "user-change-password": "Change Password",
+        "user-contract": "Contract History",
+        "report-download": "Report Download",
+        "data-factory": "DataFactory",
+        "contact": "Contact Us",
+        "login": "Login",
+        "forgot-password": "Forgot Password",
+        "reset-password": "Reset Password",
+        "verify-email": "Verify Email"
     },
     "global": {
-        "search": "Search"
+        "save": "Save",
+        "confirm": "Confirm",
+        "submit": "Submit",
+        "search": "Search",
+        "enter": "Please enter",
+        "select": "Please select",
+        "other": "Other",
+        "reset": "Reset",
+        "forgot": "Forgot Password",
+        "login": "Login",
+        "logout": "Logout",
+        "back": "Back",
+        "title": "Report Download Area",
+        "remember-me": "Remember me",
+        "all": "All",
+        "totalPages": "Total {total} pages",
+        "currentPage": "Page {current} / {total}",
+        "download": "Download",
+        "language": {
+            "zh-tw": "Traditional Chinese",
+            "zh-cn": "Simplified Chinese",
+            "en": "English"
+        }
+    },
+    "login": {
+        "email": {
+            "placeholder": "Email (Account)",
+            "warning": "Please enter your email address",
+            "invalid": "Invalid format"
+        },
+        "password": {
+            "placeholder": "Password",
+            "warning": "At least 8 characters with numbers and 1 uppercase"
+        }
+    },
+    "forgot-password": {
+        "description": "Please enter your email address. We will send you a password reset link.",
+        "submit": "Submit",
+        "back": "Back to Login",
+        "email": {
+            "label": "Email (Account)",
+            "placeholder": "Please enter your email address",
+            "warning": "Please enter your email address",
+            "invalid": "Invalid format"
+        }
+    },
+    "reset-password": {
+        "description": "Please enter your new password. You will need to log in with the new password after completion.",
+        "password": {
+            "label": "New Password",
+            "placeholder": "At least 8 characters with numbers and 1 uppercase",
+            "warning": "Please enter a new password",
+            "invalid": "Must contain at least one uppercase letter, one lowercase letter, one number, and be at least 8 characters long"
+        },
+        "confirm-password": {
+            "label": "Confirm New Password",
+            "placeholder": "Please re-enter your new password",
+            "warning": "Please re-enter your new password",
+            "invalid": "Passwords do not match"
+        },
+        "submit": "Save"
     },
     "home": {
-        "news-title": "最新公告(en)"
+        "news-title": "Latest Announcements",
+        "product-title": "Product List"
+    },
+    "user-panel": {
+        "company-info": {
+            "title": "Company Information",
+            "name": "Company Name",
+            "webURL": "Company Website",
+            "region": "Company Country",
+            "address": "Company Address"
+        },
+        "user-info": {
+            "title": "Personal Information",
+            "email": {
+                "label": "Email (Account)",
+                "placeholder": "Please enter your email address",
+                "warning": "Please enter your email address"
+            },
+            "name": {
+                "label": "Name",
+                "placeholder": "Please enter your name",
+                "warning": "Please enter your name"
+            },
+            "jobTitle": {
+                "label": "Job Title",
+                "placeholder": "Please enter your job title",
+                "warning": "Please enter your job title"
+            },
+            "phone": {
+                "label": "Contact Phone",
+                "placeholder": "Please enter your contact phone number",
+                "warning": "Please enter your contact phone number"
+            },
+            "messagingApp": {
+                "label": "Messaging App",
+                "placeholder": "Please select"
+            },
+            "messagingAppId": {
+                "label": "Messaging App ID",
+                "placeholder": "Please enter your messaging app ID",
+                "warning": "Please enter your messaging app ID"
+            },
+            "messagingAppCustomName": {
+                "label": "Messaging App Name",
+                "placeholder": "Please enter the messaging app name",
+                "warning": "Please enter the messaging app name"
+            }
+        },
+        "sub-accounts": {
+            "solarEnergySubAccounts": "Sub-account List - Solar Energy",
+            "storedEnergySubAccounts": "Sub-account List - Energy Storage",
+            "memo": "* For modifications, please contact your account manager or email service@infolink-group.com"
+        }
+    },
+    "user-reset-password": {
+        "old-password": {
+            "label": "Old Password",
+            "placeholder": "Please enter your old password",
+            "warning": "Please enter your old password"
+        },
+        "new-password": {
+            "label": "New Password",
+            "placeholder": "Please enter a new password",
+            "warning": "Please enter a new password",
+            "invalid": "Must contain at least one uppercase letter, one lowercase letter, one number, and be at least 8 characters long"
+        },
+        "confirm-password": {
+            "label": "Confirm Password",
+            "placeholder": "Please re-enter your new password",
+            "warning": "Please re-enter your new password",
+            "invalid": "Passwords do not match"
+        }
+    },
+    "user-contract": {
+        "category": {
+            "label": "Purchased Report Items",
+            "placeholder": "Select report items"
+        },
+        "name": {
+            "label": " ",
+            "placeholder": "Search purchased report items"
+        },
+        "table": {
+            "contractIssuedDate": "Contract Issue Date",
+            "contractEffectiveDate": "Contract Effective Date",
+            "contractExpiryDate": "Contract Expiry Date",
+            "contractItem": "Purchased Report Items"
+        }
+    },
+    "report-download": {
+        "industry": {
+            "label": "Industry",
+            "placeholder": "Select industry"
+        },
+        "language": {
+            "label": "Report Language",
+            "placeholder": "Select language"
+        },
+        "period": {
+            "label": "Period",
+            "placeholderStart": "Start date",
+            "placeholderEnd": "End date"
+        },
+        "category": {
+            "label": "Report Name",
+            "placeholder": "Select report name"
+        },
+        "name": {
+            "label": " ",
+            "placeholder": "Search report name"
+        },
+        "table": {
+            "industry": "Industry",
+            "language": "Language",
+            "reportName": "Report Name",
+            "period": "Period",
+            "fileType": "File Type",
+            "publishTime": "Publish Time",
+            "downloadCount": "Download Count"
+        },
+        "manual": {
+            "zh-tw": "Macro User Manual (Chinese)",
+            "en": "Macro User Manual (English)"
+        }
+    },
+    "contact": {
+        "greeting": "Thank you for your visit.",
+        "description": "Please describe your questions or needs in the form below and leave your contact information. Our staff will respond to your inquiry.",
+        "contact-us": "Contact Us:",
+        "salesService": "After-sales Service",
+        "businessContact": "Business Contact",
+        "email": {
+            "label": "Email (Account)",
+            "placeholder": "Please enter your email address",
+            "warning": "Please enter your email address",
+            "invalid": "Invalid format"
+        },
+        "name": {
+            "label": "Name",
+            "placeholder": "Please enter your name",
+            "warning": "Please enter your name"
+        },
+        "company": {
+            "label": "Company",
+            "placeholder": "Please enter your company name",
+            "warning": "Please enter your company name"
+        },
+        "phone": {
+            "label": "Contact Phone",
+            "placeholder": "Please enter your contact phone number",
+            "warning": "Please enter your contact phone number"
+        },
+        "title": {
+            "label": "Subject",
+            "placeholder": "Please select a subject",
+            "warning": "Please select a subject"
+        },
+        "category": {
+            "label": "Inquiry Category",
+            "placeholder": "Please select",
+            "warning": "Please select an inquiry category"
+        },
+        "content": {
+            "label": "Inquiry Content",
+            "placeholder": "Please enter your inquiry content",
+            "warning": "Please enter your inquiry content"
+        },
+        "photo": {
+            "label": "Upload Issue Image",
+            "placeholder": "Please upload a photo",
+            "warning": "Please upload an image",
+            "direction": "Click to upload a photo",
+            "limit": "(JPEG, PNG only, max 10MB)",
+            "invalidSize": "Image size must not exceed 10MB",
+            "invalidType": "Invalid image type (jpg, jpeg, png, gif only)"
+        },
+        "recaptchaValidation": "Please check 'I'm not a robot'"
+    },
+    "download": {
+        "title": "Identity Verification",
+        "description": "A verification code has been sent to {email}",
+        "code": {
+            "label": "Verification Code",
+            "placeholder": "Please enter the verification code",
+            "warning": "Please enter the verification code"
+        },
+        "tip": "Didn't receive the verification email? Please check your spam folder",
+        "success": "File downloaded successfully",
+        "countdown": "Resend in {time}",
+        "resend": "Resend"
     }
 }

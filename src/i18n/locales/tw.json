@@ -1,5 +1,5 @@
 {
-    "welcome": "你好 歡迎",
+    "welcome": "您好，{name}",
     "router": {
         "home": "首頁",
         "user-panel": "會員專區",
@@ -15,9 +15,258 @@
         "verify-email": "驗證信箱"
     },
     "global": {
-        "search": "查詢"
+        "save": "儲存",
+        "confirm": "確認",
+        "submit": "送出",
+        "search": "查詢",
+        "enter": "請輸入",
+        "select": "請選擇",
+        "other": "其他",
+        "reset": "重置",
+        "forgot": "忘記密碼",
+        "login": "登入",
+        "logout": "登出",
+        "back": "返回",
+        "title": "報告下載專區",
+        "remember-me": "記住我",
+        "all": "全部",
+        "totalPages": "共 {total} 頁",
+        "currentPage": "第 {current} / {total} 頁",
+        "download": "下載",
+        "language": {
+            "zh-tw": "繁體中文",
+            "zh-cn": "簡體中文",
+            "en": "English"
+        }
+    },
+    "login": {
+        "email": {
+            "placeholder": "會員帳號(Email)",
+            "warning": "請輸入電子郵件地址",
+            "invalid": "格式不正確"
+        },
+        "password": {
+            "placeholder": "密碼，8碼以上英數混合且1碼大寫",
+            "warning": "請輸入密碼"
+        }
+    },
+    "forgot-password": {
+        "description": "請輸入您的會員帳號 (Email)，我們將發送重設密碼信件給您",
+        "submit": "確認送出",
+        "back": "返回登入頁",
+        "email": {
+            "label": "Email(帳號)",
+            "placeholder": "請輸入電子信箱",
+            "warning": "請輸入電子郵件地址",
+            "invalid": "格式不正確"
+        }
+    },
+    "reset-password": {
+        "description": "請填入新的密碼，完成後須以新密碼登入系統",
+        "password": {
+            "label": "請輸入新密碼",
+            "placeholder": "密碼，8碼以上英數混合且1碼需大寫",
+            "warning": "請輸入新密碼",
+            "invalid": "必須包含至少一個大寫字母、一個小寫字母和一個數字，並且長度至少為 8 個字元"
+        },
+        "confirm-password": {
+            "label": "確認新密碼",
+            "placeholder": "請再次輸入新密碼",
+            "warning": "請再次輸入新密碼",
+            "invalid": "密碼不一致"
+        },
+        "submit": "確認變更"
     },
     "home": {
-        "news-title": "最新公告"
+        "news-title": "最新公告",
+        "product-title": "產品列表"
+    },
+    "user-panel": {
+        "company-info": {
+            "title": "公司資訊",
+            "name": "所屬公司",
+            "webURL": "公司網站",
+            "region": "公司所在國家",
+            "address": "公司地址"
+        },
+        "user-info": {
+            "title": "個人資訊",
+            "email": {
+                "label": "帳號(Email)",
+                "placeholder": "請輸入您的電子郵件地址",
+                "warning": "請輸入電子郵件地址"
+            },
+            "name": {
+                "label": "會員名稱",
+                "placeholder": "請輸入您的姓名",
+                "warning": "請輸入您的姓名"
+            },
+            "jobTitle": {
+                "label": "職稱",
+                "placeholder": "請輸入您的職稱",
+                "warning": "請輸入您的職稱"
+            },
+            "phone": {
+                "label": "聯絡電話",
+                "placeholder": "請輸入您的聯絡電話",
+                "warning": "請輸入聯絡電話"
+            },
+            "messagingApp": {
+                "label": "通訊軟體",
+                "placeholder": "請選擇"
+            },
+            "messagingAppId": {
+                "label": "通訊軟體ID",
+                "placeholder": "請輸入通訊軟體ID",
+                "warning": "請輸入通訊軟體ID"
+            },
+            "messagingAppCustomName": {
+                "label": "通訊軟體名稱",
+                "placeholder": "請輸入通訊軟體名稱",
+                "warning": "請輸入通訊軟體名稱"
+            }
+        },
+        "sub-accounts": {
+            "solarEnergySubAccounts": "子帳號列表-太陽能",
+            "storedEnergySubAccounts": "子帳號列表-儲能",
+            "memo": "* 如須修改，請洽負責業務或來信 service@infolink-group.com"
+        }
+    },
+    "user-reset-password": {
+        "old-password": {
+            "label": "舊密碼",
+            "placeholder": "請輸入舊密碼",
+            "warning": "請輸入舊密碼"
+        },
+        "new-password": {
+            "label": "新密碼",
+            "placeholder": "請輸入新密碼",
+            "warning": "請輸入新密碼",
+            "invalid": "必須包含至少一個大寫字母、一個小寫字母和一個數字，並且長度至少為 8 個字元"
+        },
+        "confirm-password": {
+            "label": "確認密碼",
+            "placeholder": "請輸入新密碼",
+            "warning": "請再次輸入新密碼",
+            "invalid": "密碼不一致"
+        }
+    },
+    "user-contract": {
+        "category": {
+            "label": "購買報告項目",
+            "placeholder": "選擇報告項目"
+        },
+        "name": {
+            "label": " ",
+            "placeholder": "搜尋購買報告項目"
+        },
+        "table": {
+            "contractIssuedDate": "合約開立日",
+            "contractEffectiveDate": "合約生效日",
+            "contractExpiryDate": "合約到期日",
+            "contractItem": "購買報告項目"
+        }
+    },
+    "report-download": {
+        "industry": {
+            "label": "產業別",
+            "placeholder": "選擇產業"
+        },
+        "language": {
+            "label": "報告語系",
+            "placeholder": "選擇語系"
+        },
+        "period": {
+            "label": "期數",
+            "placeholderStart": "開始日期",
+            "placeholderEnd": "結束日期"
+        },
+        "category": {
+            "label": "報告名稱",
+            "placeholder": "選擇報告名稱"
+        },
+        "name": {
+            "label": " ",
+            "placeholder": "搜尋報告名稱"
+        },
+        "table": {
+            "industry": "產業別",
+            "language": "語系",
+            "reportName": "報告名稱",
+            "period": "期數",
+            "fileType": "檔案類型",
+            "publishTime": "發布時間",
+            "downloadCount": "下載次數"
+        },
+        "manual": {
+            "zh-tw": "巨集使用說明書(中文)",
+            "en": "巨集使用說明書(英文)"
+        }
+    },
+    "contact": {
+        "greeting": "感謝您的造訪。",
+        "description": "請於下方表格說明您的疑問或需求，並留下您的聯絡方式，我們會有專人回覆您的問題。",
+        "contact-us": "與我們聯繫：",
+        "salesService": "售後服務",
+        "businessContact": "業務聯繫",
+        "email": {
+            "label": "帳號(Email)",
+            "placeholder": "請輸入電子信箱",
+            "warning": "請輸入電子信箱",
+            "invalid": "格式不正確"
+        },
+        "name": {
+            "label": "會員名稱",
+            "placeholder": "請輸入姓名",
+            "warning": "請輸入姓名"
+        },
+        "company": {
+            "label": "所屬公司",
+            "placeholder": "請輸入公司名稱",
+            "warning": "請輸入公司名稱"
+        },
+        "phone": {
+            "label": "聯絡電話",
+            "placeholder": "請輸入聯絡電話",
+            "warning": "請輸入聯絡電話"
+        },
+        "title": {
+            "label": "主旨",
+            "placeholder": "請選擇主旨",
+            "warning": "請選擇主旨"
+        },
+        "category": {
+            "label": "詢問類別",
+            "placeholder": "請選擇",
+            "warning": "請選擇詢問類別"
+        },
+        "content": {
+            "label": "詢問內容",
+            "placeholder": "請輸入詢問內容",
+            "warning": "請輸入詢問內容"
+        },
+        "photo": {
+            "label": "問題圖片上傳",
+            "placeholder": "請上傳照片",
+            "warning": "請上傳圖片",
+            "direction": "請點擊上傳照片",
+            "limit": "(僅限JPEG、PNG，且不得超過10mb)",
+            "invalidSize": "圖片尺寸不得超過 10MB",
+            "invalidType": "不符合圖片類型(jpg,jpeg,png,gif)"
+        },
+        "recaptchaValidation": "請勾選我不是機器人"
+    },
+    "download": {
+        "title": "身份驗證",
+        "description": "已將驗證碼碼發送到 {email}",
+        "code": {
+            "label": "驗證碼",
+            "placeholder": "請輸入驗證碼",
+            "warning": "請輸入驗證碼"
+        },
+        "tip": "沒收到驗證信件？ 請先確認您的垃圾郵件",
+        "success": "檔案下載成功",
+        "countdown": "倒數 {time} 重發",
+        "resend": "重新發送驗證信"
     }
 }

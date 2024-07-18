@@ -27,8 +27,8 @@ export default defineComponent({
         const formColumns = ref<ColumnsInterface<ForgotPasswordFormPropType>[]>([
             {
                 prop: "email",
-                label: "Email(帳號)",
-                placeholder: "請輸入電子信箱",
+                label: t("forgot-password.email.label"),
+                placeholder: t("forgot-password.email.placeholder"),
                 style: "input",
             },
         ]);
@@ -67,9 +67,9 @@ export default defineComponent({
             <section>
                 <div class="container">
                     <div class="w-full sm:w-fit mx-auto mb-12">
-                        <h3 class="font-bold text-center text-[22px] md:text-[28px] mb-5">忘記密碼</h3>
-                        <p class="mb-7 text-center text-[15px]">請輸入您的會員帳號 (Email)，我們將發送重設密碼信件給您</p>
-                        <el-form class="login-form sm:w-[400px]" ref={formRefDom} model={form.value} rules={rules.value} require-asterisk-position="right">
+                        <h3 class="font-bold text-center text-[22px] md:text-[28px] mb-5">{t("router.forgot-password")}</h3>
+                        <p class="mb-7 text-center text-[15px]">{t("forgot-password.description")}</p>
+                        <el-form class="login-form sm:w-[400px] mx-auto" ref={formRefDom} model={form.value} rules={rules.value} require-asterisk-position="right">
                             <div class="grid gap-5">
                                 {formColumns.value.map((item) => (
                                     <el-form-item prop={item.prop} label={item.label}>
@@ -79,10 +79,10 @@ export default defineComponent({
 
                                 <div class="flex flex-col gap-4 justify-center mt-4">
                                     <button onClick={() => onSubmit()} class="yellow-btn full">
-                                        確認送出
+                                        {t("forgot-password.submit")}
                                     </button>
                                     <RouterLink to={{ name: "login", params: { slug: t(`router.login`) } }}>
-                                        <button class="transparent-btn w-full">返回登入頁</button>
+                                        <button class="transparent-btn w-full">{t("forgot-password.back")}</button>
                                     </RouterLink>
                                 </div>
                             </div>

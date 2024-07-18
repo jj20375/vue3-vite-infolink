@@ -15,6 +15,6 @@ export default {
         code: "cn",
         iso: "zh-CN",
         file: "tw.json",
-        name: "簡中",
+        name: "简中",
     },
 };

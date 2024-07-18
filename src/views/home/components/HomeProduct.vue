@@ -1,6 +1,6 @@
 <template>
     <div class="border-gray-600 border bg-white p-4 xl:p-9 rounded-[4px]">
-        <h3 class="text-[20px] sm:text-[24px] font-semibold tracking-wider">產品列表</h3>
+        <h3 class="text-[20px] sm:text-[24px] font-semibold tracking-wider">{{t("home.product-title")}}</h3>
         <div class="mt-3 mb-5 bg-yellow-900 w-full h-[3px]"></div>
         <div class="w-[calc(100vw-72px)] xl:w-full">
             <el-tabs v-model="activeTab" class="custom-tab">
@@ -27,6 +27,8 @@
 import { useRoute } from "vue-router";
 import { ref } from "vue";
 import Pagination from "@/components/Pagination.vue";
+import {useI18n} from "vue-i18n";
+const { t } = useI18n();
 
 interface Props {
     datas: {

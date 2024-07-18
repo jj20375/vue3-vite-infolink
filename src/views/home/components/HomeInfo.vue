@@ -29,6 +29,8 @@
 import { useRoute } from "vue-router";
 import { ref } from "vue";
 import Pagination from "@/components/Pagination.vue";
+import {useI18n} from "vue-i18n";
+const { t } = useI18n();
 
 interface Props {
     datas: {

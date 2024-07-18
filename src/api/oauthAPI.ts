@@ -1,5 +1,9 @@
 import axios from "@/services/axiosConfig";
-import type { AuthLoginEmailVerfiyCodeAPIInterface, AuthResendLoginEmailVerifyCodeAPIInterface, AuthResetPasswordInterface } from "@/views/auth/interface/authInterface";
+import type {
+    AuthLoginEmailVerfiyCodeAPIInterface,
+    AuthResendLoginEmailVerifyCodeAPIInterface,
+    AuthResetPasswordInterface,
+} from "@/views/auth/interface/authInterface";
 const apiURL = import.meta.env.VITE_API_URL;
 
 /**
@@ -15,14 +19,18 @@ export function AuthUserLoginAPI(data: any) {
 /**
  * 驗證登入信箱身份驗證碼
  */
-export function AuthLoginEmailVerfiyCodeAPI(data: AuthLoginEmailVerfiyCodeAPIInterface) {
+export function AuthLoginEmailVerfiyCodeAPI(
+    data: AuthLoginEmailVerfiyCodeAPIInterface
+) {
     return axios.post(`${apiURL}/member/verify-login-verification-code`, data);
 }
 
 /**
  * 重發登入信箱驗證碼
  */
-export function AuthResendLoginEmailVerifyCodeAPI(data: AuthResendLoginEmailVerifyCodeAPIInterface) {
+export function AuthResendLoginEmailVerifyCodeAPI(
+    data: AuthResendLoginEmailVerifyCodeAPIInterface
+) {
     return axios.post(`${apiURL}/member/send-login-verification-code`, data);
 }
 
