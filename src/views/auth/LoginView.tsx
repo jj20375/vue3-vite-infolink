@@ -190,7 +190,7 @@ export default {
                                     </div>
                                     <button
                                         class="yellow-btn mt-4 !w-full"
-                                        onClick={() => onSubmit()}
+                                        onClick={onSubmit}
                                     >
                                         {t("global.login")}
                                     </button>

@@ -3,6 +3,8 @@ import { validatePassword } from "@/services/formValidator";
 import type { ColumnsInterface } from "@/interface/global.d";
 import type { FormInstance } from "element-plus";
 import { useI18n } from "vue-i18n";
+import { AuthResetInitPasswordAPI } from "@/api/oauthAPI";
+import type { AuthResetPasswordInterface } from "../interface/authInterface";
 
 export default defineComponent({
     name: "ResetPasswordView",
@@ -95,13 +97,25 @@ export default defineComponent({
             }
             try {
                 await formRefDom.value.validate();
-                await resetPassword(form.value);
+                const sendData: AuthResetPasswordInterface = {
+                    password: form.value.newPassword,
+                    password_confirmation: form.value.newPasswordConfirmation,
+                };
+                await authResetInitPassword(sendData);
             } catch (err) {}
         }
 
-        async function resetPassword(form: ResetPasswordFormInterface) {
+        /**
+         * 重設初始話密碼
+         * @param form
+         */
+        async function authResetInitPassword(form: AuthResetPasswordInterface) {
             try {
-            } catch (err) {}
+                const { data } = await AuthResetInitPasswordAPI(form);
+                console.log("AuthResetInitPasswordAPI data =>", data);
+            } catch (err) {
+                console.log("AuthResetInitPasswordAPI err =>", err);
+            }
         }
 
         return () => (
