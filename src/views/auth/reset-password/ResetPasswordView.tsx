@@ -1,17 +1,25 @@
 import { computed, defineComponent, ref } from "vue";
-import { useRouter } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 import { validatePassword } from "@/services/formValidator";
 import type { ColumnsInterface } from "@/interface/global.d";
 import type { FormInstance } from "element-plus";
 import { useI18n } from "vue-i18n";
-import { AuthResetInitPasswordAPI } from "@/api/oauthAPI";
-import type { AuthResetPasswordInterface } from "../interface/authInterface";
+import {
+    AuthResetInitPasswordAPI,
+    AuthForgotPasswordSetNewPasswordAPI,
+} from "@/api/oauthAPI";
+import type {
+    AuthResetPasswordInterface,
+    AuthForgotPasswordSetNewPasswordAPIInterface,
+} from "../interface/authInterface";
+import { ElMessage } from "element-plus";
 
 export default defineComponent({
     name: "ResetPasswordView",
     props: {},
     emits: [],
     setup(props, { emit }) {
+        const route = useRoute();
         const router = useRouter();
         const { t } = useI18n();
         type ResetPasswordFormPropType =
@@ -99,11 +107,28 @@ export default defineComponent({
             }
             try {
                 await formRefDom.value.validate();
-                const sendData: AuthResetPasswordInterface = {
-                    password: form.value.newPassword,
-                    password_confirmation: form.value.newPasswordConfirmation,
-                };
-                await authResetInitPassword(sendData);
+                if (route.query.email) {
+                    console.log("reset password query =>", route.query);
+                    const sendData: AuthResetPasswordInterface & {
+                        email: string;
+                        token: string;
+                    } = {
+                        email: route.query.email as string,
+                        token: route.query.token as string,
+                        password: form.value.newPassword,
+                        password_confirmation:
+                            form.value.newPasswordConfirmation,
+                    };
+                    await authForgotPasswordSetNewPassword(sendData);
+                } else {
+                    const sendData: AuthResetPasswordInterface = {
+                        password: form.value.newPassword,
+                        password_confirmation:
+                            form.value.newPasswordConfirmation,
+                    };
+
+                    await authResetInitPassword(sendData);
+                }
             } catch (err) {}
         }
 
@@ -115,12 +140,29 @@ export default defineComponent({
             try {
                 const { data } = await AuthResetInitPasswordAPI(form);
                 console.log("AuthResetInitPasswordAPI data =>", data);
+                ElMessage({
+                    type: "success",
+                    message: t("global.success.change"),
+                });
                 router.push({
                     name: "login",
                     params: { slug: t("router.login") },
                 });
             } catch (err) {
                 console.log("AuthResetInitPasswordAPI err =>", err);
+            }
+        }
+
+        /**
+         * 重設忘記密碼
+         */
+        async function authForgotPasswordSetNewPassword(
+            form: AuthForgotPasswordSetNewPasswordAPIInterface
+        ) {
+            try {
+                await AuthForgotPasswordSetNewPasswordAPI(form);
+            } catch (err) {
+                console.log("AuthForgotPasswordSetNewPasswordAPI err =>", err);
             }
         }
 

@@ -1,23 +1,70 @@
 <template>
-    <el-dialog class="custom-dialog" close-on-click-modal lock-scroll :show-close="false" :width="500" center align-center append-to-body v-model="showDialog" :before-close="closeDialog">
+    <el-dialog
+        class="custom-dialog"
+        close-on-click-modal
+        lock-scroll
+        :show-close="false"
+        :width="500"
+        center
+        align-center
+        append-to-body
+        v-model="showDialog"
+        :before-close="closeDialog"
+    >
         <template v-if="viewPage === 1">
-            <h2 class="text-black-800 text-center font-semibold text-[24px] mt-4 mb-4">{{ t("download.title") }}</h2>
-            <p class="text-black-800 text-center text-[15px]"> {{ t("download.description",{email: user.email}) }}</p>
-            <el-form class="flex gap-2 mt-8 login-form" ref="formRefDom" :model="form" :rules="rules">
+            <h2
+                class="text-black-800 text-center font-semibold text-[24px] mt-4 mb-4"
+            >
+                {{ t("auth-verify.title") }}
+            </h2>
+            <p class="text-black-800 text-center text-[15px]">
+                {{ t("auth-verify.description", { email: user.email }) }}
+            </p>
+            <el-form
+                class="flex gap-2 mt-8 login-form"
+                ref="formRefDom"
+                :model="form"
+                :rules="rules"
+            >
                 <el-form-item prop="verificationCode" class="flex-1">
-                    <el-input v-model="form.verificationCode" :placeholder="t('download.code.placeholder')" />
+                    <el-input
+                        v-model="form.verificationCode"
+                        :placeholder="t('auth-verify.code.placeholder')"
+                    />
                 </el-form-item>
-                <VerificationButton :restarter="true" @resendVerification="resendVerification" ref="verificationButtonRef" />
+                <VerificationButton
+                    :restarter="true"
+                    @resendVerification="resendVerification"
+                    ref="verificationButtonRef"
+                />
             </el-form>
-            <div class="mt-4 text-center">{{ t("download.tip") }}</div>
+            <div class="mt-4 text-center">{{ t("auth-verify.tip") }}</div>
             <div class="flex flex-col gap-4 mt-6 md:flex-row">
-                <button class="order-2 w-full border-btn md:order-1" @click="closeDialog">{{ t("global.back") }}</button>
-                <button class="order-1 w-full yellow-btn md:order-2" @click="onSubmit">{{ t("global.confirm") }}</button>
+                <button
+                    class="order-2 w-full border-btn md:order-1"
+                    @click="closeDialog"
+                >
+                    {{ t("global.back") }}
+                </button>
+                <button
+                    class="order-1 w-full yellow-btn md:order-2"
+                    @click="onSubmit"
+                >
+                    {{ t("global.confirm") }}
+                </button>
             </div>
         </template>
         <template v-else-if="viewPage === 2">
-            <Vue3Lottie animationLink="/json/check.json" :height="100" :width="100" />
-            <h2 class="text-black-800 text-center font-semibold text-[24px] mt-4 mb-4">{{ t("download.success") }}</h2>
+            <Vue3Lottie
+                animationLink="/json/check.json"
+                :height="100"
+                :width="100"
+            />
+            <h2
+                class="text-black-800 text-center font-semibold text-[24px] mt-4 mb-4"
+            >
+                {{ t("auth-verify.success") }}
+            </h2>
         </template>
     </el-dialog>
 </template>
@@ -68,7 +115,7 @@ const rules = ref({
     verificationCode: [
         {
             required: true,
-            message: t("download.code.warning"),
+            message: t("auth-verify.code.warning"),
             trigger: ["change", "blur"],
         },
     ],

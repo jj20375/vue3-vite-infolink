@@ -48,7 +48,8 @@ const router: Array<RouteRecordRaw> = [
         name: "forgot-password",
         meta: {},
         components: {
-            default: async () => await import("@/views/auth/forgot-password/ForgotPasswordView"),
+            default: async () =>
+                await import("@/views/auth/forgot-password/ForgotPasswordView"),
             DefaultHeader: LayoutDefaultHeader,
             DefaultFooter: LayoutDefaultFooter,
         },
@@ -56,11 +57,10 @@ const router: Array<RouteRecordRaw> = [
     {
         path: "/auth/reset-password/:slug",
         name: "reset-password",
-        meta: {
-            requiresAuth: true,
-        },
+        meta: {},
         components: {
-            default: async () => await import("@/views/auth/reset-password/ResetPasswordView"),
+            default: async () =>
+                await import("@/views/auth/reset-password/ResetPasswordView"),
             DefaultHeader: LayoutDefaultHeader,
             DefaultFooter: LayoutDefaultFooter,
         },
@@ -70,7 +70,8 @@ const router: Array<RouteRecordRaw> = [
         name: "verify-email",
         meta: {},
         components: {
-            default: async () => await import("@/views/auth/verify-email/VerifyEmailView"),
+            default: async () =>
+                await import("@/views/auth/verify-email/VerifyEmailView"),
             DefaultHeader: LayoutDefaultHeader,
             DefaultFooter: LayoutDefaultFooter,
         },
@@ -82,6 +83,12 @@ const router: Array<RouteRecordRaw> = [
         component: NotFoundView,
     },
     // 将匹配所有内容并将其放在 `route.params.pathMatch` 下
-    { path: "/:pathMatch(.*)*", name: "NotFound", meta: {}, component: NotFoundView, redirect: { name: "404" } },
+    {
+        path: "/:pathMatch(.*)*",
+        name: "NotFound",
+        meta: {},
+        component: NotFoundView,
+        redirect: { name: "404" },
+    },
 ];
 export default router;

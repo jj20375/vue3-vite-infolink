@@ -37,6 +37,9 @@
             "zh-tw": "Traditional Chinese",
             "zh-cn": "Simplified Chinese",
             "en": "English"
+        },
+        "success": {
+            "change": "變更成功(en)"
         }
     },
     "login": {
@@ -256,7 +259,7 @@
         },
         "recaptchaValidation": "Please check 'I'm not a robot'"
     },
-    "download": {
+    "auth-verify": {
         "title": "Identity Verification",
         "description": "A verification code has been sent to {email}",
         "code": {
