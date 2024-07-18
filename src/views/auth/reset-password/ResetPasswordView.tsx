@@ -1,4 +1,5 @@
 import { computed, defineComponent, ref } from "vue";
+import { useRouter } from "vue-router";
 import { validatePassword } from "@/services/formValidator";
 import type { ColumnsInterface } from "@/interface/global.d";
 import type { FormInstance } from "element-plus";
@@ -11,6 +12,7 @@ export default defineComponent({
     props: {},
     emits: [],
     setup(props, { emit }) {
+        const router = useRouter();
         const { t } = useI18n();
         type ResetPasswordFormPropType =
             | "newPassword"
@@ -113,6 +115,10 @@ export default defineComponent({
             try {
                 const { data } = await AuthResetInitPasswordAPI(form);
                 console.log("AuthResetInitPasswordAPI data =>", data);
+                router.push({
+                    name: "login",
+                    params: { slug: t("router.login") },
+                });
             } catch (err) {
                 console.log("AuthResetInitPasswordAPI err =>", err);
             }

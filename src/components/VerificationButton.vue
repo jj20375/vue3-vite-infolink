@@ -1,7 +1,21 @@
 <template>
     <div class="flex items-center">
-        <div class="bg-transparent w-[125px] border tracking-wide border-black-300 rounded-full transition-all duration-300 py-1 text-center text-[14px] " @click="restartTimer" :class="countdownTimer > 0 ? 'cursor-not-allowed text-black-300':'cursor-pointer text-black-800 hover:border-black-800'">
-            {{ countdownTimer > 0 ?  t("download.countdown", { time: formatTime(countdownTimer)}) : t("download.resend") }}
+        <div
+            class="bg-transparent w-[125px] border tracking-wide border-black-300 rounded-full transition-all duration-300 py-1 text-center text-[14px]"
+            @click="restartTimer"
+            :class="
+                countdownTimer > 0
+                    ? 'cursor-not-allowed text-black-300'
+                    : 'cursor-pointer text-black-800 hover:border-black-800'
+            "
+        >
+            {{
+                countdownTimer > 0
+                    ? t("download.countdown", {
+                          time: formatTime(countdownTimer),
+                      })
+                    : t("download.resend")
+            }}
         </div>
     </div>
 </template>
@@ -15,7 +29,7 @@ let timerId: any; // 用於儲存計時器的 ID
 const emit = defineEmits(["resendVerification"]);
 
 const props = defineProps({
-    restarter: {
+    startCount: {
         type: Boolean,
         default() {
             return true;
@@ -30,7 +44,9 @@ const props = defineProps({
 const formatTime = (time: number) => {
     const minutes = Math.floor(time / 60);
     const seconds = time % 60;
-    return `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+    return `${minutes.toString().padStart(2, "0")}:${seconds
+        .toString()
+        .padStart(2, "0")}`;
 };
 
 const startTimer = () => {
@@ -71,11 +87,11 @@ const resetTimer = () => {
 
 // 在組件被掛載後啟動計時器
 onMounted(() => {
-    if (props.restarter) {
+    if (props.startCount) {
         emit("resendVerification");
         startTimer();
     } else {
-        countdownTimer.value = 0
+        countdownTimer.value = 0;
     }
 });
 
@@ -94,8 +110,8 @@ defineExpose({
 </script>
 
 <style lang="scss" scoped>
-.yellow-btn{
-    &.is-disabled{
+.yellow-btn {
+    &.is-disabled {
         @apply bg-gray-100 text-gray-700 cursor-not-allowed;
     }
 }
