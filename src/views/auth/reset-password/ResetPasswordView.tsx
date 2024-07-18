@@ -78,7 +78,8 @@ export default defineComponent({
             ],
         });
 
-        async function onSubmit() {
+        async function onSubmit(event: Event) {
+            event.preventDefault();
             if (!formRefDom.value) {
                 return;
             }
@@ -123,7 +124,7 @@ export default defineComponent({
                                     );
                                 })}
                                 <div class="flex flex-col gap-4 justify-center mt-4">
-                                    <button onClick={() => onSubmit()} class="yellow-btn w-full">
+                                    <button onClick={onSubmit} class="yellow-btn w-full">
                                         送出
                                     </button>
                                 </div>

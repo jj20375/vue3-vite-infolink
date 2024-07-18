@@ -38,7 +38,7 @@ router.beforeEach(async (to: RouteLocationNormalized, from: RouteLocationNormali
         return {
             name: "login",
             params: { slug: "會員登入" },
-            // 保存我们所在的位置，以便以后再来
+            // 保存我们所在的位置，以便返回 token 失效前查看的畫面
             query: { redirect: to.fullPath },
         };
     }

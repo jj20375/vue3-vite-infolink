@@ -4,6 +4,7 @@ import type { FormInstance } from "element-plus";
 import type { AuthLoginEmailVerfiyCodeAPIInterface, AuthResendLoginEmailVerifyCodeAPIInterface } from "../interface/authInterface";
 import { AuthLoginEmailVerfiyCodeAPI, AuthResendLoginEmailVerifyCodeAPI } from "@/api/oauthAPI";
 import { useUserStore } from "@/stores/userStore";
+import { setStorage } from "@/services/localStorage";
 
 export default defineComponent({
     name: "AuthEmailVerify",
@@ -61,7 +62,7 @@ export default defineComponent({
                     email: props.email,
                     verification_code: form.value.verificationCode,
                 };
-                // await authLoginEmailVerifyCode(sendData)
+                await authLoginEmailVerifyCode(sendData);
             } catch (err) {}
         }
 
@@ -72,8 +73,12 @@ export default defineComponent({
         async function authLoginEmailVerifyCode(form: AuthLoginEmailVerfiyCodeAPIInterface) {
             try {
                 const { data } = await AuthLoginEmailVerfiyCodeAPI(form);
+                setStorage("token", data.data.access_token);
                 console.log("AuthLoginEmailVerfiyCodeAPI data =>", data);
-                await userStore.getUserPorfile();
+                closeDialog();
+                setTimeout(async () => {
+                    await userStore.getUserPorfile();
+                }, 1000);
             } catch (err) {
                 console.log("AuthLoginEmailVerfiyCodeAPI err =>", err);
             }
@@ -105,7 +110,7 @@ export default defineComponent({
                         <el-form-item prop="verificationCode" class="flex-1">
                             <el-input v-model={form.value.verificationCode} placeholder="請輸入驗證碼" />
                         </el-form-item>
-                        <VerificationButton startCount={true} onResendVerification={() => authResendLoginEmailVerifyCode} ref={verificationButtonRef} />
+                        <VerificationButton startCount={true} onResendVerification={() => authResendLoginEmailVerifyCode({ email: props.email })} ref={verificationButtonRef} />
                     </el-form>
                     <div class="mt-4 text-center">沒收到驗證信件？ 請先確認您的垃圾郵件</div>
                     <div class="flex flex-col gap-4 mt-6 md:flex-row">

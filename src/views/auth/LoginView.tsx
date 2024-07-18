@@ -33,8 +33,8 @@ export default {
         const formRefDom = ref<FormInstance | null>(null);
 
         const form = ref<LoginForm>({
-            email: "admin@admin.cc",
-            password: "Aa168168",
+            email: "ceshi@admin.cc",
+            password: "Aa123123",
             saveInfo: false,
         });
 
@@ -95,14 +95,12 @@ export default {
         }
 
         async function onSubmit(event: Event) {
-            console.log("event =->", event);
             event.preventDefault();
             if (!formRefDom.value) {
                 return;
             }
             try {
                 await formRefDom.value.validate();
-                console.log("authEmailVerifyRefDom.value =>", authEmailVerifyRefDom.value);
                 await login(form.value);
                 authEmailVerifyRefDom.value!.openDialog();
                 // await getPermissionRouter();

@@ -13,7 +13,7 @@ instance.interceptors.request.use(
     (config) => {
         config.headers["Accept-Language"] = getStorage("lang") || "zh-TW";
         if (getStorage("token") !== null) {
-            config.headers.Authorization = getStorage("token");
+            config.headers.Authorization = `Bearer ${getStorage("token")}`;
         }
         return config;
     },

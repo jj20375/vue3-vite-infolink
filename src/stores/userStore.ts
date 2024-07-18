@@ -3,8 +3,13 @@ import { defineStore } from "pinia";
 import type { UserPanelUserInfoInterface, UserPanelCompanyInterface, UserPanelSubAccountsInterface } from "@/views/user-panel/user-info/interface/userInterface";
 import { removeStorage } from "@/services/localStorage";
 import { GetUserProfileAPI } from "@/api/userAPI";
+import { useRouter } from "vue-router";
+import { useI18n } from "vue-i18n";
 
 export const useUserStore = defineStore("userStore", () => {
+    const router = useRouter();
+    const { t } = useI18n();
+
     // 使用者資料
     const user = ref<UserPanelUserInfoInterface>({
         email: "test@gmail.com",
@@ -59,7 +64,12 @@ export const useUserStore = defineStore("userStore", () => {
      */
     async function getUserPorfile() {
         try {
-            const { data } = await GetUserProfileAPI();
+            const { data }: any = await GetUserProfileAPI();
+            // 判斷需要重設初始化密碼時
+            if (data.data.initial_password) {
+                return router.push({ name: "reset-password", params: { slug: t("router.reset-password") } });
+            }
+            user.value = data.data;
             console.log("GetUserProfileAPI data =>", data);
         } catch (err) {
             console.log("GetUserProfileAPI err =>", err);

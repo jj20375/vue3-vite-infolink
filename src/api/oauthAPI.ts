@@ -23,7 +23,7 @@ export function AuthLoginEmailVerfiyCodeAPI(data: AuthLoginEmailVerfiyCodeAPIInt
  * 重發登入信箱驗證碼
  */
 export function AuthResendLoginEmailVerifyCodeAPI(data: AuthResendLoginEmailVerifyCodeAPIInterface) {
-    return axios.post(`${apiURL}/member/resend-login-verification-code`, data);
+    return axios.post(`${apiURL}/member/send-login-verification-code`, data);
 }
 
 /**

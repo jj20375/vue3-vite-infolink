@@ -2,6 +2,7 @@ import LayoutMainLeftSidebar from "@/layouts/main/LayoutMainLeftSidebar";
 import LayoutMainHeader from "@/layouts/main/LayoutMainHeader";
 import IconHome from "@/components/icons/sidebar/IconHome.vue";
 import HomeView from "@/views/home/HomeView.vue";
+import LoginView from "@/views/auth/LoginView";
 import NotFoundView from "@/views/NotFoundView";
 import { markRaw } from "vue";
 import type { RouteRecordRaw } from "vue-router";
@@ -37,7 +38,7 @@ const router: Array<RouteRecordRaw> = [
         name: "login",
         meta: {},
         components: {
-            default: async () => await import("@/views/auth/LoginView"),
+            default: LoginView,
             DefaultHeader: LayoutDefaultHeader,
             DefaultFooter: LayoutDefaultFooter,
         },
@@ -55,7 +56,9 @@ const router: Array<RouteRecordRaw> = [
     {
         path: "/auth/reset-password/:slug",
         name: "reset-password",
-        meta: {},
+        meta: {
+            requiresAuth: true,
+        },
         components: {
             default: async () => await import("@/views/auth/reset-password/ResetPasswordView"),
             DefaultHeader: LayoutDefaultHeader,
