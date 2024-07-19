@@ -129,7 +129,7 @@
         "sub-accounts": {
             "solarEnergySubAccounts": "子帳號列表-太陽能",
             "storedEnergySubAccounts": "子帳號列表-儲能",
-            "memo": "* 如須修改，請洽負責業務或來信 service@infolink-group.com"
+            "memo": "* 如須修改，請洽負責業務或來信 { email }"
         }
     },
     "user-reset-password": {

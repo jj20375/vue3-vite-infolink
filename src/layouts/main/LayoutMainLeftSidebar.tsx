@@ -64,6 +64,7 @@ export default defineComponent({
         };
 
         const isActiveItem = (item: any, idx: number) => {
+            console.log(route.name === item?.path?.name || (item.children && item.children.some((child: any) => route.name === child.path.name)), item)
             return route.name === item?.path?.name || (item.children && item.children.some((child: any) => route.name === child.path.name)) || collapseMap.value[idx];
         };
 
@@ -163,7 +164,7 @@ export default defineComponent({
                             </button>
                         </div>
                         <div class={["px-6 sm:px-7 py-[27px] text-black-500 hover:text-black-900 duration-300 transition-all cursor-pointer", { hidden: expandMode.value || !isDesktop.value }]} onClick={() => setExpandMode()}>
-                            <button class="!w-[18px] !h-[18px]">
+                            <button class="block !w-[18px] !h-[18px]">
                                 <IconCollapse />
                             </button>
                         </div>
@@ -186,7 +187,7 @@ export default defineComponent({
                                                     exactActiveClass="font-medium text-black-900 before:absolute before:bg-yellow-900 before:top-0 before:left-0 before:h-full before:w-[4px] before:rounded-r-2xl fill-black-500"
                                                 >
                                                     <div class="flex items-center justify-between gap-3">
-                                                        <item.meta.icon class={["!w-[18px] !h-[18px]", isActiveItem(item, idx) ? "text-black-900" : "text-black-500"]} />
+                                                        <item.meta.icon class={["!w-[18px] !h-[18px]"]} />
                                                         <span class={["text-left flex-1", { "opacity-0": !expandMode.value && isDesktop.value }]}>{t(`router.${item.name as string}`)}</span>
                                                     </div>
                                                 </RouterLink>
@@ -195,9 +196,9 @@ export default defineComponent({
                                                 <div class={["relative block px-6 sm:px-7 py-4 text-[16px] text-black-500 hover:text-black-900 duration-300 transition-all"]}>
                                                     <div class="flex items-center justify-between gap-3">
                                                         <item.meta.icon class={["!w-[18px] !h-[18px]", isActiveItem(item, idx) ? "text-black-900" : "text-black-500"]} />
-                                                        <span class={["flex-1 text-left", { "opacity-0": !expandMode.value && isDesktop.value }]}>{t(`router.${item.name as string}`)}</span>
+                                                        <span class={["flex-1 text-left", isActiveItem(item, idx) ? "text-black-900 font-medium" : "text-black-500" , { "opacity-0": !expandMode.value && isDesktop.value }]}>{t(`router.${item.name as string}`)}</span>
                                                         <div class={["", { "opacity-0": !expandMode.value && isDesktop.value }]}>
-                                                            <div class={["", { "rotate-90": collapseMap.value[idx] }]}>{item.children && <IconArrowRight class={["w-[18px] h-[18px]", isActiveItem(item, idx) ? "text-black-900" : "text-black-500"]} />}</div>
+                                                            <div class={["transition-all duration-300", { "rotate-90": collapseMap.value[idx] }]}>{item.children && <IconArrowRight class={["w-[18px] h-[18px]", isActiveItem(item, idx) ? "text-black-900" : "text-black-500"]} />}</div>
                                                         </div>
                                                     </div>
                                                 </div>

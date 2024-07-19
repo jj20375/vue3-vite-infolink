@@ -294,12 +294,12 @@ export default defineComponent({
             {
                 prop: "solarEnergySubAccounts",
                 label: t('user-panel.sub-accounts.solarEnergySubAccounts'),
-                memo: t('user-panel.sub-accounts.memo'),
+                memo: t('user-panel.sub-accounts.memo', {email: 'service@infolink-group.com'}),
             },
             {
                 prop: "storedEnergySubAccounts",
                 label: t('user-panel.sub-accounts.storedEnergySubAccounts'),
-                memo: t('user-panel.sub-accounts.memo'),
+                memo: t('user-panel.sub-accounts.memo', {email: 'service@infolink-group.com'}),
             },
         ]);
 

@@ -1,12 +1,15 @@
 .custom-tab {
     .el-tabs__item {
         @apply px-[16px] xl:px-[20px] text-[16px] text-black-500 font-[400] h-[52px];
+        &:hover{
+            @apply text-black-800;
+        }
         &.is-active {
             @apply text-black-800 font-medium #{!important};
         }
     }
     .el-tabs__active-bar {
-        @apply h-[3px];
+        @apply h-[3px] bg-black-800;
     }
     .el-tabs__nav-wrap {
         @apply after:h-[1px];

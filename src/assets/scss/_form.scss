@@ -393,7 +393,7 @@
     .el-select-dropdown__list{
       @apply my-0 #{!important};
       .el-select-dropdown__item{
-        @apply font-normal h-auto px-4 py-1;
+        @apply font-normal h-auto px-4 py-1 text-black-700;
         &.is-hovering{
           @apply bg-yellow-50;
           &.is-selected{
@@ -401,7 +401,7 @@
           }
         }
         &.is-selected{
-          @apply bg-transparent;
+          @apply bg-transparent text-black-900;
         }
       }
     }
