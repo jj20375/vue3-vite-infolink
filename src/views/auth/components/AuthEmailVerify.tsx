@@ -12,6 +12,7 @@ import {
 import { useUserStore } from "@/stores/userStore";
 import { setStorage } from "@/services/localStorage";
 import { useI18n } from "vue-i18n";
+import { useRouter } from "vue-router";
 
 export default defineComponent({
     name: "AuthEmailVerify",
@@ -23,6 +24,7 @@ export default defineComponent({
     },
     emits: [],
     setup(props, { emit, expose }) {
+        const router = useRouter();
         const { t } = useI18n();
         const userStore = useUserStore();
         const showDialog = ref(false);
@@ -88,6 +90,10 @@ export default defineComponent({
                 closeDialog();
                 setTimeout(async () => {
                     await userStore.getUserPorfile();
+                    return router.push({
+                        name: "home",
+                        params: { slug: t("router.home") },
+                    });
                 }, 1000);
             } catch (err) {
                 console.log("AuthLoginEmailVerfiyCodeAPI err =>", err);

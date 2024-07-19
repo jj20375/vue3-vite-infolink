@@ -90,6 +90,7 @@ export const useUserStore = defineStore("userStore", () => {
             }
             user.value = data.data;
             console.log("GetUserProfileAPI data =>", data);
+            return data.data;
         } catch (err) {
             console.log("GetUserProfileAPI err =>", err);
         }
