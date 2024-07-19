@@ -80,7 +80,12 @@ const router: Array<RouteRecordRaw> = [
         path: "/404",
         name: "404",
         meta: {},
-        component: NotFoundView,
+        components: {
+            default: async () =>
+                await import("@/views/NotFoundView"),
+            DefaultHeader: LayoutDefaultHeader,
+            DefaultFooter: LayoutDefaultFooter,
+        },
     },
     // 将匹配所有内容并将其放在 `route.params.pathMatch` 下
     {

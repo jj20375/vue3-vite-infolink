@@ -32,7 +32,7 @@ const router = useRouter();
 const route = useRoute();
 const i18n = useI18n();
 // 使用預設樣板路由名稱
-const useDefaultLayoutRouteNames = ref(["login", "forgot-password", "reset-password"]);
+const useDefaultLayoutRouteNames = ref(["login", "forgot-password", "reset-password", "404"]);
 
 onMounted(() => {
     setStorage("lang", i18n.locale.value);
