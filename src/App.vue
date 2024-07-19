@@ -4,7 +4,7 @@
         <section class="flex">
             <RouterView name="MainLeftSideBar" />
             <div class="relative flex flex-col justify-between xl:flex-1 w-full min-h-[calc(100vh-72px)]">
-                <div class="absolute top-0 left-0 w-full h-full opacity-20 z-[-1]" style="background-image: url('img/layout/bg.svg'); background-attachment: fixed"></div>
+                <div class="absolute top-0 left-0 w-full h-full opacity-20 z-0 bg-cover" style="background-image: url('/img/layout/bg.svg'); background-attachment: fixed"></div>
                 <!-- {{ $t("welcome") }} -->
                 <RouterView />
                 <Footer />
@@ -32,7 +32,7 @@ const router = useRouter();
 const route = useRoute();
 const i18n = useI18n();
 // 使用預設樣板路由名稱
-const useDefaultLayoutRouteNames = ref(["login", "forgot-password", "reset-password", "404"]);
+const useDefaultLayoutRouteNames = ref(["login", "forgot-password", "reset-password", "404", "maintenance"]);
 
 onMounted(() => {
     setStorage("lang", i18n.locale.value);
