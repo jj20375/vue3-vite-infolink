@@ -2,6 +2,7 @@ import LayoutMainLeftSidebar from "@/layouts/main/LayoutMainLeftSidebar";
 import LayoutMainHeader from "@/layouts/main/LayoutMainHeader";
 import IconHome from "@/components/icons/sidebar/IconHome.vue";
 import HomeView from "@/views/home/HomeView.vue";
+import LoginView from "@/views/auth/LoginView";
 import NotFoundView from "@/views/NotFoundView";
 import { markRaw } from "vue";
 import type { RouteRecordRaw } from "vue-router";
@@ -24,6 +25,7 @@ const router: Array<RouteRecordRaw> = [
             icon: markRaw(IconHome),
             menu: true,
             sort: 1,
+            requiresAuth: true,
         },
         components: {
             default: HomeView,
@@ -36,7 +38,7 @@ const router: Array<RouteRecordRaw> = [
         name: "login",
         meta: {},
         components: {
-            default: async () => await import("@/views/auth/LoginView"),
+            default: LoginView,
             DefaultHeader: LayoutDefaultHeader,
             DefaultFooter: LayoutDefaultFooter,
         },
@@ -46,7 +48,8 @@ const router: Array<RouteRecordRaw> = [
         name: "forgot-password",
         meta: {},
         components: {
-            default: async () => await import("@/views/auth/forgot-password/ForgotPasswordView"),
+            default: async () =>
+                await import("@/views/auth/forgot-password/ForgotPasswordView"),
             DefaultHeader: LayoutDefaultHeader,
             DefaultFooter: LayoutDefaultFooter,
         },
@@ -56,7 +59,8 @@ const router: Array<RouteRecordRaw> = [
         name: "reset-password",
         meta: {},
         components: {
-            default: async () => await import("@/views/auth/reset-password/ResetPasswordView"),
+            default: async () =>
+                await import("@/views/auth/reset-password/ResetPasswordView"),
             DefaultHeader: LayoutDefaultHeader,
             DefaultFooter: LayoutDefaultFooter,
         },
@@ -66,7 +70,8 @@ const router: Array<RouteRecordRaw> = [
         name: "verify-email",
         meta: {},
         components: {
-            default: async () => await import("@/views/auth/verify-email/VerifyEmailView"),
+            default: async () =>
+                await import("@/views/auth/verify-email/VerifyEmailView"),
             DefaultHeader: LayoutDefaultHeader,
             DefaultFooter: LayoutDefaultFooter,
         },
@@ -78,6 +83,12 @@ const router: Array<RouteRecordRaw> = [
         component: NotFoundView,
     },
     // 将匹配所有内容并将其放在 `route.params.pathMatch` 下
-    { path: "/:pathMatch(.*)*", name: "NotFound", meta: {}, component: NotFoundView, redirect: { name: "404" } },
+    {
+        path: "/:pathMatch(.*)*",
+        name: "NotFound",
+        meta: {},
+        component: NotFoundView,
+        redirect: { name: "404" },
+    },
 ];
 export default router;

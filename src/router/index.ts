@@ -27,7 +27,7 @@ router.beforeEach(async (to: RouteLocationNormalized, from: RouteLocationNormali
     // 取得 localstorage token 判斷有 token 情況下 代表有登入
     const token = localStorage.getItem("token");
     // 有登入情況下
-    if (to.name === "auth-login" && token) {
+    if (to.name === "login" && token) {
         return {
             name: "home",
             params: { slug: "會員專區" },
@@ -36,9 +36,9 @@ router.beforeEach(async (to: RouteLocationNormalized, from: RouteLocationNormali
 
     if (to.meta.requiresAuth && !token) {
         return {
-            name: "auth-login",
+            name: "login",
             params: { slug: "會員登入" },
-            // 保存我们所在的位置，以便以后再来
+            // 保存我们所在的位置，以便返回 token 失效前查看的畫面
             query: { redirect: to.fullPath },
         };
     }

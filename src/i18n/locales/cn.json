@@ -37,6 +37,9 @@
             "zh-tw": "繁体中文",
             "zh-cn": "简体中文",
             "en": "English"
+        },
+        "success": {
+            "change": "變更成功(cn)"
         }
     },
     "login": {
@@ -256,7 +259,7 @@
         },
         "recaptchaValidation": "请勾选我不是机器人"
     },
-    "download": {
+    "auth-verify": {
         "title": "身份验证",
         "description": "已将验证码发送到 {email}",
         "code": {
