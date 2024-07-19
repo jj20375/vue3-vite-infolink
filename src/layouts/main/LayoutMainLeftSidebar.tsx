@@ -1,4 +1,4 @@
-import { defineComponent, ref, computed } from "vue";
+import { defineComponent, ref, computed, watch } from "vue";
 import { useRoute, useRouter, RouterLink } from "vue-router";
 import type { RouteRecordRaw } from "vue-router";
 import { useInitStore } from "@/stores/initStore";
@@ -53,10 +53,10 @@ export default defineComponent({
         };
 
         const collapseMap = ref<any>({});
-        const setCollapse = (idx: number) => {
+        const setCollapse = (idx: number, forceExpand: boolean = false) => {
             if (collapseMap.value[idx]) {
                 collapseMap.value[idx] = false;
-            } else {
+            } else if (!collapseMap.value[idx] || forceExpand) {
                 Object.keys(collapseMap.value).forEach((key) => {
                     collapseMap.value[parseInt(key)] = false;
                 });
@@ -65,8 +65,7 @@ export default defineComponent({
         };
 
         const isActiveItem = (item: any, idx: number) => {
-            console.log(route.name === item?.path?.name || (item.children && item.children.some((child: any) => route.name === child.path.name)), item)
-            return route.name === item?.path?.name || (item.children && item.children.some((child: any) => route.name === child.path.name)) || collapseMap.value[idx];
+            return route.name === item?.path?.name || (item.children && item.children.some((child: any) => route.name === child.name));
         };
 
         // 路由選單
@@ -84,6 +83,23 @@ export default defineComponent({
             }
             return [];
         });
+
+        watch(() => route.name, () => {
+            // 找到與當前路由名稱匹配的菜單項目
+            const activeItem = menuList.value.find(item =>
+                item.children && item.children.some(child => child.name === route.name)
+            );
+
+            if (activeItem) {
+                // 找到該項目在 menuList 中的索引
+                const activeIndex = menuList.value.indexOf(activeItem);
+
+                // 將該索引設置為活動狀態
+                if (!collapseMap.value[activeIndex]) {
+                    setCollapse(activeIndex, true);
+                }
+            }
+        }, {immediate: true});
 
         // 聯絡資料
         const contact = computed(() => {
@@ -204,7 +220,7 @@ export default defineComponent({
                                                 <div class={["relative block px-6 sm:px-7 py-4 text-[16px] text-black-500 hover:text-black-900 duration-300 transition-all"]}>
                                                     <div class="flex items-center justify-between gap-3">
                                                         <item.meta.icon class={["!w-[18px] !h-[18px]", isActiveItem(item, idx) ? "text-black-900" : "text-black-500"]} />
-                                                        <span class={["flex-1 text-left", isActiveItem(item, idx) ? "text-black-900 font-medium" : "text-black-500" , { "opacity-0": !expandMode.value && isDesktop.value }]}>{t(`router.${item.name as string}`)}</span>
+                                                        <span class={["flex-1 text-left", isActiveItem(item, idx) ? "text-black-900 font-medium before:absolute before:bg-yellow-900 before:top-0 before:left-0 before:h-full before:w-[4px] before:rounded-r-2xl" : "text-black-500" , { "opacity-0": !expandMode.value && isDesktop.value }]}>{t(`router.${item.name as string}`)}</span>
                                                         <div class={["", { "opacity-0": !expandMode.value && isDesktop.value }]}>
                                                             <div class={["transition-all duration-300", { "rotate-90": collapseMap.value[idx] }]}>{item.children && <IconArrowRight class={["w-[18px] h-[18px]", isActiveItem(item, idx) ? "text-black-900" : "text-black-500"]} />}</div>
                                                         </div>
