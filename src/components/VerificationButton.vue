@@ -11,10 +11,10 @@
         >
             {{
                 countdownTimer > 0
-                    ? t("download.countdown", {
+                    ? t("auth-verify.countdown", {
                           time: formatTime(countdownTimer),
                       })
-                    : t("download.resend")
+                    : t("auth-verify.resend")
             }}
         </div>
     </div>
