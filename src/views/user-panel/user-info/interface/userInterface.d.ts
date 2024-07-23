@@ -37,3 +37,18 @@ export interface UserPanelSubAccountsInterface {
     // 儲能相關子帳號
     storedEnergySubAccounts?: string[];
 }
+
+/**
+ * 更新個人資料 api
+ */
+export interface UserUpdateProfileAPIInterface {
+    // 姓名
+    name: string;
+    // 職稱
+    title: string;
+    phone: string;
+    // 通訊軟體名稱
+    im_name?: string;
+    // 通訊軟體 id
+    im_account?: string;
+}

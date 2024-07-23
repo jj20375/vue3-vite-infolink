@@ -82,10 +82,11 @@ export default defineComponent({
                                     class="block mx-auto"
                                     to={{ name: "index" }}
                                 >
-                                    <IconLogo2 />
-                                    {/* <img class="" src={initData.value.site.site_logo2
-
-                                    } alt={import.meta.env.WEB_SITE} /> */}
+                                    <img
+                                        class=""
+                                        src={initData.value.site.site_logo2}
+                                    />
+                                    {/* <IconLogo2 /> */}
                                 </RouterLink>
                                 <div class="relative flex w-[1px] h-[1rem] bg-black-700"></div>
                                 <div class="text-white">

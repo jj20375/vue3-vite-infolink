@@ -23,7 +23,9 @@ export default defineComponent({
             }
         }
         // 社群媒體
-        const socialMedias = computed<{ icons: { iconName: any; alt: string; url: string }[] }>(() => {
+        const socialMedias = computed<{
+            icons: { iconName: any; alt: string; url: string }[];
+        }>(() => {
             const arr: { iconName: any; alt: string; url: string }[] = [];
             if (initData.value.site.social_linkedin) {
                 arr.push({
@@ -67,34 +69,71 @@ export default defineComponent({
             <section>
                 <div class="relative py-[20px] xl:py-[30px] px-[20px] xl:px-[30px]">
                     <Breadcrumb />
-                    <h3 class="text-[28px] font-semibold mb-5 sm:mb-7">{t("router.contact")}</h3>
+                    <h3 class="text-[28px] font-semibold mb-5 sm:mb-7">
+                        {t("router.contact")}
+                    </h3>
                     <div class="flex flex-col lg:flex-row gap-12">
                         <ContactForm />
                         <div class="text-black-800 flex-1 mb-4 lg:mb-8">
                             <div class="sticky top-[98px]">
-                                <div class="font-medium mb-7">{t("contact.contact-us")}</div>
-                                <initData.value.site.site_logo />
-                                <div class="text-[15px] mt-[24px]">{initData.value.site.site_name}</div>
-                                <div class="text-[15px] mt-[6px] underline underline-offset-2 hover:no-underline">
-                                    <a href={`tel:${initData.value.site.contact_phone}`}>{initData.value.site.contact_phone}</a>
+                                <div class="font-medium mb-7">
+                                    {t("contact.contact-us")}
+                                </div>
+                                <img
+                                    src={initData.value.site.site_logo}
+                                    alt=""
+                                />
+                                {/* <initData.value.site.site_logo /> */}
+                                <div class="text-[15px] mt-[24px]">
+                                    {initData.value.site.site_name}
                                 </div>
                                 <div class="text-[15px] mt-[6px] underline underline-offset-2 hover:no-underline">
-                                    <a href={initData.value.site.contact_google_map} target="_blank">
+                                    <a
+                                        href={`tel:${initData.value.site.contact_phone}`}
+                                    >
+                                        {initData.value.site.contact_phone}
+                                    </a>
+                                </div>
+                                <div class="text-[15px] mt-[6px] underline underline-offset-2 hover:no-underline">
+                                    <a
+                                        href={
+                                            initData.value.site
+                                                .contact_google_map
+                                        }
+                                        target="_blank"
+                                    >
                                         {initData.value.site.contact_address}
                                     </a>
                                 </div>
-                                <div class="mt-6">{t("contact.salesService")}</div>
-                                <div class="text-[15px] underline underline-offset-2 hover:no-underline">
-                                    <a href={`mailto:${initData.value.site.contact_email}`}>{initData.value.site.contact_email}</a>
+                                <div class="mt-6">
+                                    {t("contact.salesService")}
                                 </div>
-                                <div class="mt-6">{t("contact.businessContact")}</div>
                                 <div class="text-[15px] underline underline-offset-2 hover:no-underline">
-                                    <a href={`mailto:${initData.value.site.contact_email}`}>{initData.value.site.contact_sales}</a>
+                                    <a
+                                        href={`mailto:${initData.value.site.contact_email}`}
+                                    >
+                                        {initData.value.site.contact_email}
+                                    </a>
+                                </div>
+                                <div class="mt-6">
+                                    {t("contact.businessContact")}
+                                </div>
+                                <div class="text-[15px] underline underline-offset-2 hover:no-underline">
+                                    <a
+                                        href={`mailto:${initData.value.site.contact_email}`}
+                                    >
+                                        {initData.value.site.contact_sales}
+                                    </a>
                                 </div>
                                 <ul class="flex justify-center xl:justify-start gap-3 py-8">
                                     {socialMedias.value.icons.map((item) => (
                                         <li key={item.alt}>
-                                            <div onClick={() => toSocialMedia(item)} class="flex justify-center items-center !w-[35px] !h-[35px] bg-black-800 rounded-full cursor-pointer hover:bg-yellow-900 transition-all duration-300">
+                                            <div
+                                                onClick={() =>
+                                                    toSocialMedia(item)
+                                                }
+                                                class="flex justify-center items-center !w-[35px] !h-[35px] bg-black-800 rounded-full cursor-pointer hover:bg-yellow-900 transition-all duration-300"
+                                            >
                                                 <item.iconName class="!w-[35px] !h-[35px] text-white" />
                                             </div>
                                         </li>

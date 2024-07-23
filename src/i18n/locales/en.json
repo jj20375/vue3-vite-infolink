@@ -15,6 +15,7 @@
         "verify-email": "Verify Email"
     },
     "global": {
+        "hello": "Hello",
         "save": "Save",
         "confirm": "Confirm",
         "submit": "Submit",
@@ -133,7 +134,7 @@
         "sub-accounts": {
             "solarEnergySubAccounts": "Sub-account List - Solar Energy",
             "storedEnergySubAccounts": "Sub-account List - Energy Storage",
-            "memo": "* For modifications, please contact your account manager or email service@infolink-group.com"
+            "memo": "* For modifications, please contact your account manager or email"
         }
     },
     "user-reset-password": {

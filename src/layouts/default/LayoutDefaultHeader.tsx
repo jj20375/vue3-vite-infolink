@@ -1,8 +1,9 @@
-import { defineComponent, ref, nextTick } from "vue";
+import { defineComponent, ref, computed } from "vue";
 import { setStorage } from "@/services/localStorage";
 // 語系選項
 import langs from "@/i18n/langs";
 import { useI18n } from "vue-i18n";
+import { useInitStore } from "@/stores/initStore";
 import { RouterLink, useRoute, useRouter } from "vue-router";
 import IconLogo1 from "@/components/icons/IconLogo1.vue";
 
@@ -11,7 +12,8 @@ export default defineComponent({
     setup(props, { emit }) {
         const router = useRouter();
         const route = useRoute();
-
+        const initStore = useInitStore();
+        const initData = computed(() => initStore.initData);
         const langsOptions = ref(langs);
         const { locale, t } = useI18n();
         // 預設語系
@@ -44,7 +46,12 @@ export default defineComponent({
                             class="block mx-auto"
                             to={{ name: "index" }}
                         >
-                            <IconLogo1 class="h-[46px] w-fit transition-all duration-300" />
+                            <img
+                                src={initData.value.site.site_logo}
+                                class="h-[46px] w-fit transition-all duration-300"
+                                alt=""
+                            />
+                            {/* <IconLogo1 class="h-[46px] w-fit transition-all duration-300" /> */}
                         </RouterLink>
                     </div>
                     <div>

@@ -15,6 +15,7 @@
         "verify-email": "驗證信箱"
     },
     "global": {
+        "hello": "您好",
         "save": "儲存",
         "confirm": "確認",
         "submit": "送出",
@@ -133,7 +134,7 @@
         "sub-accounts": {
             "solarEnergySubAccounts": "子帳號列表-太陽能",
             "storedEnergySubAccounts": "子帳號列表-儲能",
-            "memo": "* 如須修改，請洽負責業務或來信 service@infolink-group.com"
+            "memo": "* 如須修改，請洽負責業務或來信"
         }
     },
     "user-reset-password": {

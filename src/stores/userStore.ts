@@ -8,11 +8,26 @@ import type {
 import { removeStorage } from "@/services/localStorage";
 import { GetUserProfileAPI } from "@/api/userAPI";
 import { useRouter } from "vue-router";
-import { useI18n } from "vue-i18n";
+import enUS from "@/i18n/locales/en.json";
+import zhTW from "@/i18n/locales/tw.json";
+import zhCN from "@/i18n/locales/cn.json";
+import { getStorage } from "@/services/localStorage";
+
+const i18nData: any = () => {
+    switch (getStorage("lang")) {
+        case "en":
+            return enUS;
+        case "tw":
+            return zhTW;
+        case "cn":
+            return zhCN;
+        default:
+            return zhTW;
+    }
+};
 
 export const useUserStore = defineStore("userStore", () => {
     const router = useRouter();
-    const { t } = useI18n();
 
     // 使用者資料
     const user = ref<UserPanelUserInfoInterface>({
@@ -60,8 +75,8 @@ export const useUserStore = defineStore("userStore", () => {
     /**
      * 設定是否登入
      */
-    function setIsAuth(isAuthData: boolean) {
-        return (isAuth.value = isAuthData);
+    function setIsAuth() {
+        return (isAuth.value = true);
     }
     /**
      * 清除使用者資料
@@ -86,10 +101,22 @@ export const useUserStore = defineStore("userStore", () => {
             if (data.data.initial_password) {
                 return router.push({
                     name: "reset-password",
-                    params: { slug: t("router.reset-password") },
+                    params: { slug: i18nData()["router.reset-password"] },
                 });
             }
-            user.value = data.data;
+            user.value = {
+                jobTitle: data.data.title,
+                ...data.data,
+                messagingApp: data.data.im_name || null,
+                messagingAppId: data.data.im_account || null,
+            };
+            company.value = {
+                name: data.data.company.name,
+                webURL: data.data.company.website,
+                region: data.data.company.country,
+                address: data.data.company.address,
+            };
+            setIsAuth();
             console.log("GetUserProfileAPI data =>", data);
             return data.data;
         } catch (err) {

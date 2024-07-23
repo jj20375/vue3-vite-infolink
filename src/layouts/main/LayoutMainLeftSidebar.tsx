@@ -207,7 +207,7 @@ export default defineComponent({
                                 },
                             ]}
                         >
-                            您好，{user.value.name}
+                            {t("global.hello")}，{user.value.name}
                             <button
                                 onClick={() => setExpandMode()}
                                 class="hidden xl:block !w-6 !h-6 text-black-500 cursor-pointer hover:text-black-900 duration-300 transition-all"

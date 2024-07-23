@@ -90,6 +90,7 @@ export default defineComponent({
                 closeDialog();
                 setTimeout(async () => {
                     await userStore.getUserPorfile();
+                    userStore.setIsAuth();
                     return router.push({
                         name: "home",
                         params: { slug: t("router.home") },
