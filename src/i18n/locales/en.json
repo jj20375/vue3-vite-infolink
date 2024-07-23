@@ -62,7 +62,8 @@
             "placeholder": "Please enter your email address",
             "warning": "Please enter your email address",
             "invalid": "Invalid format"
-        }
+        },
+        "success": "重設密碼連結已發送至信箱(en)"
     },
     "reset-password": {
         "description": "Please enter your new password. You will need to log in with the new password after completion.",

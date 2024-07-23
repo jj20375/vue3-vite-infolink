@@ -1,7 +1,7 @@
 import { defineComponent, ref } from "vue";
 import { validateEmail } from "@/services/formValidator";
 import { RouterLink } from "vue-router";
-import type { FormInstance } from "element-plus";
+import { ElMessage, type FormInstance } from "element-plus";
 import type { ColumnsInterface } from "@/interface/global.d";
 import { useI18n } from "vue-i18n";
 import type { AuthForgotPasswordSendResetEmailAPIInterface } from "../interface/authInterface";
@@ -76,6 +76,10 @@ export default defineComponent({
         ) {
             try {
                 await AuthForgotPasswordSendResetEmailAPI(form);
+                ElMessage({
+                    type: "success",
+                    message: t("forgot-password.success"),
+                });
             } catch (err) {
                 console.log("AuthForgotPasswordSendResetEmailAPI err =>", err);
             }

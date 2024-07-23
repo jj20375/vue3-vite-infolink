@@ -2,6 +2,8 @@ import { ref } from "vue";
 import { defineStore } from "pinia";
 import IconLogo1 from "@/assets/img/logo/logo-1.svg";
 import IconLogo2 from "@/assets/img/logo/logo-2.svg";
+import { GetInitAPI } from "@/api/utilsAPI";
+
 export const useInitStore = defineStore("initStore", () => {
     // 初始化資料
     const initData = ref({
@@ -10,7 +12,8 @@ export const useInitStore = defineStore("initStore", () => {
             site_logo: IconLogo1,
             site_logo2: "@/assets/img/logo/logo-2.svg", // TODO 新增第二個logo欄位
             site_favicon: "https://yale_backed.mrjin.me/storage/favicon.svg",
-            site_preview_thumbnail: "https://yale_backed.mrjin.me/storage/preview_thumbnail.svg",
+            site_preview_thumbnail:
+                "https://yale_backed.mrjin.me/storage/preview_thumbnail.svg",
             contact_phone: "+886-2-2716-3123",
             contact_email: "service@infolink-group.com",
             contact_address: "104 台北市中山區建國北路二段 120 號 15 樓",
@@ -39,9 +42,34 @@ export const useInitStore = defineStore("initStore", () => {
             socialite_providers: {
                 line: "https://yale-third-party.mrjin.me/socialite/line/redirect",
                 google: "https://yale-third-party.mrjin.me/socialite/google/redirect",
-                facebook: "https://yale-third-party.mrjin.me/socialite/facebook/redirect",
+                facebook:
+                    "https://yale-third-party.mrjin.me/socialite/facebook/redirect",
             },
         },
     });
-    return { initData };
+
+    /**
+     * 設定初始化資料
+     */
+    function setInitData(data: any) {
+        initData.value = data;
+    }
+
+    /**
+     * 取得初始化資料
+     */
+    async function getInitData() {
+        try {
+            const { data } = await GetInitAPI();
+            setInitData(data.data);
+        } catch (err) {
+            console.log("GetInitAPI err =>", err);
+        }
+    }
+
+    return {
+        initData,
+        setInitData,
+        getInitData,
+    };
 });

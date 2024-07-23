@@ -7,3 +7,10 @@ const apiURL = import.meta.env.VITE_API_URL;
 export function UploadAPI(data: any) {
     return axios.post(`${apiURL}/file/upload`, data);
 }
+
+/**
+ * 初始化資料 api
+ */
+export function GetInitAPI() {
+    return axios.get(`${apiURL}/bootstrap`);
+}

@@ -1,4 +1,6 @@
 import { RouterLink, useRouter, useRoute } from "vue-router";
+// 使用者資料 store
+import { useUserStore } from "@/stores/userStore";
 // 初始化資料 store
 import { useInitStore } from "@/stores/initStore";
 // 其他方法 store
@@ -25,6 +27,7 @@ export default defineComponent({
         const route = useRoute();
         const initStore = useInitStore();
         const utilityStore = useUtilityStore();
+        const userStore = useUserStore();
         const initData: any = computed(() => initStore.initData);
         const { locale, t } = useI18n();
         const langsOptions = ref(langs);
@@ -37,6 +40,7 @@ export default defineComponent({
         function changeLanguage(lang: string) {
             locale.value = lang;
             setStorage("lang", lang);
+            document.title = t(`router.${route.name as string}`);
             if (route.meta.parent !== undefined) {
                 router.push({
                     name: route.name,
@@ -55,6 +59,7 @@ export default defineComponent({
         async function logout() {
             try {
                 await AuthLogoutAPI();
+                userStore.removeUser();
                 router.push({
                     name: "login",
                     params: { slug: t("router.login") },

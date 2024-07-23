@@ -67,6 +67,7 @@ export const useUserStore = defineStore("userStore", () => {
      * 清除使用者資料
      */
     function clearUser() {
+        removeStorage("token");
         return (user.value = {});
     }
     /**
@@ -112,5 +113,6 @@ export const useUserStore = defineStore("userStore", () => {
         setUser,
         setIsAuth,
         getUserPorfile,
+        removeUser,
     };
 });

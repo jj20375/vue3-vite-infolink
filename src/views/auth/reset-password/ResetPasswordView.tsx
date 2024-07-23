@@ -161,6 +161,14 @@ export default defineComponent({
         ) {
             try {
                 await AuthForgotPasswordSetNewPasswordAPI(form);
+                ElMessage({
+                    type: "success",
+                    message: t("global.success.change"),
+                });
+                router.push({
+                    name: "login",
+                    params: { slug: t("router.login") },
+                });
             } catch (err) {
                 console.log("AuthForgotPasswordSetNewPasswordAPI err =>", err);
             }

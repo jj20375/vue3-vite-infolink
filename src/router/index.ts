@@ -1,4 +1,9 @@
-import { createRouter, createWebHistory, type NavigationGuardNext, type RouteLocationNormalized } from "vue-router";
+import {
+    createRouter,
+    createWebHistory,
+    type NavigationGuardNext,
+    type RouteLocationNormalized,
+} from "vue-router";
 import { useCounterStore } from "@/stores/counter";
 import { usePermissionStore } from "@/stores/permissionStore";
 import dynamicRouter from "@/router/dynamicRouter";
@@ -7,6 +12,26 @@ import { storeToRefs } from "pinia";
 import LayoutMainLeftSidebar from "@/layouts/main/LayoutMainLeftSidebar";
 import LayoutMainHeader from "@/layouts/main/LayoutMainHeader";
 import IconHome from "@/assets/img/icons/sidebar/home.svg";
+import { nextTick } from "vue";
+
+import enUS from "@/i18n/locales/en.json";
+import zhTW from "@/i18n/locales/tw.json";
+import zhCN from "@/i18n/locales/cn.json";
+import { getStorage } from "@/services/localStorage";
+
+const i18nData: any = () => {
+    switch (getStorage("lang")) {
+        case "en":
+            return enUS;
+        case "tw":
+            return zhTW;
+        case "cn":
+            return zhCN;
+        default:
+            return zhTW;
+    }
+};
+
 const router = createRouter({
     scrollBehavior(to, from, savedPosition) {
         // 始终滚动到顶部
@@ -17,33 +42,42 @@ const router = createRouter({
 });
 
 // 路由守衛 加上進入頁面前判斷是否有登入 沒登入則導向登入頁面
-router.beforeEach(async (to: RouteLocationNormalized, from: RouteLocationNormalized) => {
-    const permissionStore = usePermissionStore();
-    const { isHavePermissionRouter } = storeToRefs(permissionStore);
-    if (!isHavePermissionRouter.value) {
-        await permissionStore.getPermissionRouter();
-    }
+router.beforeEach(
+    async (to: RouteLocationNormalized, from: RouteLocationNormalized) => {
+        const permissionStore = usePermissionStore();
+        const { isHavePermissionRouter } = storeToRefs(permissionStore);
+        if (!isHavePermissionRouter.value) {
+            await permissionStore.getPermissionRouter();
+        }
 
-    // 取得 localstorage token 判斷有 token 情況下 代表有登入
-    const token = localStorage.getItem("token");
-    // 有登入情況下
-    if (to.name === "login" && token) {
-        return {
-            name: "home",
-            params: { slug: "會員專區" },
-        };
-    }
+        // 取得 localstorage token 判斷有 token 情況下 代表有登入
+        const token = localStorage.getItem("token");
+        // 有登入情況下
+        if (to.name === "login" && token) {
+            return {
+                name: "home",
+                params: { slug: i18nData()["router"]["home"] },
+            };
+        }
 
-    if (to.meta.requiresAuth && !token) {
-        return {
-            name: "login",
-            params: { slug: "會員登入" },
-            // 保存我们所在的位置，以便返回 token 失效前查看的畫面
-            query: { redirect: to.fullPath },
-        };
+        if (to.meta.requiresAuth && !token) {
+            return {
+                name: "login",
+                params: { slug: i18nData()["router"]["login"] },
+                // 保存我们所在的位置，以便返回 token 失效前查看的畫面
+                query: { redirect: to.fullPath },
+            };
+        }
+        return true;
     }
-    return true;
-});
-router.afterEach(async (to: RouteLocationNormalized, from: RouteLocationNormalized) => {});
+);
+router.afterEach(
+    async (to: RouteLocationNormalized, from: RouteLocationNormalized) => {
+        nextTick(() => {
+            document.title =
+                i18nData()["router"][to.name!] || import.meta.env.VITE_WEB_NAME;
+        });
+    }
+);
 
 export default router;
