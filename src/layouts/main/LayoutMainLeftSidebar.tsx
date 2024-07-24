@@ -99,9 +99,11 @@ export default defineComponent({
             () => {
                 // 找到與當前路由名稱匹配的菜單項目
                 const activeItem = menuList.value.find(
-                    (item) =>
+                    (item: any) =>
                         item.children &&
-                        item.children.some((child) => child.name === route.name)
+                        item.children.some(
+                            (child: any) => child.name === route.name
+                        )
                 );
 
                 if (activeItem) {

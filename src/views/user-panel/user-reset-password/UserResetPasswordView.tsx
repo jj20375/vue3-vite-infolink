@@ -74,7 +74,7 @@ export default defineComponent({
                         required: true,
                         validator: validatePassword,
                         trigger: ["change", "blur"],
-                        message: t("user-reset-password.password-rule"),
+                        message: t("user-reset-password.new-password.invalid"),
                     },
                 ],
                 newPassword: [
