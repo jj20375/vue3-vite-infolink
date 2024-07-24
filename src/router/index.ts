@@ -35,7 +35,7 @@ const router = createRouter({
         // 始终滚动到顶部
         return { top: 0 };
     },
-    history: createWebHistory(import.meta.env.BASE_URL),
+    history: createWebHistory("#"),
     routes: [...defaultRouter, ...dynamicRouter],
 });
 

@@ -20,6 +20,7 @@ export default defineConfig(({ mode }: ConfigEnv): UserConfig => {
         resolve: {
             alias: {
                 "@": fileURLToPath(new URL("./src", import.meta.url)),
+                "vue3-recaptcha2": "vue3-recaptcha2",
             },
         },
         server: {

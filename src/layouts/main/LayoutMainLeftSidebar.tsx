@@ -78,7 +78,7 @@ export default defineComponent({
         };
 
         // 路由選單
-        const menuList = computed<Array<RouteRecordRaw>>(() => {
+        const menuList = computed<Array<RouteRecordRaw> | any>(() => {
             console.log("permissionRouter =>", permissionRouter.value);
             if (permissionRouter.value.length > 0) {
                 const rawMenuList = permissionRouter.value.filter((data) => {
@@ -230,7 +230,7 @@ export default defineComponent({
                             </button>
                         </div>
                         <div>
-                            {menuList.value.map((item, idx) => (
+                            {menuList.value.map((item: any, idx: any) => (
                                 <div key={idx}>
                                     {item.path && !item.meta!.link ? (
                                         <button

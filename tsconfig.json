@@ -12,5 +12,6 @@
         "plugins": [{ "name": "typescript-plugin-css-modules" }],
         "jsxImportSource": "vue",
         "jsx": "preserve"
-    }
+    },
+    "typeRoots": ["./node_modules/@types", "./types"]
 }

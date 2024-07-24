@@ -2,9 +2,15 @@ import type { PropType, DefineComponent } from "vue";
 import type { LocationAsRelativeRaw } from "vue-router";
 import type { OptionsInterface, ColumnsInterface } from "@/interface/global.d";
 // 下載報表表單欄位 key
-export type ReportDownloadPropType = "industry" | "language" | "period" | "category" | "name";
+export type ReportDownloadPropType =
+    | "industry"
+    | "language"
+    | "period"
+    | "category"
+    | "name";
 // 表單欄位搜尋條件 interface
-export interface ReportDownloadFilterColumnsInterface extends ColumnsInterface<ReportDownloadPropType> {
+export interface ReportDownloadFilterColumnsInterface
+    extends ColumnsInterface<ReportDownloadPropType> {
     prop: ReportDownloadPropType;
     iconName?: typeof DefineComponent;
 }

@@ -9,7 +9,6 @@ import IconDelete from "@/components/icons/IconDelete.vue";
 import styles from "./UploadSection.module.scss";
 import { useI18n } from "vue-i18n";
 
-
 export default defineComponent({
     name: "ContactFileUpload",
     props: {
@@ -68,29 +67,31 @@ export default defineComponent({
             formData.append("file", file.raw);
             formData.append("scene", props.scene);
             // try {
-                // const { data, status } = await UploadAPI(formData);
-                // console.log("UploadAPI api => ", data.value);
-                // if (status === "success") {
-                //     const file = (data.value as any).data;
-                //     fileDataList.value.push(file.path);
-                //     fileList.value[fileList.value.length - 1].url = file.preview_url;
-                //     emit("tempPath", fileDataList.value, props.prop);
-                // } else {
-                //     ElMessage({
-                //         type: "error",
-                //         message: (error.value as any).data.message,
-                //     });
+            // const { data, status } = await UploadAPI(formData);
+            // console.log("UploadAPI api => ", data.value);
+            // if (status === "success") {
+            //     const file = (data.value as any).data;
+            //     fileDataList.value.push(file.path);
+            //     fileList.value[fileList.value.length - 1].url = file.preview_url;
+            //     emit("tempPath", fileDataList.value, props.prop);
+            // } else {
+            //     ElMessage({
+            //         type: "error",
+            //         message: (error.value as any).data.message,
+            //     });
 
-                // }
+            // }
             // } catch (err) {
             //     console.log("HomeSampleAPI => ", err);
             //     fileList.value.pop();
             // }
         }
 
-        const handleRemove: UploadProps["onRemove"] = (removeFile) => {
+        const handleRemove: any = (removeFile: any) => {
             console.log(removeFile, fileList.value);
-            const index = fileList.value.findIndex((item: { uid: number }) => item.uid === removeFile.uid);
+            const index = fileList.value.findIndex(
+                (item: { uid: number }) => item.uid === removeFile.uid
+            );
             if (index !== -1) {
                 fileList.value.splice(index, 1);
                 fileDataList.value.splice(index, 1);
@@ -114,9 +115,16 @@ export default defineComponent({
         }
 
         return () => (
-            <div class={" flex justify-center items-center w-full min-h-[250px] bg-gray-100 p-2"}>
+            <div
+                class={
+                    " flex justify-center items-center w-full min-h-[250px] bg-gray-100 p-2"
+                }
+            >
                 <el-upload
-                    class={["card-inner flex flex-col w-full h-full min-h-[250px] justify-center items-center p-4 border-dashed border-[3px] border-black-100 hover:border-black-300 leading-6", !tipActive ? "active" : ""]}
+                    class={[
+                        "card-inner flex flex-col w-full h-full min-h-[250px] justify-center items-center p-4 border-dashed border-[3px] border-black-100 hover:border-black-300 leading-6",
+                        !tipActive ? "active" : "",
+                    ]}
                     ref="upload"
                     list-type="picture-card"
                     onChange={handleChange}
@@ -130,13 +138,18 @@ export default defineComponent({
                 >
                     {{
                         default: () => <IconAdd class="!w-8 !h-8" />,
-                        tip: () => tipActive.value && (
-                            <>
-                                <IconGallery class="!w-12 !h-12" />
-                                <div class="mt-3">{t("contact.photo.direction")}</div>
-                                <div class="mt-1 text-black-600">{t("contact.photo.limit")}</div>
-                            </>
-                        ),
+                        tip: () =>
+                            tipActive.value && (
+                                <>
+                                    <IconGallery class="!w-12 !h-12" />
+                                    <div class="mt-3">
+                                        {t("contact.photo.direction")}
+                                    </div>
+                                    <div class="mt-1 text-black-600">
+                                        {t("contact.photo.limit")}
+                                    </div>
+                                </>
+                            ),
                         file: ({ file }: { file: any }) => (
                             <div>
                                 <img
@@ -149,15 +162,19 @@ export default defineComponent({
                                         class="el-upload-list__item-delete"
                                         onClick={() => handleRemove(file)}
                                     >
-                                      <IconDelete class="!w-8 !h-8" />
+                                        <IconDelete class="!w-8 !h-8" />
                                     </span>
                                 </span>
                             </div>
-                        )
+                        ),
                     }}
                 </el-upload>
                 <el-dialog v-model={showDialog.value}>
-                    <img w-full src={dialogImageUrl.value} alt="Preview Image" />
+                    <img
+                        w-full
+                        src={dialogImageUrl.value}
+                        alt="Preview Image"
+                    />
                 </el-dialog>
             </div>
         );

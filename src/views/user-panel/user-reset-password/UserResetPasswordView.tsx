@@ -1,19 +1,22 @@
-import {computed, defineComponent, ref} from "vue";
+import { computed, defineComponent, ref } from "vue";
 import { validatePassword } from "@/services/formValidator";
 import type { FormInstance } from "element-plus";
 import type { ColumnsInterface } from "@/interface/global.d";
 import { useWindowResize } from "@/hooks/windowResize";
 import Breadcrumb from "@/components/Breadcrumb";
-import {useI18n} from "vue-i18n";
+import { useI18n } from "vue-i18n";
 
 export default defineComponent({
     name: "UserResetPassword",
     props: {},
     emits: [],
     setup(props, { emit }) {
-        const {t} = useI18n();
+        const { t } = useI18n();
         // 重置密碼表單欄位 key
-        type UserResetPasswordFormPropType = "oldPassword" | "newPassword" | "newPasswordConfirmation";
+        type UserResetPasswordFormPropType =
+            | "oldPassword"
+            | "newPassword"
+            | "newPasswordConfirmation";
 
         interface ResetPasswordForm {
             oldPassword: string;
@@ -31,7 +34,9 @@ export default defineComponent({
             newPasswordConfirmation: "",
         });
 
-        const formColumns = computed<ColumnsInterface<UserResetPasswordFormPropType>[]>(() => [
+        const formColumns = computed<
+            ColumnsInterface<UserResetPasswordFormPropType>[]
+        >(() => [
             {
                 prop: "oldPassword",
                 label: t("user-reset-password.old-password.label"),
@@ -42,14 +47,16 @@ export default defineComponent({
             {
                 prop: "newPassword",
                 label: t("user-reset-password.new-password.label"),
-                placeholder:  t("user-reset-password.new-password.placeholder"),
+                placeholder: t("user-reset-password.new-password.placeholder"),
                 style: "input",
                 showPassword: true,
             },
             {
                 prop: "newPasswordConfirmation",
                 label: t("user-reset-password.confirm-password.label"),
-                placeholder: t("user-reset-password.confirm-password.placeholder"),
+                placeholder: t(
+                    "user-reset-password.confirm-password.placeholder"
+                ),
                 style: "input",
                 showPassword: true,
             },
@@ -86,13 +93,21 @@ export default defineComponent({
                 newPasswordConfirmation: [
                     {
                         required: true,
-                        message: t("user-reset-password.confirm-password.warning"),
+                        message: t(
+                            "user-reset-password.confirm-password.warning"
+                        ),
                         trigger: ["change", "blur"],
                     },
                     {
                         required: true,
-                        message: t("user-reset-password.confirm-password.invalid"),
-                        validator: (rule: InternalRuleItem, value: string, callback: (error?: string | Error) => void) => {
+                        message: t(
+                            "user-reset-password.confirm-password.invalid"
+                        ),
+                        validator: (
+                            rule: any,
+                            value: string,
+                            callback: (error?: string | Error) => void
+                        ) => {
                             if (value !== form.value.newPassword) {
                                 callback(new Error());
                             } else {
@@ -102,7 +117,7 @@ export default defineComponent({
                         trigger: ["change", "blur"],
                     },
                 ],
-            }
+            };
         });
 
         async function onSubmit() {
@@ -170,17 +185,52 @@ export default defineComponent({
                 <div class="relative py-[20px] xl:py-[30px] px-[20px] xl:px-[30px]">
                     <div class="xl:max-w-[1300px] mx-auto">
                         <Breadcrumb />
-                        <h3 class="text-[28px] font-semibold mb-5 sm:mb-7">{t("router.user-change-password")}</h3>
+                        <h3 class="text-[28px] font-semibold mb-5 sm:mb-7">
+                            {t("router.user-change-password")}
+                        </h3>
                         <div class="xl:max-w-[1200px] bg-white p-5 mt-5 border-gray-600 border rounded-[4px]">
-                            <el-form class="custom-form" ref={formRefDom} model={form.value} rules={rules.value} require-asterisk-position="right">
+                            <el-form
+                                class="custom-form"
+                                ref={formRefDom}
+                                model={form.value}
+                                rules={rules.value}
+                                require-asterisk-position="right"
+                            >
                                 <div class="w-full md:w-1/2 xl:w-1/3 flex flex-col gap-6">
                                     {formColumns.value.map((item) => (
-                                        <el-form-item prop={item.prop} label={item.label}>
-                                            {item.style === "input" && <el-input type={item.type ? item.type : "text"} show-password={item.showPassword} disabled={item.disabled} placeholder={item.placeholder} v-model={form.value[item.prop]}></el-input>}
+                                        <el-form-item
+                                            prop={item.prop}
+                                            label={item.label}
+                                        >
+                                            {item.style === "input" && (
+                                                <el-input
+                                                    type={
+                                                        item.type
+                                                            ? item.type
+                                                            : "text"
+                                                    }
+                                                    show-password={
+                                                        item.showPassword
+                                                    }
+                                                    disabled={item.disabled}
+                                                    placeholder={
+                                                        item.placeholder
+                                                    }
+                                                    v-model={
+                                                        form.value[item.prop]
+                                                    }
+                                                ></el-input>
+                                            )}
                                         </el-form-item>
                                     ))}
                                 </div>
-                                <button onClick={() => onSubmit()} class={["yellow-btn mt-6", isMobile.value ? "w-full" : "btn-sm"]}>
+                                <button
+                                    onClick={() => onSubmit()}
+                                    class={[
+                                        "yellow-btn mt-6",
+                                        isMobile.value ? "w-full" : "btn-sm",
+                                    ]}
+                                >
                                     {t("reset-password.submit")}
                                 </button>
                             </el-form>

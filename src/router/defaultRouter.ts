@@ -88,6 +88,7 @@ const router: Array<RouteRecordRaw> = [
         name: "NotFound",
         meta: {},
         component: NotFoundView,
+        children: [],
         redirect: { name: "404" },
     },
 ];

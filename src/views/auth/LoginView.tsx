@@ -1,6 +1,6 @@
 import { useRouter, onBeforeRouteUpdate, RouterLink } from "vue-router";
 import { usePermissionStore } from "@/stores/permissionStore";
-import { computed, onMounted, ref, markRaw } from "vue";
+import { computed, onMounted, ref, markRaw, defineComponent } from "vue";
 import { validateEmail } from "@/services/formValidator";
 import IconMember from "@/components/icons/IconMember.vue";
 import IconPassword from "@/components/icons/IconPassword.vue";
@@ -11,11 +11,11 @@ import { useI18n } from "vue-i18n";
 import { AuthUserLoginAPI } from "@/api/oauthAPI";
 import AuthEmailVerify from "./components/AuthEmailVerify";
 
-export default {
+export default defineComponent({
     name: "LoginView",
     props: {},
     emits: [],
-    setup(props: any, { emit }: { emit: string }) {
+    setup(props: any, { emit }) {
         interface LoginForm {
             email: string;
             password: string;
@@ -206,4 +206,4 @@ export default {
             </>
         );
     },
-};
+});

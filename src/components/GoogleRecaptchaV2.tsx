@@ -5,7 +5,7 @@ export default defineComponent({
     components: { vueRecaptcha },
     props: { lang: { type: String } },
     setup(props, { emit }) {
-        const siteKey = import.meta.GOOGLE_RECAPTCHA_SITE_KEY;
+        const siteKey = import.meta.env.VITE_GOOGLE_RECAPTCHA_SITE_KEY;
         const setlang = props.lang ? props.lang : "zh-TW";
         const vueRecaptcha = ref<any>(null);
         const refresh = () => {
@@ -26,7 +26,19 @@ export default defineComponent({
             console.log("recaptchaError", reason);
         };
         return () => (
-            <vue-recaptcha sitekey="{siteKey}" size="normal" name="recaptchaToken" theme="light" hl="{setlang}" loading-timeout={30000} onVerify={() => recaptchaVerified} onExpire={() => recaptchaExpired} onFail={() => recaptchaFailed} onError={() => recaptchaError} ref="vueRecaptcha">
+            <vue-recaptcha
+                sitekey="{siteKey}"
+                size="normal"
+                name="recaptchaToken"
+                theme="light"
+                hl="{setlang}"
+                loading-timeout={30000}
+                onVerify={() => recaptchaVerified}
+                onExpire={() => recaptchaExpired}
+                onFail={() => recaptchaFailed}
+                onError={() => recaptchaError}
+                ref="vueRecaptcha"
+            >
                 {" "}
             </vue-recaptcha>
         );

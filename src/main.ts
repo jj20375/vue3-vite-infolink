@@ -15,7 +15,7 @@ import { far } from "@fortawesome/free-regular-svg-icons";
 import { fab } from "@fortawesome/free-brands-svg-icons";
 
 // 将所需图标添加到库中
-library.add(fas, far, fab);
+// library.add(fas, far, fab);
 
 const app = createApp(App);
 

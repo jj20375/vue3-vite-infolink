@@ -11,6 +11,8 @@ export interface ColumnsInterface<Prop extends string> {
     key?: string;
     label?: string | undefined;
     placeholder?: string;
+    placeholderStart?: string;
+    placeholderEnd?: string;
     style: string;
     disabled?: boolean;
     span?: string;
