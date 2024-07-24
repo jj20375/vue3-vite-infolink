@@ -117,13 +117,13 @@ export default defineComponent({
         return () => (
             <div
                 class={
-                    " flex justify-center items-center w-full min-h-[250px] bg-gray-100 p-2"
+                    " flex justify-center items-center w-full min-h-[250px] bg-gray-100 p-2 custom-upload"
                 }
             >
                 <el-upload
                     class={[
                         "card-inner flex flex-col w-full h-full min-h-[250px] justify-center items-center p-4 border-dashed border-[3px] border-black-100 hover:border-black-300 leading-6",
-                        !tipActive ? "active" : "",
+                        !tipActive.value ? "active" : "",
                     ]}
                     ref="upload"
                     list-type="picture-card"

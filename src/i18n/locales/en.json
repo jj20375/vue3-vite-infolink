@@ -273,5 +273,13 @@
         "success": "File downloaded successfully",
         "countdown": "Resend in {time}",
         "resend": "Resend"
+    },
+    "404": {
+        "title": "Page Not Found",
+        "description": "We're sorry, the page you are looking for does not exist. The URL may be incorrect or no longer valid."
+    },
+    "maintenance": {
+        "title": "Website Under Maintenance!",
+        "description": "We apologize for the inconvenience. The site is currently undergoing system maintenance. Please try again later."
     }
 }

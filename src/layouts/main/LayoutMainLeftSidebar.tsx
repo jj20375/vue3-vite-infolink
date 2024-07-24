@@ -1,4 +1,4 @@
-import { defineComponent, ref, computed } from "vue";
+import { defineComponent, ref, computed, watch } from "vue";
 import { useRoute, useRouter, RouterLink } from "vue-router";
 import type { RouteRecordRaw } from "vue-router";
 import { useInitStore } from "@/stores/initStore";
@@ -55,10 +55,10 @@ export default defineComponent({
         };
 
         const collapseMap = ref<any>({});
-        const setCollapse = (idx: number) => {
+        const setCollapse = (idx: number, forceExpand: boolean = false) => {
             if (collapseMap.value[idx]) {
                 collapseMap.value[idx] = false;
-            } else {
+            } else if (!collapseMap.value[idx] || forceExpand) {
                 Object.keys(collapseMap.value).forEach((key) => {
                     collapseMap.value[parseInt(key)] = false;
                 });
@@ -71,9 +71,8 @@ export default defineComponent({
                 route.name === item?.path?.name ||
                 (item.children &&
                     item.children.some(
-                        (child: any) => route.name === child.path.name
-                    )) ||
-                collapseMap.value[idx]
+                        (child: any) => route.name === child.name
+                    ))
             );
         };
 
@@ -94,6 +93,29 @@ export default defineComponent({
             }
             return [];
         });
+
+        watch(
+            () => route.name,
+            () => {
+                // 找到與當前路由名稱匹配的菜單項目
+                const activeItem = menuList.value.find(
+                    (item) =>
+                        item.children &&
+                        item.children.some((child) => child.name === route.name)
+                );
+
+                if (activeItem) {
+                    // 找到該項目在 menuList 中的索引
+                    const activeIndex = menuList.value.indexOf(activeItem);
+
+                    // 將該索引設置為活動狀態
+                    if (!collapseMap.value[activeIndex]) {
+                        setCollapse(activeIndex, true);
+                    }
+                }
+            },
+            { immediate: true }
+        );
 
         // 聯絡資料
         const contact = computed(() => {
@@ -225,7 +247,7 @@ export default defineComponent({
                             ]}
                             onClick={() => setExpandMode()}
                         >
-                            <button class="!w-[18px] !h-[18px]">
+                            <button class="block !w-[18px] !h-[18px]">
                                 <IconCollapse />
                             </button>
                         </div>
@@ -317,6 +339,12 @@ export default defineComponent({
                                                         <span
                                                             class={[
                                                                 "flex-1 text-left",
+                                                                isActiveItem(
+                                                                    item,
+                                                                    idx
+                                                                )
+                                                                    ? "text-black-900 font-medium before:absolute before:bg-yellow-900 before:top-0 before:left-0 before:h-full before:w-[4px] before:rounded-r-2xl"
+                                                                    : "text-black-500",
                                                                 {
                                                                     "opacity-0":
                                                                         !expandMode.value &&
@@ -342,7 +370,7 @@ export default defineComponent({
                                                         >
                                                             <div
                                                                 class={[
-                                                                    "",
+                                                                    "transition-all duration-300",
                                                                     {
                                                                         "rotate-90":
                                                                             collapseMap
