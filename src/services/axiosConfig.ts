@@ -27,7 +27,7 @@ instance.interceptors.response.use(
     async (response) => response,
     (error) => {
         const { status, data } = error.response;
-        if (status == 401 && data.message === "Unauthenticated.") {
+        if (status == 401 && data.message === "尚未登入") {
             removeStorage("token");
             router.push({ name: "login", params: { slug: "會員登入" } });
         }

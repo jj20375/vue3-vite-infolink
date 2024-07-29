@@ -25,7 +25,8 @@ const router: Array<RouteRecordRaw> = [
                     parent: "user-panel",
                 },
                 components: {
-                    default: () => import("@/views/user-panel/user-info/UserInfoView"),
+                    default: () =>
+                        import("@/views/user-panel/user-info/UserInfoView"),
                     MainLeftSideBar: LayoutMainLeftSidebar,
                     MainHeader: LayoutMainHeader,
                 },
@@ -39,7 +40,10 @@ const router: Array<RouteRecordRaw> = [
                     parent: "user-panel",
                 },
                 components: {
-                    default: () => import("@/views/user-panel/user-reset-password/UserResetPasswordView"),
+                    default: () =>
+                        import(
+                            "@/views/user-panel/user-reset-password/UserResetPasswordView"
+                        ),
                     MainLeftSideBar: LayoutMainLeftSidebar,
                     MainHeader: LayoutMainHeader,
                 },
@@ -53,7 +57,10 @@ const router: Array<RouteRecordRaw> = [
                     parent: "user-panel",
                 },
                 components: {
-                    default: () => import("@/views/user-panel/user-contract/UserContractView"),
+                    default: () =>
+                        import(
+                            "@/views/user-panel/user-contract/UserContractView"
+                        ),
                     MainLeftSideBar: LayoutMainLeftSidebar,
                     MainHeader: LayoutMainHeader,
                 },
@@ -61,7 +68,7 @@ const router: Array<RouteRecordRaw> = [
         ],
     },
     {
-        path: "/report-download/:slug",
+        path: "/report-download/:slug/:chapters*",
         name: "report-download",
         meta: {
             icon: markRaw(IconDownload),
@@ -75,11 +82,24 @@ const router: Array<RouteRecordRaw> = [
         },
     },
     {
+        path: "/report/:id/:slug",
+        name: "report-detail",
+        meta: {
+            menu: false,
+            sort: 3,
+        },
+        components: {
+            default: () => import("@/views/report/ReportDownloadView"),
+            MainLeftSideBar: LayoutMainLeftSidebar,
+            MainHeader: LayoutMainHeader,
+        },
+    },
+    {
         path: "/report-download-detail/:id/:slug",
         name: "report-download-detail",
         meta: {},
         components: {
-            default: () => import("@/views/report/ReportDownloadView"),
+            default: () => import("@/views/report/ReportDetailView"),
             MainLeftSideBar: LayoutMainLeftSidebar,
             MainHeader: LayoutMainHeader,
         },

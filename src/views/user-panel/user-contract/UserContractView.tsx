@@ -1,4 +1,4 @@
-import { defineComponent, ref, watch, markRaw, computed } from "vue";
+import { defineComponent, ref, watch, markRaw, computed, onMounted } from "vue";
 import type { PropType } from "vue";
 import type { UserContractDataInterface } from "./interface/userContractInterface.d";
 import type { OptionsInterface, ColumnsInterface } from "@/interface/global.d";
@@ -8,6 +8,7 @@ import Pagination from "@/components/Pagination.vue";
 import Breadcrumb from "@/components/Breadcrumb";
 import UserContractTable from "./components/UserContractTable";
 import { useI18n } from "vue-i18n";
+import { GetContractListAPI } from "@/api/contractAPI";
 
 interface FilterInterFace {
     // 報告名稱(分類)
@@ -258,6 +259,19 @@ export default defineComponent({
         function handlePageChange(val: any) {
             return val;
         }
+
+        async function getList() {
+            try {
+                const { data } = await GetContractListAPI();
+                console.log("GetContractListAPI data =>", data);
+            } catch (err) {
+                console.log("GetContractListAPI err =>", err);
+            }
+        }
+
+        onMounted(async () => {
+            await getList();
+        });
 
         return () => (
             <section>

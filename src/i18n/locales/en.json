@@ -7,6 +7,7 @@
         "user-change-password": "Change Password",
         "user-contract": "Contract History",
         "report-download": "Report Download",
+        "report-download-detail": "Report Detail",
         "data-factory": "DataFactory",
         "contact": "Contact Us",
         "login": "Login",
@@ -207,6 +208,9 @@
             "zh-tw": "Macro User Manual (Chinese)",
             "en": "Macro User Manual (English)"
         }
+    },
+    "report-detail": {
+        "title": "File Download"
     },
     "contact": {
         "greeting": "Thank you for your visit.",

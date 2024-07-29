@@ -1,6 +1,10 @@
 import type { PropType, DefineComponent } from "vue";
 import type { LocationAsRelativeRaw } from "vue-router";
-import type { OptionsInterface, ColumnsInterface } from "@/interface/global.d";
+import type {
+    OptionsInterface,
+    ColumnsInterface,
+    PaginationAPIInterface,
+} from "@/interface/global.d";
 // 下載報表表單欄位 key
 export type ReportDownloadPropType =
     | "industry"
@@ -33,4 +37,70 @@ export interface ReportDownloadDataInterface {
     fileType: string[];
     // vue router path
     path: LocationAsRelativeRaw;
+}
+
+/**
+ * 報告下載列表 api 資料
+ */
+export interface ReportDownloadDataListAPIInterface {
+    data: {
+        data: {
+            rows: {
+                id: number;
+                // 產業別
+                report_industry: string;
+                // 語系
+                language: string;
+                // 報告名稱
+                name: string;
+                // 期數
+                period: string;
+                // 檔案類型
+                files: string[];
+                // 發佈日期
+                published_at: string;
+            }[];
+            meta: PaginationAPIInterface;
+        };
+    };
+}
+
+/**
+ * 報告下載列表過濾參數
+ */
+export interface ReportDownloadParamsInterface {
+    page?: number;
+    keyword?: string;
+    languages?: string[];
+    report_industry_ids?: number[];
+    report_category_ids?: number[];
+    // 開始期數日期
+    start_period?: string;
+    // 結束期數日期
+    end_period?: string;
+}
+
+/**
+ * 取得報告語系下拉選單 api 資料
+ */
+export interface ReportDownloadLanguagesAPIInterface {
+    data: {
+        data: {
+            [key: string]: string;
+        };
+    };
+}
+
+/**
+ * 取得報告產業別下拉選單 api 資料
+ */
+export interface ReportDownloadIndustriesAPIInterface {
+    data: { data: { id: number; name: string }[] };
+}
+
+/**
+ * 取得報告名稱(分類)下拉選單 api 資料
+ */
+export interface ReportDownloadCategoriesAPIInterface {
+    data: { data: { id: number; name: string }[] };
 }

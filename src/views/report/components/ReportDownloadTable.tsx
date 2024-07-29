@@ -79,8 +79,12 @@ export default defineComponent({
                 class={[
                     [
                         "relative",
-                        leftArrived.value ? "" : "before:absolute before:h-full before:w-[30px] before:pointer-events-none before:top-0 before:left-0 before:shadow-[inset_12px_0px_8px_-8px_rgba(5,5,5,0.1)]",
-                        rightArrived.value ? "" : "after:absolute after:h-full after:w-[30px] after:pointer-events-none after:top-0 after:right-0 after:shadow-[inset_-12px_0px_8px_-8px_rgba(5,5,5,0.1)]",
+                        leftArrived.value
+                            ? ""
+                            : "before:absolute before:h-full before:w-[30px] before:pointer-events-none before:top-0 before:left-0 before:shadow-[inset_12px_0px_8px_-8px_rgba(5,5,5,0.1)]",
+                        rightArrived.value
+                            ? ""
+                            : "after:absolute after:h-full after:w-[30px] after:pointer-events-none after:top-0 after:right-0 after:shadow-[inset_-12px_0px_8px_-8px_rgba(5,5,5,0.1)]",
                     ],
                 ]}
             >
@@ -96,44 +100,96 @@ export default defineComponent({
                         <tbody>
                             {props.tableBodyData.map((item) => (
                                 <tr class="hover:bg-yellow-50 transition-all duration-100">
-                                    <td class="min-w-[90px]">{item.industry}</td>
-                                    <td class="min-w-[110px]">{item.language}</td>
+                                    <td class="min-w-[90px]">
+                                        {item.industry}
+                                    </td>
+                                    <td class="min-w-[110px]">
+                                        {item.language}
+                                    </td>
                                     <td class="min-w-[200px]">
-                                        <RouterLink to={item.path}>{item.name}</RouterLink>
+                                        <RouterLink
+                                            to={{
+                                                name: item.path.name,
+                                                params: item.path.params,
+                                            }}
+                                        >
+                                            {item.name}
+                                        </RouterLink>
                                     </td>
-                                    <td class="min-w-[120px]">
-                                        {item.period}
-                                    </td>
+                                    <td class="min-w-[120px]">{item.period}</td>
                                     <td class="min-w-[145px]">
                                         <div class="flex gap-2">
-                                            {isLargePad.value && item.fileType.map && item.fileType.map.length > 0
-                                                ? item.fileType.map((fileType) => (
-                                                    <div key={fileType}>
-                                                        <div class="w-8 h-8 cursor-pointer" onClick={() => openDialog(fileType, item.id)}>
-                                                            <img class="w-full h-full" src={`/img/report/${fileType}.svg`} />
-                                                        </div>
-                                                    </div>
-                                                ))
-                                                : item.fileType.map && item.fileType.map.length > 0
-                                                ? item.fileType.map((fileType) => (
-                                                    <el-tooltip key={fileType} effect="dark" content={`.${fileType}`} placement="top">
-                                                        <div class="w-8 h-8 cursor-pointer" onClick={() => openDialog(fileType, item.id)}>
-                                                            <img class="w-full h-full" src={`/img/report/${fileType}.svg`} />
-                                                        </div>
-                                                    </el-tooltip>
-                                                    ))
+                                            {isLargePad.value &&
+                                            item.fileType.map &&
+                                            item.fileType.map.length > 0
+                                                ? item.fileType.map(
+                                                      (fileType) => (
+                                                          <div key={fileType}>
+                                                              <div
+                                                                  class="w-8 h-8 cursor-pointer"
+                                                                  onClick={() =>
+                                                                      openDialog(
+                                                                          fileType,
+                                                                          item.id
+                                                                      )
+                                                                  }
+                                                              >
+                                                                  <img
+                                                                      class="w-full h-full"
+                                                                      src={`/img/report/${fileType}.svg`}
+                                                                  />
+                                                              </div>
+                                                          </div>
+                                                      )
+                                                  )
+                                                : item.fileType.map &&
+                                                  item.fileType.map.length > 0
+                                                ? item.fileType.map(
+                                                      (fileType) => (
+                                                          <el-tooltip
+                                                              key={fileType}
+                                                              effect="dark"
+                                                              content={`.${fileType}`}
+                                                              placement="top"
+                                                          >
+                                                              <div
+                                                                  class="w-8 h-8 cursor-pointer"
+                                                                  onClick={() =>
+                                                                      openDialog(
+                                                                          fileType,
+                                                                          item.id
+                                                                      )
+                                                                  }
+                                                              >
+                                                                  <img
+                                                                      class="w-full h-full"
+                                                                      src={`/img/report/${fileType}.svg`}
+                                                                  />
+                                                              </div>
+                                                          </el-tooltip>
+                                                      )
+                                                  )
                                                 : null}
                                         </div>
                                     </td>
-                                    <td class="min-w-[140px]">{item.publishTime}</td>
-                                    <td class="min-w-[100px]">{item.downloadCount}</td>
+                                    <td class="min-w-[140px]">
+                                        {item.publishTime}
+                                    </td>
+                                    <td class="min-w-[100px]">
+                                        {item.downloadCount}
+                                    </td>
                                 </tr>
                             ))}
                         </tbody>
                     </table>
-                    {props.tableBodyData.length === 0 && <div class="w-full text-center py-8 px-4">查無資料</div>}
+                    {props.tableBodyData.length === 0 && (
+                        <div class="w-full text-center py-8 px-4">查無資料</div>
+                    )}
                 </div>
-                <DownloadDialog ref={downloadDialogRef} downloadData={downloadData.value} />
+                <DownloadDialog
+                    ref={downloadDialogRef}
+                    downloadData={downloadData.value}
+                />
             </div>
         );
     },

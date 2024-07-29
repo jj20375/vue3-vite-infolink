@@ -7,6 +7,7 @@
         "user-change-password": "變更密碼",
         "user-contract": "歷年合約紀錄",
         "report-download": "報告下載",
+        "report-download-detail": "報告資訊",
         "data-factory": "DataFactory",
         "contact": "聯絡我們",
         "login": "會員登入",
@@ -41,7 +42,8 @@
         },
         "success": {
             "change": "變更成功"
-        }
+        },
+        "back-list": "回列表"
     },
     "login": {
         "email": {
@@ -207,6 +209,9 @@
             "zh-tw": "巨集使用說明書(中文)",
             "en": "巨集使用說明書(英文)"
         }
+    },
+    "report-detail": {
+        "title": "檔案下載"
     },
     "contact": {
         "greeting": "感謝您的造訪。",

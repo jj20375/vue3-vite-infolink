@@ -23,3 +23,11 @@ export interface ColumnsInterface<Prop extends string> {
     mobileHideLabel?: boolean;
     onChange?: Function | undefined;
 }
+
+// 分頁 api 資料
+export interface PaginationAPIInterface {
+    total: number;
+    limit: number;
+    last_page: number;
+    current_page: number;
+}

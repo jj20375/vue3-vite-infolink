@@ -7,6 +7,7 @@
         "user-change-password": "变更密码",
         "user-contract": "历年合约记录",
         "report-download": "报告下载",
+        "report-download-detail": "报告资讯",
         "data-factory": "DataFactory",
         "contact": "联系我们",
         "login": "会员登录",
@@ -207,6 +208,9 @@
             "zh-tw": "宏使用说明书(中文)",
             "en": "宏使用说明书(英文)"
         }
+    },
+    "report-detail": {
+        "title": "档案下载"
     },
     "contact": {
         "greeting": "感谢您的访问。",
