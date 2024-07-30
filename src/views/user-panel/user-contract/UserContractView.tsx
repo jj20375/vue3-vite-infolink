@@ -9,6 +9,15 @@ import Breadcrumb from "@/components/Breadcrumb";
 import UserContractTable from "./components/UserContractTable";
 import { useI18n } from "vue-i18n";
 import { GetContractListAPI } from "@/api/contractAPI";
+import type {
+    UserContractListAPIInterface,
+    UserContractParamsInterface,
+} from "../user-info/interface/userInterface";
+import { isEmpty } from "@/services/utils";
+import type { RouteLocationNormalizedLoaded } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
+import type { ReportDownloadCategoriesAPIInterface } from "@/views/report/interface/reportDownloadInterface";
+import { GetReportCategoriesAPI } from "@/api/reportAPI";
 
 interface FilterInterFace {
     // 報告名稱(分類)
@@ -28,7 +37,7 @@ const ContractSearch = defineComponent({
             default: () => defaultFilter,
         },
     },
-    emits: ["update:searchFilter"],
+    emits: ["searchFilter"],
     setup(props, { emit }) {
         const { t } = useI18n();
         // 歷年合約紀錄表單欄位 key
@@ -37,16 +46,7 @@ const ContractSearch = defineComponent({
         const { isLargePad } = useWindowResize();
         const filterForm = ref<FilterInterFace | any>(props.searchFilter);
 
-        const categoryOptions = ref<OptionsInterface[]>([
-            {
-                label: "產業鍊價格預測月報告",
-                value: "產業鍊價格預測月報告",
-            },
-            {
-                label: "行業鍊開工率統計調研",
-                value: "行業鍊開工率統計調研",
-            },
-        ]);
+        const categoryOptions = ref<OptionsInterface[]>([]);
 
         const filterColumns = computed<
             ColumnsInterface<UserContractSearchFormPropType>[]
@@ -80,6 +80,11 @@ const ContractSearch = defineComponent({
             } else {
                 filterForm.value[item.prop] = [];
             }
+            emit("searchFilter", {
+                ...filterForm.value,
+                page: 1,
+                resetSort: true,
+            });
         };
 
         // 多選選單選項改變時，判斷是否全選
@@ -94,15 +99,42 @@ const ContractSearch = defineComponent({
             ) {
                 checkAll.value[index] = true;
             }
+            emit("searchFilter", {
+                ...filterForm.value,
+                page: 1,
+                resetSort: true,
+            });
         };
 
-        watch(filterForm.value, (val) => {
-            emit("update:searchFilter", val);
-        });
+        /**
+         * 取得報告名稱下拉資料
+         */
+        async function getReportCategories() {
+            try {
+                const { data }: ReportDownloadCategoriesAPIInterface =
+                    await GetReportCategoriesAPI();
+
+                categoryOptions.value = data.data.map((item) => {
+                    return {
+                        label: item.name,
+                        value: item.id,
+                    };
+                });
+
+                console.log("GetReportCategoriesAPI data =>");
+            } catch (err) {
+                console.log("GetReportCategoriesAPI err =>", err);
+            }
+        }
 
         function onSubmit(val: FilterInterFace) {
-            emit("update:searchFilter", val);
+            emit("searchFilter", { ...val, page: 1, resetSort: true });
         }
+
+        onMounted(async () => {
+            await getReportCategories();
+        });
+
         return () => (
             <div class="custom-form w-full grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6 sm:gap-y-6 gap-x-4">
                 {filterColumns.value.map((item, index) => (
@@ -206,11 +238,13 @@ export default defineComponent({
     emits: [],
     setup(props, { emit }) {
         const { t } = useI18n();
+        const route: RouteLocationNormalizedLoaded = useRoute();
+        const router = useRouter();
         const filterForm = ref<any>(defaultFilter);
         // 排序 key
-        const sortField = ref(null);
+        const sortField = ref<string | null>(null);
         // 排序方式 倒序 或者 正序
-        const sortAscend = ref(null);
+        const sortAscend = ref<string | null>(null);
 
         // 表單標題
         const tableHeadData = computed(() => [
@@ -234,42 +268,144 @@ export default defineComponent({
         // 表單資料
         const tableBodyData = ref<UserContractDataInterface[]>([
             {
-                id: 0,
+                // 合約開立日
                 contractIssuedDate: "2024-01-29",
+                // 合約生效日
                 contractEffectiveDate: "2024-02-01",
+                // 合約到期日
                 contractExpiryDate: "2025-01-31",
-                purchasedReport:
-                    "<ul><li>全球離電池供應鏈數據庫 (簡中/繁中/英文)</li><li>供應鏈成本調研 (繁中/英文)</li><li>產業鏈價格預測月報告 (簡中)</li></ul>",
+                purchasedReport: [],
             },
         ]);
 
         const currentPage = ref(1);
+        const pagination = ref({
+            pageSize: 10,
+            total: 1,
+        });
 
-        /**
-         * 取得報告列表
-         *
-         *
-         * @returns {void}
-         */
+        async function handlePageChange(val: number) {
+            currentPage.value = val;
 
-        const getContractList = () => {
-            console.log("getContractList", sortField.value, sortAscend.value);
-        };
-
-        function handlePageChange(val: any) {
-            return val;
+            await onFilter({ ...filterForm.value, page: currentPage.value });
         }
 
-        async function getList() {
+        async function getList(params?: UserContractParamsInterface | void) {
             try {
-                const { data } = await GetContractListAPI();
+                const { data }: UserContractListAPIInterface =
+                    await GetContractListAPI(params);
+                tableBodyData.value = data.data.rows.map((row) => {
+                    return {
+                        // 合約開立日
+                        contractIssuedDate: row.created_at,
+                        // 合約生效日
+                        contractEffectiveDate: row.enabled_at,
+                        // 合約到期日
+                        contractExpiryDate: row.expired_at,
+                        // 購買報告項目
+                        purchasedReport: row.contractReportNames,
+                    };
+                });
                 console.log("GetContractListAPI data =>", data);
             } catch (err) {
                 console.log("GetContractListAPI err =>", err);
             }
         }
 
+        /**
+         * 搜尋條件取得列表資料
+         * @param val
+         */
+        async function onFilter(
+            val: FilterInterFace & {
+                page?: number;
+                sortBy?: string | null;
+                sortRule?: "desc" | "asc" | null;
+                resetSort?: boolean;
+            }
+        ) {
+            if (!isEmpty(val.page)) {
+                currentPage.value = val.page!;
+            }
+            // 判斷有點擊搜尋按鈕時 清空排序規則
+            if (val.resetSort) {
+                sortField.value = null;
+                sortAscend.value = null;
+            }
+            // 判斷有傳送排序 key 時 給予排序值
+            if (!isEmpty(val.sortBy)) {
+                sortField.value = val.sortBy!;
+            }
+            // 判斷有傳送規格 時 給予排序規則
+            if (!isEmpty(val.sortRule)) {
+                sortAscend.value = val.sortRule!;
+            }
+            filterForm.value = val;
+            const params: UserContractParamsInterface | any = {
+                keyword: val.name,
+
+                report_category_id: Array.isArray(val.category)
+                    ? val.category
+                    : [],
+                order_column: val.sortBy,
+                order_direction: val.sortRule,
+                page: val.page,
+            };
+            // 刪除空的搜尋條件
+            Object.keys(params).forEach((key) => {
+                if (isEmpty(params[key])) {
+                    delete params[key];
+                }
+            });
+            // 判斷有搜尋條件時 需 加上 chapters 網址路徑 往後重整畫面時 需解析是否有參數值 並帶上搜尋參數
+            if (Object.keys(params).length > 0) {
+                router.push({
+                    name: "user-contract",
+                    params: {
+                        level2Slug: t("router.user-contract"),
+                        chapters: Object.entries(filterForm.value).map(
+                            ([key, value]) => {
+                                if (Array.isArray(value)) {
+                                    return `${key}:${JSON.stringify(value)}`;
+                                }
+                                return `${key}:${value}`;
+                            }
+                        ),
+                    },
+                });
+            } else {
+                router.push({
+                    name: "user-contract",
+                    params: {
+                        slug: t("router.user-contract"),
+                    },
+                });
+            }
+            await getList(params);
+        }
+
         onMounted(async () => {
+            // 判斷是否有搜尋條件
+            if (route.params.chapters && route.params.chapters.length > 0) {
+                const arr: string[] = route.params.chapters as string[];
+                // 將搜尋條件 轉換成物件
+                const parseRouterParams = arr.reduce((acc: any, item: any) => {
+                    const [key, value] = item.split(":");
+                    // 為了防止 json parse 失敗 因此加上 try catch 可以讓失敗後繼續執行
+                    try {
+                        // 判斷是陣列格式時 需 parse
+                        if (Array.isArray(JSON.parse(value))) {
+                            acc[key] = JSON.parse(value);
+                        }
+                    } catch (e) {
+                        acc[key] = value;
+                    }
+                    return acc;
+                }, {});
+                filterForm.value = parseRouterParams;
+                await onFilter(filterForm.value);
+                return;
+            }
             await getList();
         });
 
@@ -281,23 +417,37 @@ export default defineComponent({
                         {t("router.user-contract")}
                     </h3>
                     <div class="custom-form xl:max-w-[1200px]">
-                        <ContractSearch searchFilter={filterForm.value} />
+                        <ContractSearch
+                            onSearchFilter={onFilter}
+                            searchFilter={filterForm.value}
+                        />
                     </div>
                     <div class="mt-3 sm:mt-12 border border-gray-600 p-5 rounded-[4px] bg-white">
                         <UserContractTable
                             tableHead={tableHeadData.value}
                             tableBodyData={tableBodyData.value}
+                            onSortBy={onFilter}
+                            searchFilter={filterForm.value}
+                            parentSortField={sortField.value}
+                            parentSortAscend={sortAscend.value}
                         />
                         <div class="flex flex-col lg:flex-row justify-between items-start lg:items-center mt-6">
                             <div class="order-2 lg:order-1 text-[14px]">
-                                共有 32 筆資料，第 1 / 10 頁
+                                {t("global.totalPages", {
+                                    total: pagination.value.total,
+                                })}
+                                ，
+                                {t("global.currentPage", {
+                                    current: currentPage.value,
+                                    total: pagination.value.total,
+                                })}
                             </div>
                             <Pagination
                                 class="order-1 lg:order-2 mb-4 lg:mb-0"
-                                total={100}
-                                pageSize={10}
+                                total={pagination.value.total}
+                                pageSize={pagination.value.pageSize}
                                 page={currentPage.value}
-                                onHandlePageChange={handlePageChange(1)}
+                                onHandlePageChange={handlePageChange}
                             />
                         </div>
                     </div>

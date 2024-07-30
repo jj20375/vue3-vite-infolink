@@ -49,7 +49,7 @@ const router: Array<RouteRecordRaw> = [
                 },
             },
             {
-                path: "contract/:level2Slug",
+                path: "contract/:level2Slug/:chapters*",
                 name: "user-contract",
                 meta: {
                     // menu: true,

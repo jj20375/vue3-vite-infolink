@@ -1,11 +1,19 @@
 <template>
     <div id="myPagination">
-        <el-pagination v-model:current-page="currnetPage" :page-size="pageSize" :pager-count="5" layout="prev, pager, next" :background="true" :total="total" @update:current-page="handlePageChange" />
+        <el-pagination
+            v-model:current-page="currnetPage"
+            :page-size="pageSize"
+            :pager-count="5"
+            layout="prev, pager, next"
+            :background="true"
+            :total="total"
+            @update:current-page="handlePageChange"
+        />
     </div>
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
+import { ref, watch } from "vue";
 interface Props {
     page: number;
     total: number;
@@ -23,6 +31,13 @@ const emit = defineEmits(["handlePageChange"]);
 const handlePageChange = (value: any) => {
     emit("handlePageChange", value);
 };
+
+watch(
+    () => props.page,
+    (val) => {
+        currnetPage.value = val;
+    }
+);
 </script>
 
 <style lang="scss" scoped>

@@ -1,3 +1,4 @@
+import type { PaginationAPIInterface } from "@/interface/global.d";
 // 使用者資料 type
 export interface UserPanelUserInfoInterface {
     // 信箱
@@ -51,4 +52,36 @@ export interface UserUpdateProfileAPIInterface {
     im_name?: string;
     // 通訊軟體 id
     im_account?: string;
+}
+
+/**
+ * 歷年合約紀錄列表 api
+ */
+export interface UserContractListAPIInterface {
+    data: {
+        data: {
+            rows: {
+                created_at: string;
+                enabled_at: string;
+                expired_at: string;
+                contractReportNames: string[];
+            }[];
+            meta: PaginationAPIInterface;
+        };
+    };
+}
+
+/**
+ * 歷年合約紀錄搜尋條件
+ */
+export interface UserContractParamsInterface {
+    page?: number;
+    // 關鍵字
+    keyword?: string;
+    // 排序欄位
+    order_column?: string;
+    // 排序方式 倒序(desc)或者正序(asc)
+    order_direction?: "desc" | "asc";
+    // 報告名稱
+    report_category_id?: number;
 }

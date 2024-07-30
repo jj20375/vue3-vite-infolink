@@ -125,7 +125,7 @@ const ReportSearch = defineComponent({
             } else {
                 filterForm.value[item.prop] = [];
             }
-            emit("searchFilter", filterForm.value);
+            emit("searchFilter", { ...filterForm.value, page: 1 });
         };
 
         // 多選選單選項改變時，判斷是否全選
@@ -140,17 +140,16 @@ const ReportSearch = defineComponent({
             ) {
                 checkAll.value[index] = true;
             }
-            emit("searchFilter", filterForm.value);
+            emit("searchFilter", { ...filterForm.value, page: 1 });
         };
         function onSubmit(val: FilterInterFace) {
             console.log("onSubmit", val);
-            emit("searchFilter", val);
+            emit("searchFilter", { ...val, page: 1 });
         }
 
         function resetFilter() {
             filterForm.value = defaultFilter();
-            console.log("resetFilter =>", filterForm.value);
-            emit("searchFilter", filterForm.value);
+            emit("searchFilter", { ...filterForm.value, page: 1 });
         }
 
         /**
@@ -422,6 +421,9 @@ export default defineComponent({
          */
         async function onFilter(val: FilterInterFace & { page?: number }) {
             console.log("onFilter =>", val);
+            if (!isEmpty(val.page)) {
+                currentPage.value = val.page!;
+            }
             filterForm.value = val;
             const params: ReportDownloadParamsInterface | any = {
                 keyword: val.name,
@@ -470,7 +472,6 @@ export default defineComponent({
         }
 
         onMounted(async () => {
-            await getList();
             // 判斷是否有搜尋條件
             if (route.params.chapters && route.params.chapters.length > 0) {
                 const arr: string[] = route.params.chapters as string[];
@@ -489,7 +490,10 @@ export default defineComponent({
                     return acc;
                 }, {});
                 filterForm.value = parseRouterParams;
+                await onFilter(filterForm.value);
+                return;
             }
+            await getList();
         });
 
         return () => (

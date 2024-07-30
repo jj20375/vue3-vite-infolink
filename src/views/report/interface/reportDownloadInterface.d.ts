@@ -70,9 +70,13 @@ export interface ReportDownloadDataListAPIInterface {
  */
 export interface ReportDownloadParamsInterface {
     page?: number;
+    // 報告關鍵字
     keyword?: string;
+    //  報告語系
     languages?: string[];
+    // 產業別
     report_industry_ids?: number[];
+    // 報告名稱
     report_category_ids?: number[];
     // 開始期數日期
     start_period?: string;
