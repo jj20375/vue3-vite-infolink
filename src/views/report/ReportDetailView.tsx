@@ -3,7 +3,7 @@ import { useWindowResize } from "@/hooks/windowResize";
 import { useRoute, useRouter } from "vue-router";
 import { useI18n } from "vue-i18n";
 import Breadcrumb from "@/components/Breadcrumb";
-import DownloadDialog from "./components/DownloadDialog.vue";
+import ReportDownloadDialog from "./components/ReportDownloadDialog.vue";
 import IconArrowLeft from "@/components/icons/IconArrowLeft.vue";
 
 export default defineComponent({
@@ -114,7 +114,7 @@ export default defineComponent({
                         </div>
                     </div>
                 </div>
-                <DownloadDialog
+                <ReportDownloadDialog
                     ref={downloadDialogRef}
                     downloadData={downloadData.value}
                 />

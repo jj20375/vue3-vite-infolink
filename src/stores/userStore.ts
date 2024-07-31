@@ -3,10 +3,9 @@ import { defineStore } from "pinia";
 import type {
     UserPanelUserInfoInterface,
     UserPanelCompanyInterface,
-    UserPanelSubAccountsInterface,
 } from "@/views/user-panel/user-info/interface/userInterface";
 import { removeStorage } from "@/services/localStorage";
-import { GetUserProfileAPI } from "@/api/userAPI";
+import { GetSubAccountsAPI, GetUserProfileAPI } from "@/api/userAPI";
 import { useRouter } from "vue-router";
 import enUS from "@/i18n/locales/en.json";
 import zhTW from "@/i18n/locales/tw.json";
@@ -44,24 +43,7 @@ export const useUserStore = defineStore("userStore", () => {
         region: "台灣",
     });
     // 子帳號資料
-    const subAccounts = ref<UserPanelSubAccountsInterface>({
-        solarEnergySubAccounts: [
-            "ili.wang@codepulse.com.tw",
-            "gina.chen@codepulse.com.tw",
-            "joe.lee@codepulse.com.tw",
-            "ili.wang@codepulse.com.tw",
-            "gina.chen@codepulse.com.tw",
-            "joe.lee@codepulse.com.tw",
-        ],
-        storedEnergySubAccounts: [
-            "ili.wang@codepulse.com.tw",
-            "gina.chen@codepulse.com.tw",
-            "joe.lee@codepulse.com.tw",
-            "ili.wang@codepulse.com.tw",
-            "gina.chen@codepulse.com.tw",
-            "joe.lee@codepulse.com.tw",
-        ],
-    });
+    const subAccounts = ref<{ [key: string]: string[] }>({});
     // 判斷是否有登入
     const isAuth = ref(false);
 
@@ -91,6 +73,14 @@ export const useUserStore = defineStore("userStore", () => {
     function clearIsAuth() {
         return (isAuth.value = false);
     }
+
+    /**
+     * 設定子帳號資料
+     */
+    function setSubAccounts(data: { [key: string]: string[] }) {
+        subAccounts.value = data;
+    }
+
     /**
      * 取得使用者資料
      */
@@ -124,6 +114,22 @@ export const useUserStore = defineStore("userStore", () => {
         }
         return user.value;
     }
+
+    /**
+     * 取得使用者底下的子帳號列表
+     */
+    async function getSubAccounts() {
+        try {
+            const { data }: any = await GetSubAccountsAPI();
+            setSubAccounts(data.data);
+            console.log("GetSubAccountsAPI data =>", data);
+            return data.data;
+        } catch (err) {
+            console.log("GetSubAccountsAPI err =>", err);
+        }
+        return subAccounts.value;
+    }
+
     /**
      * 移除登入資料與狀態
      */
@@ -140,6 +146,8 @@ export const useUserStore = defineStore("userStore", () => {
         setUser,
         setIsAuth,
         getUserPorfile,
+        getSubAccounts,
+        setSubAccounts,
         removeUser,
     };
 });

@@ -18,6 +18,7 @@ instance.interceptors.request.use(
         return config;
     },
     (error) => {
+        console.log("error =>", error);
         return Promise.reject(error);
     }
 );
@@ -31,6 +32,7 @@ instance.interceptors.response.use(
             removeStorage("token");
             router.push({ name: "login", params: { slug: "會員登入" } });
         }
+        return Promise.reject(error);
     }
 );
 

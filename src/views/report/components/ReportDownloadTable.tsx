@@ -1,10 +1,10 @@
 import type { PropType } from "vue";
 import type { ReportDownloadDataInterface } from "../interface/reportDownloadInterface.d";
-import { defineComponent, ref, toRefs } from "vue";
+import { defineComponent, ref, toRefs, nextTick } from "vue";
 import { RouterLink } from "vue-router";
 import { useScroll } from "@vueuse/core";
 import { useWindowResize } from "@/hooks/windowResize";
-import DownloadDialog from "./DownloadDialog.vue";
+import ReportDownloadDialog from "./ReportDownloadDialog.vue";
 
 export default defineComponent({
     name: "ReportDownloadTable",
@@ -18,36 +18,7 @@ export default defineComponent({
         tableBodyData: {
             type: Array as PropType<ReportDownloadDataInterface[]>,
             default() {
-                return [
-                    {
-                        id: 1,
-                        name: "2021年太陽能產業鍊價格預測月報告",
-                        industry: "太陽能",
-                        language: "繁體中文",
-                        period: "2021-01",
-                        publishTime: "2021-01-01",
-                        downloadCount: 10,
-                        fileType: ["pdf", "xlsx", "xlsm"],
-                        path: {
-                            name: "report-detail-slug-id",
-                            params: { slug: "報告資訊", id: 1 },
-                        },
-                    },
-                    {
-                        id: 2,
-                        name: "2024年太陽能產業鍊價格預測月報告",
-                        industry: "太陽能",
-                        language: "繁體中文",
-                        period: "2024-01",
-                        publishTime: "2024-01-01",
-                        downloadCount: 5,
-                        fileType: ["xlsm"],
-                        path: {
-                            name: "report-detail-slug-id",
-                            params: { slug: "報告資訊", id: 2 },
-                        },
-                    },
-                ];
+                return [];
             },
         },
     },
@@ -56,15 +27,17 @@ export default defineComponent({
         // 商品詳情 彈窗dom
         const downloadDialogRef = ref<any>(null);
         // 要下載的檔案id及類型
-        const downloadData = ref<any>(null);
+        const downloadData = ref<{ fileType?: string; id?: number }>({});
 
         // 開啟彈窗
-        const openDialog = (fileType: string, id: number | string) => {
+        const openDialog = async (fileType: string, id: number) => {
             downloadData.value = {
                 fileType: fileType,
                 id: id,
             };
-            downloadDialogRef.value.openDialog();
+            nextTick(() => {
+                downloadDialogRef.value.openDialog();
+            });
         };
 
         // 表格是否出現陰影(滑到底陰影會消失)
@@ -120,9 +93,9 @@ export default defineComponent({
                                     <td class="min-w-[145px]">
                                         <div class="flex gap-2">
                                             {isLargePad.value &&
-                                            item.fileType.map &&
-                                            item.fileType.map.length > 0
-                                                ? item.fileType.map(
+                                            item.fileTypes.map &&
+                                            item.fileTypes.map.length > 0
+                                                ? item.fileTypes.map(
                                                       (fileType) => (
                                                           <div key={fileType}>
                                                               <div
@@ -142,9 +115,9 @@ export default defineComponent({
                                                           </div>
                                                       )
                                                   )
-                                                : item.fileType.map &&
-                                                  item.fileType.map.length > 0
-                                                ? item.fileType.map(
+                                                : item.fileTypes.map &&
+                                                  item.fileTypes.map.length > 0
+                                                ? item.fileTypes.map(
                                                       (fileType) => (
                                                           <el-tooltip
                                                               key={fileType}
@@ -186,7 +159,7 @@ export default defineComponent({
                         <div class="w-full text-center py-8 px-4">查無資料</div>
                     )}
                 </div>
-                <DownloadDialog
+                <ReportDownloadDialog
                     ref={downloadDialogRef}
                     downloadData={downloadData.value}
                 />

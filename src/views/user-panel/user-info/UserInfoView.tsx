@@ -350,33 +350,25 @@ export default defineComponent({
             },
         ]);
 
-        // 子帳號資料
-        const subAccountsForm = ref(subAccounts.value);
         // 子帳號列表表單欄位
-        const subAccountsColumns = computed<
-            {
-                prop: "solarEnergySubAccounts" | "storedEnergySubAccounts";
-                label: string;
-                memo: string;
-            }[]
-        >(() => [
-            {
-                prop: "solarEnergySubAccounts",
-                label: t("user-panel.sub-accounts.solarEnergySubAccounts"),
-                memo:
-                    t("user-panel.sub-accounts.memo") +
-                    " " +
-                    initData.value.site.contact_email,
-            },
-            {
-                prop: "storedEnergySubAccounts",
-                label: t("user-panel.sub-accounts.storedEnergySubAccounts"),
-                memo:
-                    t("user-panel.sub-accounts.memo") +
-                    " " +
-                    initData.value.site.contact_email,
-            },
-        ]);
+        const subAccountsColumns = computed(() => {
+            if (Object.keys(subAccounts.value).length > 0) {
+                const arr = Object.keys(subAccounts.value).map(
+                    (key: string) => {
+                        return {
+                            label: key,
+                            accounts: subAccounts.value[key],
+                            memo:
+                                t("user-panel.sub-accounts.memo") +
+                                " " +
+                                initData.value.site.contact_email,
+                        };
+                    }
+                );
+                return arr;
+            }
+            return [];
+        });
 
         /**
          * 表單發送
@@ -465,27 +457,31 @@ export default defineComponent({
                     <div class="w-full h-[1px] bg-black-100 mb-2"></div>
                     {/** 因為資料要完整呈現所以不使用input */}
                     {subAccountsColumns.value.length > 0
-                        ? subAccountsColumns.value.map((subAccountColumn) => (
-                              <div class="el-form-item">
-                                  <div class="el-form-item__label">
-                                      {subAccountColumn.label}
-                                  </div>
-                                  <div class="el-form-item__content">
-                                      <div class="el-input is-disabled">
-                                          <div class="el-input__wrapper">
-                                              <div class="el-input__inner !h-auto break-all">
-                                                  {subAccountsForm.value[
-                                                      subAccountColumn.prop
-                                                  ]!.join(" , ")}
+                        ? subAccountsColumns.value.map((item) => {
+                              if (!isEmpty(item.accounts)) {
+                                  return (
+                                      <div class="el-form-item">
+                                          <div class="el-form-item__label">
+                                              {item.label}
+                                          </div>
+                                          <div class="el-form-item__content">
+                                              <div class="el-input is-disabled">
+                                                  <div class="el-input__wrapper">
+                                                      <div class="el-input__inner !h-auto break-all">
+                                                          {item.accounts.join(
+                                                              " , "
+                                                          )}
+                                                      </div>
+                                                  </div>
                                               </div>
                                           </div>
+                                          <div class="text-[12px] text-red-500 mt-[4px] leading-4">
+                                              {item.memo}
+                                          </div>
                                       </div>
-                                  </div>
-                                  <div class="text-[12px] text-red-500 mt-[4px] leading-4">
-                                      {subAccountColumn.memo}
-                                  </div>
-                              </div>
-                          ))
+                                  );
+                              }
+                          })
                         : null}
                 </div>
             );

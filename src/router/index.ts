@@ -66,6 +66,7 @@ router.beforeEach(
         // 取得使用者資料
         if (token && !isAuth.value) {
             await userStore.getUserPorfile();
+            await userStore.getSubAccounts();
         }
         loading.close();
         // 有登入情況下

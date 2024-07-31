@@ -384,6 +384,13 @@ export default defineComponent({
                 const { data }: ReportDownloadDataListAPIInterface =
                     await GetReportListAPI(params);
                 tableBodyData.value = data.data.rows.map((row) => {
+                    let fileTypes: any = [];
+                    if (!isEmpty(row.files)) {
+                        fileTypes = Object.keys(row.files).map((fileType) => {
+                            return fileType;
+                        });
+                    }
+
                     return {
                         id: row.id,
                         name: row.name,
@@ -392,7 +399,7 @@ export default defineComponent({
                         period: row.period,
                         publishTime: row.published_at,
                         downloadCount: 0,
-                        fileType: [],
+                        fileTypes: fileTypes,
                         path: {
                             name: "report-download-detail",
                             params: {

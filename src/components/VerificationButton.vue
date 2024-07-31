@@ -88,7 +88,7 @@ const resetTimer = () => {
 // 在組件被掛載後啟動計時器
 onMounted(() => {
     if (props.startCount) {
-        emit("resendVerification");
+        // emit("resendVerification");
         startTimer();
     } else {
         countdownTimer.value = 0;

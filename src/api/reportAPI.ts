@@ -1,10 +1,17 @@
 import axios from "@/services/axiosConfig";
+import type {
+    GetReportDownloadEmailValidateCodeAPIInterface,
+    ReportDownloadParamsInterface,
+    ReportDownloadVerifyEmailValidateCodeAPIInterface,
+} from "@/views/report/interface/reportDownloadInterface";
 const apiURL = import.meta.env.VITE_API_URL;
 
 /**
  * 報告下載列表
  */
-export function GetReportListAPI(params?: any) {
+export function GetReportListAPI(
+    params?: ReportDownloadParamsInterface | void
+) {
     return axios.get(`${apiURL}/report/paginate`, { params });
 }
 
@@ -27,4 +34,28 @@ export function GetReportIndustriesAPI() {
  */
 export function GetReportCategoriesAPI() {
     return axios.get(`${apiURL}/report/category-list`);
+}
+
+/**
+ * 取得報表下載驗證碼
+ */
+export function GetReportDownloadEmailValidateCodeAPI(
+    data: GetReportDownloadEmailValidateCodeAPIInterface
+) {
+    return axios.post(
+        `${apiURL}/report/send-download-report-file-verification-code`,
+        data
+    );
+}
+
+/**
+ * 驗證報表下載驗證碼
+ */
+export function ReportDownloadVerifyEmailValidateCodeAPI(
+    data: ReportDownloadVerifyEmailValidateCodeAPIInterface
+) {
+    return axios.post(
+        `${apiURL}/report/verify-download-report-file-verification-code`,
+        data
+    );
 }

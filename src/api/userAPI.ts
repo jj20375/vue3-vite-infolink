@@ -1,6 +1,7 @@
 import axios from "@/services/axiosConfig";
 import type {
     UserPanelUserInfoInterface,
+    UserSubAccountsAPIInterface,
     UserUpdateProfileAPIInterface,
 } from "@/views/user-panel/user-info/interface/userInterface";
 const apiURL = import.meta.env.VITE_API_URL;
@@ -20,4 +21,13 @@ export function GetUserProfileAPI(): Promise<{
  */
 export function UpdateUserProfileAPI(data: UserUpdateProfileAPIInterface) {
     return axios.post(`${apiURL}/member/update-profile`, data);
+}
+
+/**
+ * 取得使用者底下的子帳號列表
+ */
+export function GetSubAccountsAPI(): Promise<{
+    data: UserSubAccountsAPIInterface;
+}> {
+    return axios.get(`${apiURL}/member/sub-account-list`);
 }

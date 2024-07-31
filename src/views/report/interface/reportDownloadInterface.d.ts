@@ -20,7 +20,7 @@ export interface ReportDownloadFilterColumnsInterface
 }
 // 下載表單欄位資料 interface
 export interface ReportDownloadDataInterface {
-    id: string | number;
+    id: number;
     // 報表名稱
     name: string;
     // 產業別
@@ -34,7 +34,7 @@ export interface ReportDownloadDataInterface {
     // 下載次數
     downloadCount: number;
     // 檔案格式
-    fileType: string[];
+    fileTypes: string[];
     // vue router path
     path: LocationAsRelativeRaw;
 }
@@ -56,7 +56,9 @@ export interface ReportDownloadDataListAPIInterface {
                 // 期數
                 period: string;
                 // 檔案類型
-                files: string[];
+                files: {
+                    [key: string]: boolean;
+                };
                 // 發佈日期
                 published_at: string;
             }[];
@@ -107,4 +109,20 @@ export interface ReportDownloadIndustriesAPIInterface {
  */
 export interface ReportDownloadCategoriesAPIInterface {
     data: { data: { id: number; name: string }[] };
+}
+
+/**
+ * 取得報表下載驗證碼 api
+ */
+export interface GetReportDownloadEmailValidateCodeAPIInterface {
+    report_id: number;
+}
+
+/**
+ *  驗證報表下載驗證碼 api
+ */
+export interface ReportDownloadVerifyEmailValidateCodeAPIInterface {
+    report_id: number;
+    file_type: string;
+    verification_code: string;
 }

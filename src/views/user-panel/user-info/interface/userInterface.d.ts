@@ -31,14 +31,6 @@ export interface UserPanelCompanyInterface {
     address: string;
 }
 
-// 子帳號資料 type
-export interface UserPanelSubAccountsInterface {
-    // 太陽能相關子帳號
-    solarEnergySubAccounts?: string[];
-    // 儲能相關子帳號
-    storedEnergySubAccounts?: string[];
-}
-
 /**
  * 更新個人資料 api
  */
@@ -84,4 +76,15 @@ export interface UserContractParamsInterface {
     order_direction?: "desc" | "asc";
     // 報告名稱
     report_category_id?: number;
+}
+
+/**
+ * 子帳號列表 api
+ */
+export interface UserSubAccountsAPIInterface {
+    data: {
+        data: {
+            [key: string]: string[];
+        };
+    };
 }

@@ -87,10 +87,10 @@ export default defineComponent({
                 const { data } = await AuthLoginEmailVerfiyCodeAPI(form);
                 setStorage("token", data.data.access_token);
                 console.log("AuthLoginEmailVerfiyCodeAPI data =>", data);
-                closeDialog();
                 setTimeout(async () => {
                     await userStore.getUserPorfile();
                     userStore.setIsAuth();
+                    closeDialog();
                     return router.push({
                         name: "home",
                         params: { slug: t("router.home") },
