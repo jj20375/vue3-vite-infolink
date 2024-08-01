@@ -42,7 +42,7 @@ const router: Array<RouteRecordRaw> = [
                 components: {
                     default: () =>
                         import(
-                            "@/views/user-panel/user-reset-password/UserResetPasswordView"
+                            "@/views/user-panel/user-change-password/UserChangePasswordView"
                         ),
                     MainLeftSideBar: LayoutMainLeftSidebar,
                     MainHeader: LayoutMainHeader,

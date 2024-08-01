@@ -15,7 +15,6 @@ import langs from "@/i18n/langs";
 import { useI18n } from "vue-i18n";
 import { defineComponent, ref, computed } from "vue";
 import style from "./layoutMain.module.scss";
-import IconLogo2 from "@/assets/img/logo/logo-2.svg";
 import { AuthLogoutAPI } from "@/api/oauthAPI";
 
 export default defineComponent({

@@ -28,6 +28,7 @@ export default defineComponent({
         const { t } = useI18n();
         const userStore = useUserStore();
         const showDialog = ref(false);
+        const loading = ref(false);
         // 倒數計時器組件 dom
         const verificationButtonRef = ref<any>(null);
 
@@ -83,6 +84,7 @@ export default defineComponent({
         async function authLoginEmailVerifyCode(
             form: AuthLoginEmailVerfiyCodeAPIInterface
         ) {
+            loading.value = true;
             try {
                 const { data } = await AuthLoginEmailVerfiyCodeAPI(form);
                 setStorage("token", data.data.access_token);
@@ -91,6 +93,7 @@ export default defineComponent({
                     await userStore.getUserPorfile();
                     userStore.setIsAuth();
                     closeDialog();
+                    loading.value = false;
                     return router.push({
                         name: "home",
                         params: { slug: t("router.home") },
@@ -98,6 +101,7 @@ export default defineComponent({
                 }, 1000);
             } catch (err) {
                 console.log("AuthLoginEmailVerfiyCodeAPI err =>", err);
+                loading.value = false;
             }
         }
 
@@ -171,6 +175,7 @@ export default defineComponent({
                             {t("global.back")}
                         </button>
                         <button
+                            v-loading={loading.value}
                             class="order-1 w-full yellow-btn md:order-2"
                             onClick={onSubmit}
                         >

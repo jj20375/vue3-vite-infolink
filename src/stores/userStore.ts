@@ -1,7 +1,7 @@
 import { ref } from "vue";
 import { defineStore } from "pinia";
 import type {
-    UserPanelUserInfoInterface,
+    UserPanelUserInfoResponseAPIInterface,
     UserPanelCompanyInterface,
 } from "@/views/user-panel/user-info/interface/userInterface";
 import { removeStorage } from "@/services/localStorage";
@@ -29,7 +29,7 @@ export const useUserStore = defineStore("userStore", () => {
     const router = useRouter();
 
     // 使用者資料
-    const user = ref<UserPanelUserInfoInterface>({
+    const user = ref<UserPanelUserInfoResponseAPIInterface>({
         email: "test@gmail.com",
         name: "測試名稱",
         phone: "0933123123",

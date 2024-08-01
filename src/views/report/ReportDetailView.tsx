@@ -1,10 +1,13 @@
-import { defineComponent, ref } from "vue";
+import { defineComponent, ref, nextTick, onMounted } from "vue";
 import { useWindowResize } from "@/hooks/windowResize";
 import { useRoute, useRouter } from "vue-router";
 import { useI18n } from "vue-i18n";
 import Breadcrumb from "@/components/Breadcrumb";
 import ReportDownloadDialog from "./components/ReportDownloadDialog.vue";
 import IconArrowLeft from "@/components/icons/IconArrowLeft.vue";
+import { GetReportDetailAPI } from "@/api/reportAPI";
+import type { ReportDetailResponseAPIInterface } from "./interface/reportDownloadInterface";
+import { isEmpty } from "@/services/utils";
 
 export default defineComponent({
     name: "ReportDetailView",
@@ -23,12 +26,14 @@ export default defineComponent({
         const downloadData = ref<any>(null);
 
         // 開啟彈窗
-        const openDialog = (fileType: string, id: number | string) => {
+        const openDialog = (fileType: string, id: number) => {
             downloadData.value = {
                 fileType: fileType,
                 id: id,
             };
-            downloadDialogRef.value.openDialog();
+            nextTick(() => {
+                downloadDialogRef.value.openDialog();
+            });
         };
 
         const reportData = ref({
@@ -36,7 +41,33 @@ export default defineComponent({
             date: "2024-02-11",
             content:
                 "<p>全球鋰電池供應鏈數據庫報告涵蓋全球鋰電池市場供需情形，提供電芯環節的細部數據，包括各企業的產能、產量、出貨等，且拆分各市場應用別如大型與工商業儲能、戶用儲能。除了詳細數據資料，全球鋰電池供應鏈數據庫也提供全產業鏈上的綜觀與趨勢分析，協助企業作為策略佈局的重要依據。<br><br>全球鋰電池供應鏈數據庫内容包含：<br><br>1. 全球鋰電池市場概況<br>2. 鋰電池市場供需分析<br>3. 上游材料鋰礦分析<br>4. 鋰電池價格預測<br>5. 鋰電池主要企業產能、產量、出貨分析</p>",
-            file: ["pdf", "xlsx", "xlsm"],
+            files: ["pdf", "xlsx", "xlsm"],
+        });
+
+        async function getDetail(id: number) {
+            try {
+                const { data }: ReportDetailResponseAPIInterface =
+                    await GetReportDetailAPI({ id });
+                let fileTypes: any = [];
+                if (!isEmpty(data.data.files)) {
+                    fileTypes = Object.keys(data.data.files).map((fileType) => {
+                        return fileType;
+                    });
+                }
+                reportData.value = {
+                    title: data.data.name,
+                    date: data.data.published_at,
+                    content: data.data.content,
+                    files: fileTypes,
+                };
+                console.log("GetReportDetailAPI =>", data);
+            } catch (err) {
+                console.log("GetReportDetailAPI err =>", err);
+            }
+        }
+
+        onMounted(async () => {
+            await getDetail(Number(route.params.id));
         });
         return () => (
             <>
@@ -67,7 +98,7 @@ export default defineComponent({
                         </div>
                         <div class="flex gap-2">
                             {!isLargePad.value
-                                ? reportData.value.file.map(
+                                ? reportData.value.files.map(
                                       (fileType: string) => (
                                           <el-tooltip
                                               key={fileType}
@@ -80,8 +111,9 @@ export default defineComponent({
                                                   onClick={() =>
                                                       openDialog(
                                                           fileType,
-                                                          route.params
-                                                              .id as string
+                                                          Number(
+                                                              route.params.id
+                                                          )
                                                       )
                                                   }
                                               >
@@ -93,14 +125,14 @@ export default defineComponent({
                                           </el-tooltip>
                                       )
                                   )
-                                : reportData.value.file.map(
+                                : reportData.value.files.map(
                                       (fileType: string) => (
                                           <div
                                               class="w-12 h-12 cursor-pointer"
                                               onClick={() =>
                                                   openDialog(
                                                       fileType,
-                                                      route.params.id as string
+                                                      Number(route.params.id)
                                                   )
                                               }
                                           >

@@ -1,6 +1,8 @@
 import axios from "@/services/axiosConfig";
 import type {
     GetReportDownloadEmailValidateCodeAPIInterface,
+    ReportDetailAPIInterface,
+    ReportDetailResponseAPIInterface,
     ReportDownloadParamsInterface,
     ReportDownloadVerifyEmailValidateCodeAPIInterface,
 } from "@/views/report/interface/reportDownloadInterface";
@@ -58,4 +60,13 @@ export function ReportDownloadVerifyEmailValidateCodeAPI(
         `${apiURL}/report/verify-download-report-file-verification-code`,
         data
     );
+}
+
+/**
+ * 取得報告詳情資料
+ */
+export function GetReportDetailAPI(
+    params: ReportDetailAPIInterface
+): Promise<ReportDetailResponseAPIInterface> {
+    return axios.get(`${apiURL}/report/detail`, { params });
 }

@@ -4,7 +4,7 @@ import type {
     ReportDownloadFilterColumnsInterface,
     ReportDownloadDataInterface,
     ReportDownloadParamsInterface,
-    ReportDownloadDataListAPIInterface,
+    ReportDownloadDataListResponseAPIInterface,
     ReportDownloadLanguagesAPIInterface,
     ReportDownloadCategoriesAPIInterface,
     ReportDownloadIndustriesAPIInterface,
@@ -381,7 +381,7 @@ export default defineComponent({
         async function getList(params: ReportDownloadParamsInterface | void) {
             loading.value = true;
             try {
-                const { data }: ReportDownloadDataListAPIInterface =
+                const { data }: ReportDownloadDataListResponseAPIInterface =
                     await GetReportListAPI(params);
                 tableBodyData.value = data.data.rows.map((row) => {
                     let fileTypes: any = [];

@@ -4,8 +4,8 @@ import { useUserStore } from "@/stores/userStore";
 import { useWindowResize } from "@/hooks/windowResize";
 import { ElMessage, type FormInstance } from "element-plus";
 import type {
-    UserPanelUserInfoInterface,
-    UserUpdateProfileAPIInterface,
+    UserPanelUserInfoResponseAPIInterface,
+    UserUpdateProfileRequestAPIInterface,
 } from "./interface/userInterface";
 import type { ColumnsInterface } from "@/interface/global.d";
 import Breadcrumb from "@/components/Breadcrumb";
@@ -26,7 +26,7 @@ type UserFormProp =
 type FormColumnsInterface = ColumnsInterface<UserFormProp>;
 
 // 預設使用者資料表單
-const defaultUserForm: UserPanelUserInfoInterface = {
+const defaultUserForm: UserPanelUserInfoResponseAPIInterface = {
     email: "",
     name: "",
     jobTitle: "",
@@ -46,7 +46,7 @@ const UserForm = defineComponent({
             default: null,
         },
         form: {
-            type: Object as PropType<UserPanelUserInfoInterface>,
+            type: Object as PropType<UserPanelUserInfoResponseAPIInterface>,
             default() {
                 return defaultUserForm;
             },
@@ -201,7 +201,7 @@ export default defineComponent({
         const subAccounts = computed(() => userStore.subAccounts);
 
         // 使用者資料表單
-        const form = ref<UserPanelUserInfoInterface>(user.value);
+        const form = ref<UserPanelUserInfoResponseAPIInterface>(user.value);
         // 使用者資料欄位
         const userInfo = ref<FormColumnsInterface[]>([
             {
@@ -246,7 +246,7 @@ export default defineComponent({
                     { value: "skype", label: "skype" },
                     { value: "other", label: "other" },
                 ],
-                onChange(value: UserPanelUserInfoInterface) {
+                onChange(value: UserPanelUserInfoResponseAPIInterface) {
                     return;
                 },
             },
@@ -378,7 +378,7 @@ export default defineComponent({
                 if (formRefDom.value) {
                     await formRefDom.value.validate();
                 }
-                const sendData: UserUpdateProfileAPIInterface = {
+                const sendData: UserUpdateProfileRequestAPIInterface = {
                     name: form.value.name!,
                     title: form.value.jobTitle!,
                     phone: form.value.phone!,
@@ -402,7 +402,7 @@ export default defineComponent({
          * 儲存使用者資料
          * @param formData 使用者表單資料
          */
-        async function save(formData: UserUpdateProfileAPIInterface) {
+        async function save(formData: UserUpdateProfileRequestAPIInterface) {
             try {
                 await UpdateUserProfileAPI(formData);
                 ElMessage({

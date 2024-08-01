@@ -10,7 +10,7 @@ import UserContractTable from "./components/UserContractTable";
 import { useI18n } from "vue-i18n";
 import { GetContractListAPI } from "@/api/contractAPI";
 import type {
-    UserContractListAPIInterface,
+    UserContractListResponseAPIInterface,
     UserContractParamsInterface,
 } from "../user-info/interface/userInterface";
 import { isEmpty } from "@/services/utils";
@@ -292,7 +292,7 @@ export default defineComponent({
 
         async function getList(params?: UserContractParamsInterface | void) {
             try {
-                const { data }: UserContractListAPIInterface =
+                const { data }: UserContractListResponseAPIInterface =
                     await GetContractListAPI(params);
                 tableBodyData.value = data.data.rows.map((row) => {
                     return {

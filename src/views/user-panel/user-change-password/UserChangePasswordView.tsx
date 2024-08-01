@@ -1,10 +1,15 @@
 import { computed, defineComponent, ref } from "vue";
+import { useRouter } from "vue-router";
 import { validatePassword } from "@/services/formValidator";
 import type { FormInstance } from "element-plus";
 import type { ColumnsInterface } from "@/interface/global.d";
 import { useWindowResize } from "@/hooks/windowResize";
 import Breadcrumb from "@/components/Breadcrumb";
 import { useI18n } from "vue-i18n";
+import { UserChangePasswordAPI } from "@/api/userAPI";
+import { ElMessage } from "element-plus";
+import { AuthLogoutAPI } from "@/api/oauthAPI";
+import { useUserStore } from "@/stores/userStore";
 
 export default defineComponent({
     name: "UserResetPassword",
@@ -12,6 +17,9 @@ export default defineComponent({
     emits: [],
     setup(props, { emit }) {
         const { t } = useI18n();
+        const router = useRouter();
+        const userStore = useUserStore();
+        const loading = ref(false);
         // 重置密碼表單欄位 key
         type UserResetPasswordFormPropType =
             | "oldPassword"
@@ -120,64 +128,48 @@ export default defineComponent({
             };
         });
 
-        async function onSubmit() {
+        async function onSubmit(e: Event) {
+            e.preventDefault();
             try {
                 if (formRefDom.value) {
                     await formRefDom.value.validate();
-                    await resetPassword(form.value);
+                    await changePassword(form.value);
                 }
             } catch (err) {
                 return;
             }
-            // formRefDom.value.validate(async (valid: any) => {
-            //     if (!valid) {
-            //         ElMessage({
-            //             type: "error",
-            //             message: `尚有欄位未填`,
-            //         });
-            //     } else {
-            //         const loading = ElLoading.service({
-            //             lock: true,
-            //             text: "儲存中...",
-            //             background: "rgba(0, 0, 0, 0.7)",
-            //         });
-            //         try {
-            //             const params = {
-            //                 scene: route.query.scene,
-            //                 email: route.query.email,
-            //                 token: route.query.token,
-            //                 password: form.value.newPassword,
-            //                 password_confirmation: form.value.newPasswordConfirmation,
-            //             };
-            //             const { data, status, error } = await $api().PasswordEmailVerificationAPI(params);
-            //             if (status.value === 'success') {
-            //                 ElMessage({
-            //                     type: "success",
-            //                     message: `更新成功`,
-            //                 });
-            //                 router.push({ name: "auth-login-slug", params: { slug: "會員登入" } });
-
-            //             } else {
-            //                 ElMessage({
-            //                     type: "error",
-            //                     message: (error.value as any).data.message,
-            //                 });
-            //             }
-            //             loading.close();
-            //         } catch (err) {
-            //             ElMessage({
-            //                 type: "error",
-            //                 message: "更新失敗",
-            //             });
-            //             loading.close();
-            //             console.log("HomeSampleAPI => ", err);
-            //         }
-            //     }
-            // });
         }
 
-        async function resetPassword(form: ResetPasswordForm) {
+        async function changePassword(data: ResetPasswordForm) {
+            const sendData = {
+                old_password: data.oldPassword,
+                new_password: data.newPassword,
+                new_password_confirmation: data.newPasswordConfirmation,
+            };
+            loading.value = true;
+            try {
+                await UserChangePasswordAPI(sendData);
+                await logout();
+                ElMessage({
+                    type: "success",
+                    message: t("global.success.change"),
+                });
+            } catch (err) {
+            } finally {
+                loading.value = false;
+            }
             return;
+        }
+
+        /**
+         * 登出
+         */
+        async function logout() {
+            userStore.removeUser();
+            router.push({
+                name: "login",
+                params: { slug: t("router.login") },
+            });
         }
 
         return () => (
@@ -225,7 +217,8 @@ export default defineComponent({
                                     ))}
                                 </div>
                                 <button
-                                    onClick={() => onSubmit()}
+                                    v-loading={loading.value}
+                                    onClick={onSubmit}
                                     class={[
                                         "yellow-btn mt-6",
                                         isMobile.value ? "w-full" : "btn-sm",

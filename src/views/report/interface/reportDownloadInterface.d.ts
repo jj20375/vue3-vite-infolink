@@ -42,7 +42,7 @@ export interface ReportDownloadDataInterface {
 /**
  * 報告下載列表 api 資料
  */
-export interface ReportDownloadDataListAPIInterface {
+export interface ReportDownloadDataListResponseAPIInterface {
     data: {
         data: {
             rows: {
@@ -125,4 +125,38 @@ export interface ReportDownloadVerifyEmailValidateCodeAPIInterface {
     report_id: number;
     file_type: string;
     verification_code: string;
+}
+
+/**
+ * 取得報告詳情資料傳送參數 api
+ */
+export interface ReportDetailAPIInterface {
+    id: number;
+}
+
+/**
+ * 報告詳情資料回應內容 api
+ */
+export interface ReportDetailResponseAPIInterface {
+    data: {
+        data: {
+            id: number;
+            // 報告產業別
+            report_industry: string;
+            // 語系
+            language: string;
+            // 報告名稱
+            name: string;
+            // 報告內容
+            content: string;
+            // 期數日期
+            period: string;
+            // 檔案類型
+            files: {
+                [key: string]: boolean;
+            };
+            // 發佈日期
+            published_at: string;
+        };
+    };
 }

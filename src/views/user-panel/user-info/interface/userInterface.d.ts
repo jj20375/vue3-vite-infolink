@@ -1,6 +1,6 @@
 import type { PaginationAPIInterface } from "@/interface/global.d";
 // 使用者資料 type
-export interface UserPanelUserInfoInterface {
+export interface UserPanelUserInfoResponseAPIInterface {
     // 信箱
     email?: string;
     // 使用者名稱
@@ -34,7 +34,7 @@ export interface UserPanelCompanyInterface {
 /**
  * 更新個人資料 api
  */
-export interface UserUpdateProfileAPIInterface {
+export interface UserUpdateProfileRequestAPIInterface {
     // 姓名
     name: string;
     // 職稱
@@ -49,7 +49,7 @@ export interface UserUpdateProfileAPIInterface {
 /**
  * 歷年合約紀錄列表 api
  */
-export interface UserContractListAPIInterface {
+export interface UserContractListResponseAPIInterface {
     data: {
         data: {
             rows: {
@@ -81,10 +81,19 @@ export interface UserContractParamsInterface {
 /**
  * 子帳號列表 api
  */
-export interface UserSubAccountsAPIInterface {
+export interface UserSubAccountsResponseAPIInterface {
     data: {
         data: {
             [key: string]: string[];
         };
     };
+}
+
+/**
+ * 修改密碼 api 請求參數
+ */
+export interface UserChangePasswordRequestAPIInterface {
+    old_password: string;
+    new_password: string;
+    new_password_confirmation: string;
 }

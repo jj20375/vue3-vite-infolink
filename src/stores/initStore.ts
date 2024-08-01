@@ -52,11 +52,10 @@ export const useInitStore = defineStore("initStore", () => {
         initData.value = {
             site: {
                 site_name: data.name,
-                site_logo: import.meta.env.VITE_API_URL + data.logo,
-                site_logo2: import.meta.env.VITE_API_URL + data.logo2,
-                site_favicon: import.meta.env.VITE_API_URL + data.favicon,
-                site_preview_thumbnail:
-                    import.meta.env.VITE_API_URL + data.preview_thumbnail,
+                site_logo: data.logo.black,
+                site_logo2: data.logo.white,
+                site_favicon: data.favicon,
+                site_preview_thumbnail: data.preview_thumbnail,
                 contact_phone: data.business_phone,
                 contact_email: data.business_email,
                 contact_address: data.address,
