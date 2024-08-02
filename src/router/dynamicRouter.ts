@@ -6,6 +6,8 @@ import LayoutMainLeftSidebar from "@/layouts/main/LayoutMainLeftSidebar";
 import LayoutMainHeader from "@/layouts/main/LayoutMainHeader";
 import { markRaw } from "vue";
 import type { RouteRecordRaw } from "vue-router";
+import LayoutDefaultHeader from "@/layouts/default/LayoutDefaultHeader";
+import LayoutDefaultFooter from "@/layouts/default/LayoutDefaultFooter";
 const router: Array<RouteRecordRaw> = [
     {
         path: "/user-panel",
@@ -127,6 +129,19 @@ const router: Array<RouteRecordRaw> = [
             default: () => import("@/views/contact/ContactView"),
             MainLeftSideBar: LayoutMainLeftSidebar,
             MainHeader: LayoutMainHeader,
+        },
+    },
+    {
+        path: "/contact-success/:slug",
+        name: "contact-success",
+        meta: {
+            menu: false,
+            sort: 6,
+        },
+        components: {
+            default: () => import("@/views/contact/ContactSuccessView"),
+            DefaultHeader: LayoutDefaultHeader,
+            DefaultFooter: LayoutDefaultFooter,
         },
     },
 ];

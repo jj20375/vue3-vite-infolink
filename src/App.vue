@@ -42,6 +42,7 @@ const i18n = useI18n();
 // 使用預設樣板路由名稱(未登入狀態樣板)
 const useDefaultLayoutRouteNames = ref([
     "login",
+    "contact-success",
     "forgot-password",
     "reset-password",
 ]);

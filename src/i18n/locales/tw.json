@@ -10,6 +10,7 @@
         "report-download-detail": "報告資訊",
         "data-factory": "DataFactory",
         "contact": "聯絡我們",
+        "contact-success": "表單送出成功",
         "login": "會員登入",
         "forgot-password": "忘記密碼",
         "reset-password": "重設密碼",
@@ -43,7 +44,8 @@
         "success": {
             "change": "變更成功"
         },
-        "back-list": "回列表"
+        "back-list": "回列表",
+        "back-home": "回首頁"
     },
     "login": {
         "email": {
@@ -265,6 +267,10 @@
             "invalidType": "不符合圖片類型(jpg,jpeg,png,gif)"
         },
         "recaptchaValidation": "請勾選我不是機器人"
+    },
+    "contact-success": {
+        "title": "表單已成功送出！",
+        "content": "感謝您的訊息，我們將會在收到信後盡速回覆。"
     },
     "auth-verify": {
         "title": "身份驗證",

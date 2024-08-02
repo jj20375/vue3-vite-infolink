@@ -10,6 +10,7 @@
         "report-download-detail": "Report Detail",
         "data-factory": "DataFactory",
         "contact": "Contact Us",
+        "contact-success": "Form Submitted Successfully",
         "login": "Login",
         "forgot-password": "Forgot Password",
         "reset-password": "Reset Password",
@@ -41,8 +42,10 @@
             "en": "English"
         },
         "success": {
-            "change": "變更成功(en)"
-        }
+            "change": "Change Success"
+        },
+        "back-list": "Back to List",
+        "back-home": "Back to Home"
     },
     "login": {
         "email": {
@@ -264,6 +267,10 @@
             "invalidType": "Invalid image type (jpg, jpeg, png, gif only)"
         },
         "recaptchaValidation": "Please check 'I'm not a robot'"
+    },
+    "contact-success": {
+        "title": "Form Successfully Submitted!",
+        "content": "Thank you for your message. We will reply as soon as possible after receiving it."
     },
     "auth-verify": {
         "title": "Identity Verification",

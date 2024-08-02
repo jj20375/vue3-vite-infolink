@@ -10,6 +10,7 @@
         "report-download-detail": "报告资讯",
         "data-factory": "DataFactory",
         "contact": "联系我们",
+        "contact-success": "表单提交成功",
         "login": "会员登录",
         "forgot-password": "忘记密码",
         "reset-password": "重设密码",
@@ -41,8 +42,10 @@
             "en": "English"
         },
         "success": {
-            "change": "變更成功(cn)"
-        }
+            "change": "变更成功"
+        },
+        "back-list": "回列表",
+        "back-home": "回首页"
     },
     "login": {
         "email": {
@@ -264,6 +267,10 @@
             "invalidType": "不符合图片类型(jpg,jpeg,png,gif)"
         },
         "recaptchaValidation": "请勾选我不是机器人"
+    },
+    "contact-success": {
+        "title": "表单已成功提交！",
+        "content": "感谢您的消息，我们将在收到信后尽快回复。"
     },
     "auth-verify": {
         "title": "身份验证",

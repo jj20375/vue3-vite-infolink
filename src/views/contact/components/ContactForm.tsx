@@ -1,4 +1,4 @@
-import { defineComponent, ref, computed } from "vue";
+import { defineComponent, ref, computed, onMounted } from "vue";
 import { useWindowResize } from "@/hooks/windowResize";
 import { useUserStore } from "@/stores/userStore";
 import { validateEmail } from "@/services/formValidator";
@@ -8,6 +8,13 @@ import type { ColumnsInterface } from "@/interface/global.d";
 import GoogleReCaptchaV2 from "@/components/GoogleRecaptchaV2";
 import ContactFileUpload from "./ContactFileUpload";
 import { useI18n } from "vue-i18n";
+import {
+    ContactUsFormAPI,
+    GetContactUsQuestionCategoriesAPI,
+} from "@/api/contactAPI";
+import { isEmpty } from "@/services/utils";
+import type { ContactUsFormRequestAPIInterface } from "../contactInterface";
+import { useRouter } from "vue-router";
 
 export default defineComponent({
     name: "ContactForm",
@@ -17,18 +24,28 @@ export default defineComponent({
     setup(props, { emit }) {
         const { t } = useI18n();
         // 聯絡我們表單欄位 key
-        type ContactFormPropType = "email" | "name" | "company" | "phone" | "title" | "category" | "content" | "photo";
+        type ContactFormPropType =
+            | "email"
+            | "name"
+            | "company"
+            | "phone"
+            | "title"
+            | "category"
+            | "content"
+            | "photo";
 
         const { isMobile } = useWindowResize();
+        const router = useRouter();
         const userStore = useUserStore();
         const user = computed(() => userStore.user);
+        const company = computed(() => userStore.company);
 
         const formRefDom = ref<FormInstance | null>(null);
 
         const form = ref<any>({
             email: user.value.email,
             name: user.value.name,
-            company: user.value.company, //TODO: 目前這個是沒有資料的
+            company: company.value.name,
             phone: user.value.phone,
             title: "",
             category: "",
@@ -101,10 +118,10 @@ export default defineComponent({
                         trigger: ["change", "blur"],
                     },
                 ],
-            }
+            };
         });
 
-        const formColumns = computed<ColumnsInterface<ContactFormPropType>[]>(() => [
+        const formColumns = ref<ColumnsInterface<ContactFormPropType>[]>([
             {
                 prop: "email",
                 label: t("contact.email.label"),
@@ -166,74 +183,172 @@ export default defineComponent({
             },
         ]);
 
-        // 取得主旨options
-        async function getCategories() {
+        /**
+         * 取得聯絡我們詢問類別
+         */
+        async function getContactUsQuestionCategories() {
             try {
-                // const { data } = await $api().WorkTypeAPI();
-                const data = {
-                    options: [
-                        { label: "問題回報", value: "1" },
-                        { label: "測試", value: "2" },
-                        { label: "其他", value: "3" },
-                    ],
-                };
-                const categoryIndex = formColumns.value.findIndex((item) => item.prop === "category");
-                if (categoryIndex !== -1) {
-                    formColumns.value[categoryIndex].options = data.options;
+                const { data } = await GetContactUsQuestionCategoriesAPI();
+                const findCategoriesIndex = formColumns.value.findIndex(
+                    (item) => item.prop === "category"
+                );
+                if (findCategoriesIndex !== -1) {
+                    formColumns.value[findCategoriesIndex].options =
+                        data.data.map((item) => {
+                            return {
+                                label: item.name,
+                                value: item.id,
+                            };
+                        });
                 }
             } catch (err) {
-                console.log("HomeSampleAPI => ", err);
+                console.log("GetContactUsQuestionCategoriesAPI err =>", err);
             }
         }
 
         function handlefile(tempPath: any, prop: string) {
             form.value[prop] = tempPath;
-            if (formRefDom.value) {
-                formRefDom.value.validateField("photo");
-            }
+            console.log("handlefile => ", tempPath, prop);
         }
 
-        async function onSubmit() {
-            if (!form.value.recaptchaToken) {
+        async function onSubmit(e: Event) {
+            e.preventDefault();
+            if (isEmpty(form.value.recaptchaToken)) {
                 ElMessage({
                     type: "error",
                     message: t("contact.recaptchaValidation"),
                 });
                 return;
             }
+            const sendData: ContactUsFormRequestAPIInterface = {
+                // 詢問類別
+                contact_category_id: form.value.category,
+                // 手機號碼
+                phone: form.value.phone,
+                // 主旨
+                subject: form.value.title,
+                // 內容
+                content: form.value.content,
+                // 聯絡我們圖片
+                attachments: form.value.photo,
+            };
+            if (isEmpty(sendData.attachments)) {
+                delete sendData.attachments;
+            }
+            await contactUs(sendData);
         }
+
+        /**
+         * 聯絡我們表單發送
+         * @param form
+         */
+        async function contactUs(form: ContactUsFormRequestAPIInterface) {
+            try {
+                await ContactUsFormAPI(form);
+                router.push({
+                    name: "contact-success",
+                    params: { slug: t("router.contact-success") },
+                });
+            } catch (err) {
+                console.log("ContactUsFormAPI err =>", err);
+            }
+        }
+
+        onMounted(async () => {
+            await getContactUsQuestionCategories();
+        });
 
         return () => (
             <div class="flex-[1.5]">
                 <div class="p-5 border border-gray-600 rounded-[4px] bg-white">
                     <h2 class="font-medium mb-2">{t("contact.greeting")}</h2>
-                    <p class="text-[15px] mb-6">
-                        {t("contact.description")}
-                    </p>
+                    <p class="text-[15px] mb-6">{t("contact.description")}</p>
                     <div class="h-[1px] w-full bg-black-100 mb-6"></div>
-                    <el-form class="custom-form" ref={formRefDom} model={form.value} rules={rules.value} require-asterisk-position="right">
+                    <el-form
+                        class="custom-form"
+                        ref={formRefDom}
+                        model={form.value}
+                        rules={rules.value}
+                        require-asterisk-position="right"
+                    >
                         <div class="w-full grid grid-cols-12 gap-x-4 gap-y-6">
                             {formColumns.value.map((item) => (
-                                <el-form-item class={item.span ? `col-span-12 md:col-span-${item.span}` : "col-span-12 md:col-span-6"} prop={item.prop} label={item.label}>
-                                    {item.style === "input" && item.row !== undefined && <el-input type={item.type} rows={item.row} show-password={item.showPassword} disabled={item.disabled} placeholder={item.placeholder} v-model={form.value[item.prop]}></el-input>}
-                                    {item.style === "input" && item.row === undefined && <el-input type={item.type} rows={item.row} show-password={item.showPassword} disabled={item.disabled} placeholder={item.placeholder} v-model={form.value[item.prop]}></el-input>}
+                                <el-form-item
+                                    class={
+                                        item.span
+                                            ? `col-span-12 md:col-span-${item.span}`
+                                            : "col-span-12 md:col-span-6"
+                                    }
+                                    prop={item.prop}
+                                    label={item.label}
+                                >
+                                    {item.style === "input" &&
+                                        item.row !== undefined && (
+                                            <el-input
+                                                type={item.type}
+                                                rows={item.row}
+                                                show-password={
+                                                    item.showPassword
+                                                }
+                                                disabled={item.disabled}
+                                                placeholder={item.placeholder}
+                                                v-model={form.value[item.prop]}
+                                            ></el-input>
+                                        )}
+                                    {item.style === "input" &&
+                                        item.row === undefined && (
+                                            <el-input
+                                                type={item.type}
+                                                rows={item.row}
+                                                show-password={
+                                                    item.showPassword
+                                                }
+                                                disabled={item.disabled}
+                                                placeholder={item.placeholder}
+                                                v-model={form.value[item.prop]}
+                                            ></el-input>
+                                        )}
 
                                     {item.style === "select" && (
-                                        <el-select v-model={form.value[item.prop]} placeholder={item.placeholder}>
-                                            {item.options && item.options.length > 0 && item.options.map((option) => <el-option key={option.value} label={option.label} value={option.value}></el-option>)}
+                                        <el-select
+                                            v-model={form.value[item.prop]}
+                                            placeholder={item.placeholder}
+                                        >
+                                            {item.options &&
+                                                item.options.length > 0 &&
+                                                item.options.map((option) => (
+                                                    <el-option
+                                                        key={option.value}
+                                                        label={option.label}
+                                                        value={option.value}
+                                                    ></el-option>
+                                                ))}
                                         </el-select>
                                     )}
 
-                                    {item.style === "file" && <ContactFileUpload prop={item.prop} onTempPath={() => handlefile} />}
+                                    {item.style === "file" && (
+                                        <ContactFileUpload
+                                            prop={item.prop}
+                                            onTempPath={handlefile}
+                                        />
+                                    )}
                                 </el-form-item>
                             ))}
                         </div>
                     </el-form>
                     <div class="flex justify-start mt-[30px] mb-[40px]">
-                        <GoogleReCaptchaV2 v-model={form.value.recaptchaToken} />
+                        <GoogleReCaptchaV2
+                            v-model={form.value.recaptchaToken}
+                        />
                     </div>
-                    <button onClick={() => onSubmit} class={["yellow-btn", isMobile.value ? "w-full" : "btn-sm"]}>
-                        {t('global.submit')}
+                    <button
+                        onClick={onSubmit}
+                        class={[
+                            "yellow-btn",
+                            isMobile.value ? "w-full" : "btn-sm",
+                        ]}
+                    >
+                        {t("global.submit")}
                     </button>
                 </div>
             </div>

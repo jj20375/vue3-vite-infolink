@@ -8,6 +8,7 @@ import IconAdd from "@/components/icons/IconAdd.vue";
 import IconDelete from "@/components/icons/IconDelete.vue";
 import styles from "./UploadSection.module.scss";
 import { useI18n } from "vue-i18n";
+import { UploadAttachmentAPI } from "@/api/uploadAPI";
 
 export default defineComponent({
     name: "ContactFileUpload",
@@ -39,7 +40,7 @@ export default defineComponent({
          * @param fcFileList
          */
         async function handleChange(file: any, fcFileList: any) {
-            console.log("fcFileList =>", file, fcFileList);
+            // console.log("fcFileList =>", file, fcFileList);
             fileList.value = fcFileList;
 
             if (fileList.value.length > 0) {
@@ -64,8 +65,18 @@ export default defineComponent({
                 return;
             }
             const formData = new FormData();
-            formData.append("file", file.raw);
-            formData.append("scene", props.scene);
+            formData.append("image", file.raw);
+            console.log("filedata => ", fileDataList.value, props.prop);
+            try {
+                const { data } = await UploadAttachmentAPI(formData);
+                fileDataList.value.push(data.data.path);
+                console.log("UploadAttachmentAPI => ", data.data.path);
+                emit("tempPath", fileDataList.value, props.prop);
+            } catch (err) {
+                fileDataList.value = [];
+                console.log("UploadAttachmentAPI err  => ", err);
+            }
+
             // try {
             // const { data, status } = await UploadAPI(formData);
             // console.log("UploadAPI api => ", data.value);
@@ -73,7 +84,7 @@ export default defineComponent({
             //     const file = (data.value as any).data;
             //     fileDataList.value.push(file.path);
             //     fileList.value[fileList.value.length - 1].url = file.preview_url;
-            //     emit("tempPath", fileDataList.value, props.prop);
+            //     emit("tempPath", i);
             // } else {
             //     ElMessage({
             //         type: "error",
@@ -99,6 +110,11 @@ export default defineComponent({
             if (fileList.value.length === 0) {
                 tipActive.value = true;
             }
+            console.log(
+                "fileDataList.value, props.prop =>",
+                fileDataList.value,
+                props.prop
+            );
             emit("tempPath", fileDataList.value, props.prop);
         };
 

@@ -18,7 +18,7 @@ export interface ColumnsInterface<Prop extends string> {
     span?: string;
     row?: number;
     iconName?: typeof DefineComponent;
-    options?: { value: string; label: string }[];
+    options?: { value: string | number; label: string }[];
     // 手機版是否隱藏 表單欄位標題
     mobileHideLabel?: boolean;
     onChange?: Function | undefined;

@@ -20,23 +20,25 @@ export default defineComponent({
             refresh();
         };
         const recaptchaFailed = () => {
+            emit("update:modelValue", "");
             console.log("recaptchaFailed");
         };
         const recaptchaError = (reason: any) => {
+            emit("update:modelValue", "");
             console.log("recaptchaError", reason);
         };
         return () => (
             <vue-recaptcha
-                sitekey="{siteKey}"
+                sitekey={siteKey}
                 size="normal"
                 name="recaptchaToken"
                 theme="light"
-                hl="{setlang}"
+                hl={setlang}
                 loading-timeout={30000}
-                onVerify={() => recaptchaVerified}
-                onExpire={() => recaptchaExpired}
-                onFail={() => recaptchaFailed}
-                onError={() => recaptchaError}
+                onVerify={recaptchaVerified}
+                onExpire={recaptchaExpired}
+                onFail={recaptchaFailed}
+                onError={recaptchaError}
                 ref="vueRecaptcha"
             >
                 {" "}
