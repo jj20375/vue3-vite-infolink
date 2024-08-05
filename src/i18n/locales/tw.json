@@ -45,7 +45,8 @@
             "change": "變更成功"
         },
         "back-list": "回列表",
-        "back-home": "回首頁"
+        "back-home": "回首頁",
+        "empty-data": "沒有資料"
     },
     "login": {
         "email": {

@@ -45,7 +45,8 @@
             "change": "Change Success"
         },
         "back-list": "Back to List",
-        "back-home": "Back to Home"
+        "back-home": "Back to Home",
+        "empty-data": "No data available"
     },
     "login": {
         "email": {

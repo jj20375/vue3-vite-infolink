@@ -1,7 +1,7 @@
 import LayoutMainLeftSidebar from "@/layouts/main/LayoutMainLeftSidebar";
 import LayoutMainHeader from "@/layouts/main/LayoutMainHeader";
 import IconHome from "@/components/icons/sidebar/IconHome.vue";
-import HomeView from "@/views/home/HomeView.vue";
+import HomeView from "@/views/home/HomeView";
 import LoginView from "@/views/auth/LoginView";
 import NotFoundView from "@/views/NotFoundView";
 import { markRaw } from "vue";
@@ -81,8 +81,7 @@ const router: Array<RouteRecordRaw> = [
         name: "maintenance",
         meta: {},
         components: {
-            default: async () =>
-                await import("@/views/Maintenance"),
+            default: async () => await import("@/views/Maintenance"),
             DefaultHeader: LayoutDefaultHeader,
             DefaultFooter: LayoutDefaultFooter,
         },
@@ -92,8 +91,7 @@ const router: Array<RouteRecordRaw> = [
         name: "404",
         meta: {},
         components: {
-            default: async () =>
-                await import("@/views/NotFoundView"),
+            default: async () => await import("@/views/NotFoundView"),
             DefaultHeader: LayoutDefaultHeader,
             DefaultFooter: LayoutDefaultFooter,
         },

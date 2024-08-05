@@ -45,7 +45,8 @@
             "change": "变更成功"
         },
         "back-list": "回列表",
-        "back-home": "回首页"
+        "back-home": "回首页",
+        "empty-data": "没有数据"
     },
     "login": {
         "email": {
