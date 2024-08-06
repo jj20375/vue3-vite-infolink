@@ -44,7 +44,7 @@ export default defineComponent({
                     ? ["0"]
                     : [String(data.data.rows[0].id)];
             } catch (err) {
-                console.log("GetProductListAPI err =>", err);
+                console.log("GetPostListAPI err =>", err);
             } finally {
                 loading.value = false;
             }

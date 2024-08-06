@@ -108,7 +108,6 @@ export default defineComponent({
             try {
                 await formRefDom.value.validate();
                 if (route.query.email) {
-                    console.log("reset password query =>", route.query);
                     const sendData: AuthResetPasswordInterface & {
                         email: string;
                         token: string;
@@ -139,7 +138,6 @@ export default defineComponent({
         async function authResetInitPassword(form: AuthResetPasswordInterface) {
             try {
                 const { data } = await AuthResetInitPasswordAPI(form);
-                console.log("AuthResetInitPasswordAPI data =>", data);
                 ElMessage({
                     type: "success",
                     message: t("global.success.change"),

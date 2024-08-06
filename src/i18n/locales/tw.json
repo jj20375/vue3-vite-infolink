@@ -14,7 +14,8 @@
         "login": "會員登入",
         "forgot-password": "忘記密碼",
         "reset-password": "重設密碼",
-        "verify-email": "驗證信箱"
+        "verify-email": "驗證信箱",
+        "maintenance": "網站維護中"
     },
     "global": {
         "hello": "您好",

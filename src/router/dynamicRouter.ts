@@ -16,6 +16,7 @@ const router: Array<RouteRecordRaw> = [
             icon: markRaw(IconMember),
             menu: true,
             sort: 2,
+            requiresAuth: true,
         },
         children: [
             {
@@ -25,6 +26,7 @@ const router: Array<RouteRecordRaw> = [
                     // menu: true,
                     sort: 1,
                     parent: "user-panel",
+                    requiresAuth: true,
                 },
                 components: {
                     default: () =>
@@ -40,6 +42,7 @@ const router: Array<RouteRecordRaw> = [
                     // menu: true,
                     sort: 2,
                     parent: "user-panel",
+                    requiresAuth: true,
                 },
                 components: {
                     default: () =>
@@ -57,6 +60,7 @@ const router: Array<RouteRecordRaw> = [
                     // menu: true,
                     sort: 3,
                     parent: "user-panel",
+                    requiresAuth: true,
                 },
                 components: {
                     default: () =>
@@ -76,6 +80,7 @@ const router: Array<RouteRecordRaw> = [
             icon: markRaw(IconDownload),
             menu: true,
             sort: 3,
+            requiresAuth: true,
         },
         components: {
             default: () => import("@/views/report/ReportDownloadView"),
@@ -89,6 +94,7 @@ const router: Array<RouteRecordRaw> = [
         meta: {
             menu: false,
             sort: 3,
+            requiresAuth: true,
         },
         components: {
             default: () => import("@/views/report/ReportDownloadView"),
@@ -99,7 +105,10 @@ const router: Array<RouteRecordRaw> = [
     {
         path: "/report-download-detail/:id/:slug",
         name: "report-download-detail",
-        meta: {},
+        meta: {
+            menu: false,
+            requiresAuth: true,
+        },
         components: {
             default: () => import("@/views/report/ReportDetailView"),
             MainLeftSideBar: LayoutMainLeftSidebar,
@@ -113,6 +122,7 @@ const router: Array<RouteRecordRaw> = [
             icon: markRaw(IconCloud),
             menu: true,
             sort: 4,
+            requiresAuth: true,
             link: "https://www.google.com.tw/webhp?hl=zh-TW",
         },
         component: () => import("@/views/NotFoundView"),
@@ -124,6 +134,7 @@ const router: Array<RouteRecordRaw> = [
             icon: markRaw(IconContact),
             menu: true,
             sort: 5,
+            requiresAuth: true,
         },
         components: {
             default: () => import("@/views/contact/ContactView"),
@@ -137,6 +148,7 @@ const router: Array<RouteRecordRaw> = [
         meta: {
             menu: false,
             sort: 6,
+            requiresAuth: true,
         },
         components: {
             default: () => import("@/views/contact/ContactSuccessView"),

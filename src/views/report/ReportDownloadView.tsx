@@ -143,7 +143,6 @@ const ReportSearch = defineComponent({
             emit("searchFilter", { ...filterForm.value, page: 1 });
         };
         function onSubmit(val: FilterInterFace) {
-            console.log("onSubmit", val);
             emit("searchFilter", { ...val, page: 1 });
         }
 
@@ -168,8 +167,6 @@ const ReportSearch = defineComponent({
                     });
                 });
                 languageOptions.value = langs;
-
-                console.log("GetReportLanguagesAPI data =>");
             } catch (err) {
                 console.log("GetReportLanguagesAPI err =>", err);
             }
@@ -189,8 +186,6 @@ const ReportSearch = defineComponent({
                         value: item.id,
                     };
                 });
-
-                console.log("GetReportIndustriesAPI data =>");
             } catch (err) {
                 console.log("GetReportIndustriesAPI err =>", err);
             }
@@ -210,8 +205,6 @@ const ReportSearch = defineComponent({
                         value: item.id,
                     };
                 });
-
-                console.log("GetReportCategoriesAPI data =>");
             } catch (err) {
                 console.log("GetReportCategoriesAPI err =>", err);
             }
@@ -414,7 +407,6 @@ export default defineComponent({
                     total: data.data.meta.total,
                 };
                 currentPage.value = data.data.meta.current_page;
-                console.log("GetReportList =>", data);
             } catch (err) {
                 console.log("GetReportListAPI err =>", err);
             } finally {
@@ -427,7 +419,6 @@ export default defineComponent({
          * @param val
          */
         async function onFilter(val: FilterInterFace & { page?: number }) {
-            console.log("onFilter =>", val);
             if (!isEmpty(val.page)) {
                 currentPage.value = val.page!;
             }

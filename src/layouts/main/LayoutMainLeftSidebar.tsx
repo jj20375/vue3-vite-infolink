@@ -78,7 +78,6 @@ export default defineComponent({
 
         // 路由選單
         const menuList = computed<Array<RouteRecordRaw> | any>(() => {
-            console.log("permissionRouter =>", permissionRouter.value);
             if (permissionRouter.value.length > 0) {
                 const rawMenuList = permissionRouter.value.filter((data) => {
                     if (data.children) {
@@ -88,7 +87,6 @@ export default defineComponent({
                     }
                     return data.meta!.menu;
                 });
-                console.log("rawMenuList ==>", rawMenuList);
                 return rawMenuList;
             }
             return [];

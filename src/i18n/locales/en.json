@@ -14,7 +14,8 @@
         "login": "Login",
         "forgot-password": "Forgot Password",
         "reset-password": "Reset Password",
-        "verify-email": "Verify Email"
+        "verify-email": "Verify Email",
+        "maintenance": "Website under maintenance"
     },
     "global": {
         "hello": "Hello",
@@ -69,7 +70,7 @@
             "warning": "Please enter your email address",
             "invalid": "Invalid format"
         },
-        "success": "重設密碼連結已發送至信箱(en)"
+        "success": "Password reset link has been sent to your email"
     },
     "reset-password": {
         "description": "Please enter your new password. You will need to log in with the new password after completion.",

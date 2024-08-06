@@ -60,7 +60,6 @@ export default defineComponent({
                     content: data.data.content,
                     files: fileTypes,
                 };
-                console.log("GetReportDetailAPI =>", data);
             } catch (err) {
                 console.log("GetReportDetailAPI err =>", err);
             }

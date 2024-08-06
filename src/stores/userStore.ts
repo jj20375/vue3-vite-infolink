@@ -107,7 +107,6 @@ export const useUserStore = defineStore("userStore", () => {
                 address: data.data.company.address,
             };
             setIsAuth();
-            console.log("GetUserProfileAPI data =>", data);
             return data.data;
         } catch (err) {
             console.log("GetUserProfileAPI err =>", err);
@@ -122,7 +121,6 @@ export const useUserStore = defineStore("userStore", () => {
         try {
             const { data }: any = await GetSubAccountsAPI();
             setSubAccounts(data.data);
-            console.log("GetSubAccountsAPI data =>", data);
             return data.data;
         } catch (err) {
             console.log("GetSubAccountsAPI err =>", err);

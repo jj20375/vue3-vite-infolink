@@ -92,7 +92,6 @@ export default defineComponent({
                     setStorage("loginEmail", form.email);
                 }
                 const { data } = await AuthUserLoginAPI(form);
-                console.log("AuthUserLoginAPI data =>", data);
             } catch (err) {
                 console.log("AuthUserLoginAPI err =>", err);
             }

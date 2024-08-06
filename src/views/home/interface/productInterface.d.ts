@@ -37,7 +37,7 @@ export interface ProductListResponseAPIInterface {
  */
 export interface ProductListParamsAPIInterface {
     // 分類 id
-    category_id?: number;
+    product_category_id?: number;
     // 分頁
     page?: number;
 }
