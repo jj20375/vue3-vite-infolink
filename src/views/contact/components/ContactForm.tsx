@@ -208,7 +208,6 @@ export default defineComponent({
 
         function handlefile(tempPath: any, prop: string) {
             form.value[prop] = tempPath;
-            console.log("handlefile => ", tempPath, prop);
         }
 
         async function onSubmit(e: Event) {

@@ -7,7 +7,7 @@ export default defineComponent({
     props: {},
     emits: [],
     setup(props, { emit }) {
-        return (
+        return () => (
             <section>
                 <div class="relative py-[20px] xl:py-[30px] px-[20px] xl:px-[30px]">
                     <div class="xl:max-w-[1300px] mx-auto">

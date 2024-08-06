@@ -10,7 +10,7 @@ import { GetProductCategoriesAPI, GetProductListAPI } from "@/api/productAPI";
 import { isEmpty } from "@/services/utils";
 
 interface FilterInterFace {
-    category_id?: number;
+    product_category_id?: number;
 }
 
 export default defineComponent({
@@ -36,7 +36,10 @@ export default defineComponent({
 
         async function handlePageChange(val: number) {
             currentPage.value = val;
-            await onFilter({ category_id: activeCategoryTab.value, page: val });
+            await onFilter({
+                product_category_id: activeCategoryTab.value,
+                page: val,
+            });
         }
 
         /**
@@ -73,14 +76,23 @@ export default defineComponent({
                     total: data.data.meta.total,
                 };
                 currentPage.value = data.data.meta.current_page;
-                activeCollapse.value = isEmpty(data.data)
-                    ? ["0"]
-                    : [String(data.data.rows[0].id)];
+                if (
+                    isEmpty(data.data.rows) &&
+                    data.data.rows[0] === undefined
+                ) {
+                    activeCollapse.value = ["0"];
+                } else {
+                    [String(data.data.rows[0].id)];
+                }
             } catch (err) {
                 console.log("GetProductListAPI err =>", err);
             } finally {
                 loading.value = false;
             }
+        }
+
+        async function onTabChange(val: any) {
+            await onFilter({ product_category_id: val.props.name, page: 1 });
         }
 
         async function onFilter(val: FilterInterFace & { page: number }) {
@@ -103,7 +115,10 @@ export default defineComponent({
 
         onMounted(async () => {
             await getCategories();
-            await getList();
+            await getList({
+                product_category_id: activeCategoryTab.value,
+                page: currentPage.value,
+            });
         });
 
         return () => (
@@ -119,6 +134,7 @@ export default defineComponent({
                     <el-tabs
                         v-model={activeCategoryTab.value}
                         class="custom-tab"
+                        onTabClick={onTabChange}
                     >
                         {!isEmpty(categories.value)
                             ? categories.value?.map((category) => (

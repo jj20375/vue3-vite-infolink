@@ -88,7 +88,6 @@ export default defineComponent({
             try {
                 const { data } = await AuthLoginEmailVerfiyCodeAPI(form);
                 setStorage("token", data.data.access_token);
-                console.log("AuthLoginEmailVerfiyCodeAPI data =>", data);
                 setTimeout(async () => {
                     await userStore.getUserPorfile();
                     userStore.setIsAuth();
@@ -114,7 +113,6 @@ export default defineComponent({
         ) {
             try {
                 const { data } = await AuthResendLoginEmailVerifyCodeAPI(form);
-                console.log("AuthResendLoginEmailVerifyCodeAPI data =>", data);
             } catch (err) {
                 console.log("AuthResendLoginEmailVerifyCodeAPI err =>", err);
             }

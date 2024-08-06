@@ -47,6 +47,7 @@ router.beforeEach(
         const userStore = useUserStore();
         const { isHavePermissionRouter } = storeToRefs(permissionStore);
         const { isGetInitData } = storeToRefs(initStore);
+        const { initData } = storeToRefs(initStore);
         const { isAuth } = storeToRefs(userStore);
         // 取得 localstorage token 判斷有 token 情況下 代表有登入
         const token = localStorage.getItem("token");
@@ -62,6 +63,14 @@ router.beforeEach(
         // 取得初始化資料
         if (!isGetInitData.value) {
             await initStore.getInitData();
+            console.log("initData =>", initData.value);
+            // 判斷是維護模式時 直接導頁去維護頁
+            if (initData.value.site.maintenance_mode) {
+                return {
+                    name: "maintenance",
+                    params: { slug: i18nData()["router"]["maintenance"] },
+                };
+            }
         }
         // 取得使用者資料
         if (token && !isAuth.value) {

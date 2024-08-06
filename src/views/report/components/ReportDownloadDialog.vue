@@ -115,7 +115,6 @@ async function getReportDownloadGetEmailValidateCode(
 ) {
     try {
         const { data } = await GetReportDownloadEmailValidateCodeAPI(form);
-        console.log("GetReportDownloadEmailValidateCodeAPI =>", data);
         return { apiErr: false, data };
     } catch (err: any) {
         if (err.response) {

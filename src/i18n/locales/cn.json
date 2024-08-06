@@ -14,7 +14,8 @@
         "login": "会员登录",
         "forgot-password": "忘记密码",
         "reset-password": "重设密码",
-        "verify-email": "验证邮箱"
+        "verify-email": "验证邮箱",
+        "maintenance": "网站维护中"
     },
     "global": {
         "hello": "您好",
@@ -69,7 +70,7 @@
             "warning": "请输入电子邮件地址",
             "invalid": "格式不正确"
         },
-        "success": "重設密碼連結已發送至信箱(cn)"
+        "success": "重设密码链接已发送至邮箱"
     },
     "reset-password": {
         "description": "请填入新的密码，完成后须以新密码登录系统",

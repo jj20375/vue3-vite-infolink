@@ -40,7 +40,6 @@ export default defineComponent({
          * @param fcFileList
          */
         async function handleChange(file: any, fcFileList: any) {
-            // console.log("fcFileList =>", file, fcFileList);
             fileList.value = fcFileList;
 
             if (fileList.value.length > 0) {
@@ -66,40 +65,17 @@ export default defineComponent({
             }
             const formData = new FormData();
             formData.append("image", file.raw);
-            console.log("filedata => ", fileDataList.value, props.prop);
             try {
                 const { data } = await UploadAttachmentAPI(formData);
                 fileDataList.value.push(data.data.path);
-                console.log("UploadAttachmentAPI => ", data.data.path);
                 emit("tempPath", fileDataList.value, props.prop);
             } catch (err) {
                 fileDataList.value = [];
                 console.log("UploadAttachmentAPI err  => ", err);
             }
-
-            // try {
-            // const { data, status } = await UploadAPI(formData);
-            // console.log("UploadAPI api => ", data.value);
-            // if (status === "success") {
-            //     const file = (data.value as any).data;
-            //     fileDataList.value.push(file.path);
-            //     fileList.value[fileList.value.length - 1].url = file.preview_url;
-            //     emit("tempPath", i);
-            // } else {
-            //     ElMessage({
-            //         type: "error",
-            //         message: (error.value as any).data.message,
-            //     });
-
-            // }
-            // } catch (err) {
-            //     console.log("HomeSampleAPI => ", err);
-            //     fileList.value.pop();
-            // }
         }
 
         const handleRemove: any = (removeFile: any) => {
-            console.log(removeFile, fileList.value);
             const index = fileList.value.findIndex(
                 (item: { uid: number }) => item.uid === removeFile.uid
             );
@@ -110,11 +86,6 @@ export default defineComponent({
             if (fileList.value.length === 0) {
                 tipActive.value = true;
             }
-            console.log(
-                "fileDataList.value, props.prop =>",
-                fileDataList.value,
-                props.prop
-            );
             emit("tempPath", fileDataList.value, props.prop);
         };
 

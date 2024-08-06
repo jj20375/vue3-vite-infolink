@@ -120,8 +120,6 @@ const ContractSearch = defineComponent({
                         value: item.id,
                     };
                 });
-
-                console.log("GetReportCategoriesAPI data =>");
             } catch (err) {
                 console.log("GetReportCategoriesAPI err =>", err);
             }
@@ -306,7 +304,6 @@ export default defineComponent({
                         purchasedReport: row.contractReportNames,
                     };
                 });
-                console.log("GetContractListAPI data =>", data);
             } catch (err) {
                 console.log("GetContractListAPI err =>", err);
             }

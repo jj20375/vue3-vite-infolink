@@ -29,8 +29,13 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from "vue";
-import { RouterView, useRouter, useRoute } from "vue-router";
+import { ref, onMounted, nextTick, watch } from "vue";
+import {
+    RouterView,
+    useRouter,
+    useRoute,
+    onBeforeRouteUpdate,
+} from "vue-router";
 import { setStorage } from "./services/localStorage";
 import { useI18n } from "vue-i18n";
 import DefaultBg from "@/components/bg/DefaultLayoutBg.vue";
@@ -45,14 +50,26 @@ const useDefaultLayoutRouteNames = ref([
     "contact-success",
     "forgot-password",
     "reset-password",
+    "maintenance",
+    "404",
+    "NotFound",
 ]);
 
+watch(
+    () => route.name,
+    (val) => {
+        // 路由權限檢查 當 全部路由名稱無法匹配當下路由名稱時 導向
+        if (
+            val !== undefined &&
+            router.getRoutes().find((router) => router.name === val) ===
+                undefined
+        ) {
+            router.push({ name: "NotFound" });
+            return;
+        }
+    }
+);
 onMounted(async () => {
     setStorage("lang", i18n.locale.value);
-    // 路由權限檢查 當 全部路由名稱無法匹配當下路由名稱時 導向
-    if (router.getRoutes().some((router) => router.name !== route.name)) {
-        // router.push({ name: "NotFound" });
-        return;
-    }
 });
 </script>
