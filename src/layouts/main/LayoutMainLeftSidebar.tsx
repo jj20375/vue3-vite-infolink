@@ -276,6 +276,7 @@ export default defineComponent({
                                                             ),
                                                         },
                                                     }}
+                                                    onClick={() => closeMenu()}
                                                     class={[
                                                         "relative block px-6 sm:px-7 py-4 text-[16px] text-black-500 hover:text-black-900 duration-300 transition-all",
                                                         {
@@ -496,6 +497,7 @@ export default defineComponent({
                                                             class="pl-[58px] pr-4 py-2 text-[15px] text-black-500 hover:text-black-900 duration-300 transition-all"
                                                             activeClass="text-black-900 font-medium"
                                                             exactActiveClass="text-black-900 font-medium"
+                                                            onClick={() => closeMenu()}
                                                         >
                                                             {t(
                                                                 `router.${

@@ -12,7 +12,7 @@ export default defineComponent({
                 <div class="relative py-[20px] xl:py-[30px] px-[20px] xl:px-[30px]">
                     <div class="xl:max-w-[1300px] mx-auto">
                         <Breadcrumb customClass="mb-[30px]" />
-                        <HomeNews />
+                        <HomeNews class="mb-[20px]" />
                         <HomeProducts />
                     </div>
                 </div>
