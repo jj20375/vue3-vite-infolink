@@ -91,7 +91,7 @@ export const useUserStore = defineStore("userStore", () => {
             if (data.data.initial_password) {
                 return router.push({
                     name: "reset-password",
-                    params: { slug: i18nData()["router.reset-password"] },
+                    params: { slug: i18nData()["router"]["reset-password"] },
                 });
             }
             user.value = {
