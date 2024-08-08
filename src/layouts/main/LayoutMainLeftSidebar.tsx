@@ -276,7 +276,6 @@ export default defineComponent({
                                                             ),
                                                         },
                                                     }}
-                                                    onClick={() => closeMenu()}
                                                     class={[
                                                         "relative block px-6 sm:px-7 py-4 text-[16px] text-black-500 hover:text-black-900 duration-300 transition-all",
                                                         {
@@ -288,7 +287,12 @@ export default defineComponent({
                                                     activeClass="font-medium text-black-900 before:absolute before:bg-yellow-900 before:top-0 before:left-0 before:h-full before:w-[4px] before:rounded-r-2xl fill-black-500"
                                                     exactActiveClass="font-medium text-black-900 before:absolute before:bg-yellow-900 before:top-0 before:left-0 before:h-full before:w-[4px] before:rounded-r-2xl fill-black-500"
                                                 >
-                                                    <div class="flex items-center justify-between gap-3">
+                                                    <div
+                                                        class="flex items-center justify-between gap-3"
+                                                        onClick={() =>
+                                                            closeMenu()
+                                                        }
+                                                    >
                                                         <item.meta.icon
                                                             class={[
                                                                 "!w-[18px] !h-[18px]",
@@ -497,13 +501,18 @@ export default defineComponent({
                                                             class="pl-[58px] pr-4 py-2 text-[15px] text-black-500 hover:text-black-900 duration-300 transition-all"
                                                             activeClass="text-black-900 font-medium"
                                                             exactActiveClass="text-black-900 font-medium"
-                                                            onClick={() => closeMenu()}
                                                         >
-                                                            {t(
-                                                                `router.${
-                                                                    child.name as string
-                                                                }`
-                                                            )}
+                                                            <div
+                                                                onClick={() =>
+                                                                    closeMenu()
+                                                                }
+                                                            >
+                                                                {t(
+                                                                    `router.${
+                                                                        child.name as string
+                                                                    }`
+                                                                )}
+                                                            </div>
                                                         </RouterLink>
                                                     )
                                                 )}
