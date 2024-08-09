@@ -1,10 +1,4 @@
 .custom-upload {
-  @media (max-width: 600px) {
-    .card-inner{
-      @apply block;
-    }
-  }
-
   .card-inner {
     :deep .el-upload-list__item-actions {
       @apply hidden #{!important};

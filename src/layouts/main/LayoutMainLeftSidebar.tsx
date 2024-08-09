@@ -212,7 +212,7 @@ export default defineComponent({
                 <div class="w-full xl:w-[300px] h-full flex flex-col justify-between">
                     <div>
                         {/* 手機版收合選單 */}
-                        <div class="relative px-6 py-6 xl:hidden sm:px-7">
+                        <div class="sticky bg-white top-0 px-6 py-6 xl:hidden sm:px-7 z-[3]">
                             <button
                                 onClick={() => closeMenu()}
                                 class="block w-full"
@@ -560,7 +560,7 @@ export default defineComponent({
                         </div>
                         <ul
                             class={[
-                                "flex justify-center gap-3 px-6 py-6 xl:justify-start sm:px-7",
+                                "flex justify-center gap-3 px-6 pt-6 pb-12 xl:justify-start sm:px-7",
                                 { hidden: !expandMode.value },
                             ]}
                         >

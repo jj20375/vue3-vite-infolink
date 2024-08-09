@@ -9,6 +9,11 @@ export const useUtilityStore = defineStore("utilityStore", () => {
      */
     function setOpenMenu(value: boolean) {
         openMenu.value = value;
+        if(openMenu.value){
+            document.body.style.overflow = "hidden";
+        }else{
+            document.body.style.overflow = "";
+        }
     }
 
     return {
