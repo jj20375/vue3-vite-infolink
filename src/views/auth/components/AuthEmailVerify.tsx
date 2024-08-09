@@ -90,7 +90,6 @@ export default defineComponent({
                 setStorage("token", data.data.access_token);
                 setTimeout(async () => {
                     await userStore.getUserPorfile();
-                    userStore.setIsAuth();
                     closeDialog();
                     loading.value = false;
                     return router.push({

@@ -87,6 +87,7 @@ export const useUserStore = defineStore("userStore", () => {
     async function getUserPorfile() {
         try {
             const { data }: any = await GetUserProfileAPI();
+            setIsAuth();
             // 判斷需要重設初始化密碼時
             if (data.data.initial_password) {
                 return router.push({
@@ -106,7 +107,7 @@ export const useUserStore = defineStore("userStore", () => {
                 region: data.data.company.country,
                 address: data.data.company.address,
             };
-            setIsAuth();
+
             return data.data;
         } catch (err) {
             console.log("GetUserProfileAPI err =>", err);
