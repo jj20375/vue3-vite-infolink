@@ -1,19 +1,19 @@
 export default {
     en: {
         code: "en",
-        iso: "en-US",
+        iso: "en",
         file: "en.json",
         name: "EN",
     },
     tw: {
         code: "tw",
-        iso: "zh-TW",
+        iso: "zh_TW",
         file: "tw.json",
         name: "繁中",
     },
     cn: {
         code: "cn",
-        iso: "zh-CN",
+        iso: "zh_CN",
         file: "tw.json",
         name: "简中",
     },

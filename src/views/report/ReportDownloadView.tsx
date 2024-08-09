@@ -391,7 +391,7 @@ export default defineComponent({
                         language: row.language,
                         period: row.period,
                         publishTime: row.published_at,
-                        downloadCount: 0,
+                        downloadCount: row.download_count,
                         fileTypes: fileTypes,
                         path: {
                             name: "report-download-detail",

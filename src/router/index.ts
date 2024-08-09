@@ -15,7 +15,8 @@ import { ElLoading } from "element-plus";
 import enUS from "@/i18n/locales/en.json";
 import zhTW from "@/i18n/locales/tw.json";
 import zhCN from "@/i18n/locales/cn.json";
-import { getStorage } from "@/services/localStorage";
+import { getStorage, setStorage } from "@/services/localStorage";
+import { decryptData, isEmpty } from "@/services/utils";
 
 const i18nData: any = () => {
     switch (getStorage("lang")) {
@@ -63,12 +64,48 @@ router.beforeEach(
         // 取得初始化資料
         if (!isGetInitData.value) {
             await initStore.getInitData();
-            console.log("initData =>", initData.value);
-            // 判斷是維護模式時 直接導頁去維護頁
+            // 判斷是維護模式時
             if (initData.value.site.maintenance_mode) {
+                console.log(
+                    "initData.value.site.maintenance_mode =>",
+                    initData.value.site.maintenance_mode
+                );
+                // 且有 hash 值
+                if (to.query.hash) {
+                    // 將 hash 值 存在 localStorage 用來以防重新整理時 因為維護模式狀態下 又導頁去維護頁
+                    setStorage("maintenanceHashData", to.query.hash);
+                }
+                // 且有 iv 值
+                if (to.query.rand) {
+                    // 將 iv 值 存在 localStorage 用來以防重新整理時 因為維護模式狀態下 又導頁去維護頁
+                    setStorage("maintenanceRandData", to.query.rand);
+                }
+                // 取得 localstorage 維護狀態 hash 值
+                const hashData = getStorage("maintenanceHashData");
+                // 取得 localstorage 維護狀態 iv 值
+                const randData = getStorage("maintenanceRandData");
+                //  在維護模式下  localstorage 有 hash 值 與 iv 值時 執行解密動作
+                if (!isEmpty(hashData) && !isEmpty(randData)) {
+                    // 解密函示 如果有值 且為 1 代表解密成功
+                    const decryptedData = await decryptData({
+                        hashData,
+                        randData,
+                    });
+                    // 判斷解密不等於 1 時 導頁去維護頁
+                    if (decryptedData !== "1") {
+                        return {
+                            name: "maintenance",
+                            params: {
+                                slug: i18nData()["router"]["maintenance"],
+                            },
+                        };
+                    }
+                }
                 return {
                     name: "maintenance",
-                    params: { slug: i18nData()["router"]["maintenance"] },
+                    params: {
+                        slug: i18nData()["router"]["maintenance"],
+                    },
                 };
             }
         }
@@ -77,6 +114,18 @@ router.beforeEach(
             await userStore.getUserPorfile();
             await userStore.getSubAccounts();
         }
+        // 判斷非個人資料設定畫面 且 需要設定個人資料情況時 讓使用者導頁去個人資料頁
+        if (to.name !== "user-info") {
+            // 判斷需要輸入個人資料時 導頁去個人資料設定頁
+            if (userStore.user.needSettingProfile) {
+                loading.close();
+                return {
+                    name: "user-info",
+                    params: { level2Slug: i18nData()["router"]["user-info"] },
+                };
+            }
+        }
+
         loading.close();
         // 有登入情況下
         if (to.name === "login" && token) {

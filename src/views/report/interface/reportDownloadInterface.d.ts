@@ -61,6 +61,8 @@ export interface ReportDownloadDataListResponseAPIInterface {
                 };
                 // 發佈日期
                 published_at: string;
+                // 下載次數
+                download_count: number;
             }[];
             meta: PaginationAPIInterface;
         };

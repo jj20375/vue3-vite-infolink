@@ -11,6 +11,8 @@ import enUS from "@/i18n/locales/en.json";
 import zhTW from "@/i18n/locales/tw.json";
 import zhCN from "@/i18n/locales/cn.json";
 import { getStorage } from "@/services/localStorage";
+import { useInitStore } from "./initStore";
+import { decryptData, isEmpty } from "@/services/utils";
 
 const i18nData: any = () => {
     switch (getStorage("lang")) {
@@ -34,6 +36,7 @@ export const useUserStore = defineStore("userStore", () => {
         name: "測試名稱",
         phone: "0933123123",
         jobTitle: "CEO",
+        needSettingProfile: false,
     });
     // 使用者公司資料
     const company = ref<UserPanelCompanyInterface>({
@@ -85,34 +88,84 @@ export const useUserStore = defineStore("userStore", () => {
      * 取得使用者資料
      */
     async function getUserPorfile() {
-        try {
-            const { data }: any = await GetUserProfileAPI();
-            setIsAuth();
-            // 判斷需要重設初始化密碼時
-            if (data.data.initial_password) {
-                return router.push({
-                    name: "reset-password",
-                    params: { slug: i18nData()["router"]["reset-password"] },
-                });
-            }
-            user.value = {
-                jobTitle: data.data.title,
-                ...data.data,
-                messagingApp: data.data.im_name || null,
-                messagingAppId: data.data.im_account || null,
-            };
-            company.value = {
-                name: data.data.company.name,
-                webURL: data.data.company.website,
-                region: data.data.company.country,
-                address: data.data.company.address,
-            };
-
-            return data.data;
-        } catch (err) {
-            console.log("GetUserProfileAPI err =>", err);
+        // 取得 localstorage 維護狀態 hash 值
+        const hashData = getStorage("maintenanceHashData");
+        // 取得 localstorage 維護狀態 iv 值
+        const randData = getStorage("maintenanceRandData");
+        // 判斷當網站維護中時 不往下執行
+        if (
+            useInitStore().initData.site.maintenance_mode &&
+            isEmpty(hashData) &&
+            isEmpty(randData)
+        ) {
+            return;
         }
-        return user.value;
+        async function callApi() {
+            try {
+                const { data }: any = await GetUserProfileAPI();
+                setIsAuth();
+                user.value = {
+                    jobTitle: data.data.title,
+                    ...data.data,
+                    messagingApp: data.data.im_name || null,
+                    messagingAppId: data.data.im_account || null,
+                    // 判斷需不需要設定初始資料
+                    needSettingProfile: data.data.is_need_to_complete || false,
+                };
+                company.value = {
+                    name: data.data.company.name,
+                    webURL: data.data.company.website,
+                    region: data.data.company.country,
+                    address: data.data.company.address,
+                };
+                // 判斷需要重設初始化密碼時
+                if (data.data.initial_password) {
+                    console.log("redirect to rest password");
+                    return router.push({
+                        name: "reset-password",
+                        params: {
+                            slug: i18nData()["router"]["reset-password"],
+                        },
+                    });
+                }
+                // 判斷需要設定預設資料時導頁去會員資料管理畫面
+                if (data.data.is_need_to_complete) {
+                    return router.push({
+                        name: "user-info",
+                        params: {
+                            level2Slug: i18nData()["router"]["user-info"],
+                        },
+                    });
+                }
+
+                return data.data;
+            } catch (err) {
+                console.log("GetUserProfileAPI err =>", err);
+            }
+            return user.value;
+        }
+
+        // 判斷有取得 維護模式 hash與iv值時 判斷是否為維護模式並解密 hash 與 iv 值
+        if (!isEmpty(hashData) && !isEmpty(randData)) {
+            // 解密函示 如果有值 且為 1 代表解密成功
+            const decryptedData = await decryptData({
+                hashData,
+                randData,
+            });
+            // 當維護模式 且解密值 為 "1" 時 取得 個人資料 api
+            if (
+                useInitStore().initData.site.maintenance_mode &&
+                decryptedData === "1"
+            ) {
+                return await callApi();
+            }
+        }
+
+        // 非維護模式時 取得個人資料 api
+        if (!useInitStore().initData.site.maintenance_mode) {
+            return await callApi();
+        }
+        return await callApi();
     }
 
     /**

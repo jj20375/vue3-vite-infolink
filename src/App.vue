@@ -29,7 +29,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, nextTick, watch } from "vue";
+import { ref, onMounted, computed, watch } from "vue";
 import {
     RouterView,
     useRouter,
@@ -38,11 +38,14 @@ import {
 } from "vue-router";
 import { setStorage } from "./services/localStorage";
 import { useI18n } from "vue-i18n";
+import { useUserStore } from "./stores/userStore";
 import DefaultBg from "@/components/bg/DefaultLayoutBg.vue";
 import Footer from "@/layouts/main/LayoutMainFooter";
 const router = useRouter();
 const route = useRoute();
 const i18n = useI18n();
+const userStore = useUserStore();
+const user = computed(() => userStore.user);
 
 // 使用預設樣板路由名稱(未登入狀態樣板)
 const useDefaultLayoutRouteNames = ref([
@@ -66,6 +69,18 @@ watch(
         ) {
             router.push({ name: "NotFound" });
             return;
+        }
+    }
+);
+
+watch(
+    () => user.value,
+    (val) => {
+        if (val.needSettingProfile) {
+            router.push({
+                name: "user-info",
+                params: { level2Slug: i18n.t("router.user-info") },
+            });
         }
     }
 );

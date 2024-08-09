@@ -1,6 +1,7 @@
 import axios from "axios";
 import router from "@/router";
 import { getStorage, removeStorage } from "@/services/localStorage";
+import i18n from "@/i18n/langs";
 const timeout = 300000;
 const instance = axios.create({
     timeout,
@@ -11,7 +12,14 @@ const instance = axios.create({
 // axios請求之前的動作
 instance.interceptors.request.use(
     (config) => {
-        config.headers["Accept-Language"] = getStorage("lang") || "zh-TW";
+        // 有存在 localstorage 語系檔時使用此語係請求 api
+        if (getStorage("lang")) {
+            const lang: "tw" | "en" | "cn" = getStorage("lang");
+            config.headers["X-Language"] = i18n[lang].iso;
+        } else {
+            // 預設請求 api 語系
+            config.headers["X-Language"] = "zh_TW";
+        }
         if (getStorage("token") !== null) {
             config.headers.Authorization = `Bearer ${getStorage("token")}`;
         }

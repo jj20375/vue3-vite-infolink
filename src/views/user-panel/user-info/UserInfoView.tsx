@@ -409,6 +409,7 @@ export default defineComponent({
                     type: "success",
                     message: t("global.success.change"),
                 });
+                await userStore.getUserPorfile();
             } catch (err) {
                 console.log("UpdateUserProfileAPI err =>", err);
             }
