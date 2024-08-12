@@ -148,9 +148,60 @@ router.beforeEach(
 );
 router.afterEach(
     async (to: RouteLocationNormalized, from: RouteLocationNormalized) => {
+        const initStore = useInitStore();
         nextTick(() => {
-            document.title =
-                i18nData()["router"][to.name!] || import.meta.env.VITE_WEB_NAME;
+            if (Object.keys(initStore.initData.site).length > 0) {
+                if (initStore.initData.site.meta_title) {
+                    document.title =
+                        initStore.initData.site.meta_title +
+                        "-" +
+                        i18nData()["router"][to.name!];
+                    document
+                        .querySelector('meta[property="og:title"]')!
+                        .setAttribute(
+                            "content",
+                            initStore.initData.site.meta_title +
+                                "-" +
+                                i18nData()["router"][to.name!]
+                        );
+                } else {
+                    document.title =
+                        i18nData()["router"][to.name!] ||
+                        import.meta.env.VITE_WEB_NAME;
+                }
+                if (!isEmpty(initStore.initData.site.meta_description)) {
+                    document
+                        .querySelector('meta[name="description"]')!
+                        .setAttribute(
+                            "content",
+                            initStore.initData.site.meta_description
+                        );
+                    document
+                        .querySelector('meta[property="og:description"]')!
+                        .setAttribute(
+                            "content",
+                            initStore.initData.site.meta_description
+                        );
+                }
+                if (!isEmpty(initStore.initData.site.meta_keywords)) {
+                    document
+                        .querySelector('meta[name="keywords"]')!
+                        .setAttribute(
+                            "content",
+                            initStore.initData.site.meta_keywords.join(", ")
+                        );
+                    document
+                        .querySelector('meta[property="og:keywords"]')!
+                        .setAttribute(
+                            "content",
+                            initStore.initData.site.meta_keywords.join(",")
+                        );
+                }
+            } else {
+                document.title =
+                    i18nData()["router"][to.name!] ||
+                    import.meta.env.VITE_WEB_NAME;
+            }
         });
     }
 );
