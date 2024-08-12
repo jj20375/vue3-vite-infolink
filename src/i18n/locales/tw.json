@@ -276,7 +276,7 @@
     },
     "auth-verify": {
         "title": "身份驗證",
-        "description": "已將驗證碼碼發送到 {email}",
+        "description": "已將驗證碼發送到 {email}",
         "code": {
             "label": "驗證碼",
             "placeholder": "請輸入驗證碼",
