@@ -68,7 +68,13 @@ export const useUserStore = defineStore("userStore", () => {
      */
     function clearUser() {
         removeStorage("token");
-        return (user.value = {});
+        return (user.value = {
+            email: "",
+            name: "",
+            jobTitle: "",
+            phone: "",
+            needSettingProfile: false,
+        });
     }
     /**
      * 清除是否登入
