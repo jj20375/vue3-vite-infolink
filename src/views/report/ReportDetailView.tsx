@@ -37,11 +37,10 @@ export default defineComponent({
         };
 
         const reportData = ref({
-            title: "產業鏈價格預測月報告",
-            date: "2024-02-11",
-            content:
-                "<p>全球鋰電池供應鏈數據庫報告涵蓋全球鋰電池市場供需情形，提供電芯環節的細部數據，包括各企業的產能、產量、出貨等，且拆分各市場應用別如大型與工商業儲能、戶用儲能。除了詳細數據資料，全球鋰電池供應鏈數據庫也提供全產業鏈上的綜觀與趨勢分析，協助企業作為策略佈局的重要依據。<br><br>全球鋰電池供應鏈數據庫内容包含：<br><br>1. 全球鋰電池市場概況<br>2. 鋰電池市場供需分析<br>3. 上游材料鋰礦分析<br>4. 鋰電池價格預測<br>5. 鋰電池主要企業產能、產量、出貨分析</p>",
-            files: ["pdf", "xlsx", "xlsm"],
+            title: "",
+            date: "",
+            content: "",
+            files: [],
         });
 
         async function getDetail(id: number) {
@@ -84,13 +83,21 @@ export default defineComponent({
                             {reportData.value.date}
                         </div>
                         <h3 class="text-black-800 font-semibold text-[20px] sm:text-[28px]">
-                            {reportData.value.title}
+                            {isEmpty(reportData.value.title) ? (
+                                <el-skeleton rows={1} />
+                            ) : (
+                                reportData.value.title
+                            )}
                         </h3>
                         <div class="h-[3px] w-full bg-yellow-900 my-4"></div>
-                        <div
-                            class="edit-section"
-                            v-html={reportData.value.content}
-                        ></div>
+                        {isEmpty(reportData.value.content) ? (
+                            <el-skeleton rows={5} />
+                        ) : (
+                            <div
+                                class="edit-section"
+                                v-html={reportData.value.content}
+                            ></div>
+                        )}
                         <div class="h-[1px] w-full bg-black-100 my-4"></div>
                         <div class="mt-6 mb-4 font-medium">
                             {t("report-detail.title")}

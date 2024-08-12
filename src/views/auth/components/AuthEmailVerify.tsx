@@ -13,6 +13,7 @@ import { useUserStore } from "@/stores/userStore";
 import { setStorage } from "@/services/localStorage";
 import { useI18n } from "vue-i18n";
 import { useRouter } from "vue-router";
+import { ElMessage } from "element-plus";
 
 export default defineComponent({
     name: "AuthEmailVerify",
@@ -97,9 +98,15 @@ export default defineComponent({
                         params: { slug: t("router.home") },
                     });
                 }, 1000);
-            } catch (err) {
+            } catch (err: any) {
                 console.log("AuthLoginEmailVerfiyCodeAPI err =>", err);
                 loading.value = false;
+                if (err.response) {
+                    ElMessage({
+                        type: "error",
+                        message: err.response.data.message,
+                    });
+                }
             }
         }
 

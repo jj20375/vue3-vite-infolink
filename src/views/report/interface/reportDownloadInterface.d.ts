@@ -162,3 +162,18 @@ export interface ReportDetailResponseAPIInterface {
         };
     };
 }
+
+/**
+ * 報告下載說明書 api
+ */
+export interface ReportDownloadManualResponseAPIInterface {
+    data: {
+        data: {
+            // 名稱
+            name: string;
+            path: {
+                [key: "en" | "zh_CN" | "zh_TW"]: string;
+            };
+        };
+    };
+}

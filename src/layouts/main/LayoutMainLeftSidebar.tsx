@@ -171,17 +171,22 @@ export default defineComponent({
             locale.value = lang;
             setStorage("lang", lang);
             document.title = t(`router.${route.name as string}`);
-            if (route.meta.parent !== undefined) {
+            setTimeout(async () => {
+                await initStore.getInitData();
+                if (route.meta.parent !== undefined) {
+                    router.push({
+                        name: route.name,
+                        params: {
+                            level2Slug: t(`router.${route.name as string}`),
+                        },
+                    });
+                    return;
+                }
                 router.push({
                     name: route.name,
-                    params: { level2Slug: t(`router.${route.name as string}`) },
+                    params: { slug: t(`router.${route.name as string}`) },
                 });
-                return;
-            }
-            router.push({
-                name: route.name,
-                params: { slug: t(`router.${route.name as string}`) },
-            });
+            }, 200);
         }
         /**
          * 登出

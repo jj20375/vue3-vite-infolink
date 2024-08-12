@@ -4,7 +4,7 @@ import { useUserStore } from "@/stores/userStore";
 import { validateEmail } from "@/services/formValidator";
 import { ElMessage } from "element-plus";
 import type { FormInstance } from "element-plus";
-import type { ColumnsInterface } from "@/interface/global.d";
+import type { ColumnsInterface, OptionsInterface } from "@/interface/global.d";
 import GoogleReCaptchaV2 from "@/components/GoogleRecaptchaV2";
 import ContactFileUpload from "./ContactFileUpload";
 import { useI18n } from "vue-i18n";
@@ -121,67 +121,74 @@ export default defineComponent({
             };
         });
 
-        const formColumns = ref<ColumnsInterface<ContactFormPropType>[]>([
-            {
-                prop: "email",
-                label: t("contact.email.label"),
-                placeholder: t("contact.email.placeholder"),
-                style: "input",
-                disabled: true,
-            },
-            {
-                prop: "name",
-                label: t("contact.name.label"),
-                placeholder: t("contact.name.placeholder"),
-                style: "input",
-                disabled: true,
-            },
-            {
-                prop: "company",
-                label: t("contact.company.label"),
-                placeholder: t("contact.company.placeholder"),
-                style: "input",
-                disabled: true,
-            },
-            {
-                prop: "phone",
-                label: t("contact.phone.label"),
-                placeholder: t("contact.phone.placeholder"),
-                style: "input",
-            },
-            {
-                prop: "title",
-                label: t("contact.title.label"),
-                placeholder: t("contact.title.placeholder"),
-                style: "input",
-                span: "12",
-            },
-            {
-                prop: "category",
-                label: t("contact.category.label"),
-                placeholder: t("contact.category.placeholder"),
-                style: "select",
-                options: [],
-                span: "12",
-            },
-            {
-                prop: "content",
-                label: t("contact.content.label"),
-                placeholder: t("contact.content.placeholder"),
-                style: "input",
-                row: 4,
-                type: "textarea",
-                span: "12",
-            },
-            {
-                prop: "photo",
-                label: t("contact.photo.label"),
-                placeholder: t("contact.photo.placeholder"),
-                type: "photo",
-                style: "file",
-                span: "12",
-            },
-        ]);
+        const categories = ref<OptionsInterface[]>([]);
+
+        const formColumns = computed<ColumnsInterface<ContactFormPropType>[]>(
+            () => {
+                const datas: ColumnsInterface<ContactFormPropType>[] = [
+                    {
+                        prop: "email",
+                        label: t("contact.email.label"),
+                        placeholder: t("contact.email.placeholder"),
+                        style: "input",
+                        disabled: true,
+                    },
+                    {
+                        prop: "name",
+                        label: t("contact.name.label"),
+                        placeholder: t("contact.name.placeholder"),
+                        style: "input",
+                        disabled: true,
+                    },
+                    {
+                        prop: "company",
+                        label: t("contact.company.label"),
+                        placeholder: t("contact.company.placeholder"),
+                        style: "input",
+                        disabled: true,
+                    },
+                    {
+                        prop: "phone",
+                        label: t("contact.phone.label"),
+                        placeholder: t("contact.phone.placeholder"),
+                        style: "input",
+                    },
+                    {
+                        prop: "title",
+                        label: t("contact.title.label"),
+                        placeholder: t("contact.title.placeholder"),
+                        style: "input",
+                        span: "12",
+                    },
+                    {
+                        prop: "category",
+                        label: t("contact.category.label"),
+                        placeholder: t("contact.category.placeholder"),
+                        style: "select",
+                        options: categories.value,
+                        span: "12",
+                    },
+                    {
+                        prop: "content",
+                        label: t("contact.content.label"),
+                        placeholder: t("contact.content.placeholder"),
+                        style: "input",
+                        row: 4,
+                        type: "textarea",
+                        span: "12",
+                    },
+                    {
+                        prop: "photo",
+                        label: t("contact.photo.label"),
+                        placeholder: t("contact.photo.placeholder"),
+                        type: "photo",
+                        style: "file",
+                        span: "12",
+                    },
+                ];
+                return datas;
+            }
+        );
 
         /**
          * 取得聯絡我們詢問類別
@@ -189,18 +196,12 @@ export default defineComponent({
         async function getContactUsQuestionCategories() {
             try {
                 const { data } = await GetContactUsQuestionCategoriesAPI();
-                const findCategoriesIndex = formColumns.value.findIndex(
-                    (item) => item.prop === "category"
-                );
-                if (findCategoriesIndex !== -1) {
-                    formColumns.value[findCategoriesIndex].options =
-                        data.data.map((item) => {
-                            return {
-                                label: item.name,
-                                value: item.id,
-                            };
-                        });
-                }
+                categories.value = data.data.map((item) => {
+                    return {
+                        label: item.name,
+                        value: item.id,
+                    };
+                });
             } catch (err) {
                 console.log("GetContactUsQuestionCategoriesAPI err =>", err);
             }

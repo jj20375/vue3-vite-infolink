@@ -59,7 +59,7 @@ export const useInitStore = defineStore("initStore", () => {
                 contact_phone: data.business_phone,
                 contact_email: data.business_email,
                 contact_address: data.address,
-                contact_google_map: "",
+                contact_google_map: data.address_map,
                 contact_sales: data.email,
                 fax_number: data.fax,
                 business_hours: data.business_hours,

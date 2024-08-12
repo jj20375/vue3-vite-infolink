@@ -3,6 +3,7 @@ import type {
     GetReportDownloadEmailValidateCodeAPIInterface,
     ReportDetailAPIInterface,
     ReportDetailResponseAPIInterface,
+    ReportDownloadManualResponseAPIInterface,
     ReportDownloadParamsInterface,
     ReportDownloadVerifyEmailValidateCodeAPIInterface,
 } from "@/views/report/interface/reportDownloadInterface";
@@ -60,6 +61,15 @@ export function ReportDownloadVerifyEmailValidateCodeAPI(
         `${apiURL}/report/verify-download-report-file-verification-code`,
         data
     );
+}
+
+/**
+ * 取得報告說明書檔案下載列表
+ * @param params
+ * @returns
+ */
+export function GetReportDownloadManualListAPI(): Promise<ReportDownloadManualResponseAPIInterface> {
+    return axios.get(`${apiURL}/report/common-file-list`);
 }
 
 /**
