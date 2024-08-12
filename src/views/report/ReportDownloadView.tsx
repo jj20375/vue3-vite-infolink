@@ -333,7 +333,7 @@ export default defineComponent({
     props: {},
     emits: [],
     setup(props, { emit, attrs }) {
-        const { t } = useI18n();
+        const { t, locale } = useI18n();
         const route: RouteLocationNormalizedLoaded = useRoute();
         const router = useRouter();
         const loading = ref(false);
@@ -468,6 +468,14 @@ export default defineComponent({
             }
             await getList(params);
         }
+
+        watch(
+            () => locale.value,
+            async (val) => {
+                // 監聽語系切換時重取報表下載資料
+                await getList();
+            }
+        );
 
         onMounted(async () => {
             // 判斷是否有搜尋條件
