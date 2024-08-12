@@ -33,6 +33,7 @@ const defaultUserForm: UserPanelUserInfoResponseAPIInterface = {
     phone: "",
     messagingApp: "",
     messagingAppId: "",
+    needSettingProfile: false,
 };
 
 /**
