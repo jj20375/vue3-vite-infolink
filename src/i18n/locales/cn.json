@@ -210,8 +210,9 @@
             "downloadCount": "下载次数"
         },
         "manual": {
-            "zh-tw": "宏使用说明书(中文)",
-            "en": "宏使用说明书(英文)"
+            "name": "巨集使用说明书",
+            "manual_en": "英文",
+            "manual_zh_CN": "中文"
         }
     },
     "report-detail": {

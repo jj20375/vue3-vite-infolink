@@ -210,8 +210,9 @@
             "downloadCount": "Download Count"
         },
         "manual": {
-            "zh-tw": "Macro User Manual (Chinese)",
-            "en": "Macro User Manual (English)"
+            "name": "Macro User Manual",
+            "manual_en": "English",
+            "manual_zh_CN": "Chinese"
         }
     },
     "report-detail": {
