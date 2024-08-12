@@ -210,8 +210,9 @@
             "downloadCount": "下載次數"
         },
         "manual": {
-            "zh-tw": "巨集使用說明書(中文)",
-            "en": "巨集使用說明書(英文)"
+            "name": "巨集使用說明書",
+            "manual_en": "英文",
+            "manual_zh_CN": "中文"
         }
     },
     "report-detail": {

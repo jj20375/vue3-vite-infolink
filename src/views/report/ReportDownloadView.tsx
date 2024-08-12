@@ -8,6 +8,8 @@ import type {
     ReportDownloadLanguagesAPIInterface,
     ReportDownloadCategoriesAPIInterface,
     ReportDownloadIndustriesAPIInterface,
+    ReportDownloadManualResponseAPIInterface,
+    ReportDownloadManualInterface,
 } from "./interface/reportDownloadInterface.d";
 import type { RouteLocationNormalizedLoaded } from "vue-router";
 import { defineComponent, ref, markRaw, watch, computed, onMounted } from "vue";
@@ -26,6 +28,7 @@ import {
     GetReportLanguagesAPI,
     GetReportIndustriesAPI,
     GetReportCategoriesAPI,
+    GetReportDownloadManualListAPI,
 } from "@/api/reportAPI";
 
 interface FilterInterFace {
@@ -354,9 +357,12 @@ export default defineComponent({
         const tableBodyData = ref<ReportDownloadDataInterface[]>([]);
 
         // 檔案下載資料
-        const downloadManualData = ref<any>({
-            chinese: "https://www.google.com.tw/webhp?hl=zh-TW",
-            english: "https://www.google.com.tw/webhp?hl=zh-TW",
+        const downloadManualData = ref<ReportDownloadManualInterface>({
+            name: t("report-download.manual.name"),
+            path: {
+                en: "",
+                zh_CN: "",
+            },
         });
 
         const currentPage = ref(1);
@@ -364,6 +370,19 @@ export default defineComponent({
             pageSize: 10,
             total: 1,
         });
+
+        /**
+         * 取得報告說明書下載列表
+         */
+        async function getManual() {
+            try {
+                const { data }: ReportDownloadManualResponseAPIInterface =
+                    await GetReportDownloadManualListAPI();
+                downloadManualData.value.path = data.data[0].path;
+            } catch (err) {
+                console.log("GetReportDownloadManualListAPI err =>", err);
+            }
+        }
 
         async function handlePageChange(val: number) {
             currentPage.value = val;
@@ -474,6 +493,7 @@ export default defineComponent({
             async (val) => {
                 // 監聽語系切換時重取報表下載資料
                 await getList();
+                await getManual();
             }
         );
 
@@ -500,6 +520,7 @@ export default defineComponent({
                 return;
             }
             await getList();
+            await getManual();
         });
 
         return () => (
@@ -517,26 +538,44 @@ export default defineComponent({
                     </div>
                     <div class="mt-3 sm:mt-12 border border-gray-600 p-5 rounded-[4px] bg-white">
                         <div class="flex flex-col sm:flex-row gap-1 sm:gap-4 justify-end mb-5">
-                            {downloadManualData.value.chinese !== undefined && (
-                                <a
-                                    target="_blank"
-                                    href={downloadManualData.value.chinese}
-                                    class="flex gap-2 p-2 items-center text-[14px] cursor-pointer hover:text-black-700 transition-all duration-300"
-                                >
-                                    <IconDownload class="!w-4 !h-4" />
-                                    {t("report-download.manual.zh-tw")}
-                                </a>
-                            )}
-                            {downloadManualData.value.english !== undefined && (
-                                <a
-                                    target="_blank"
-                                    href={downloadManualData.value.english}
-                                    class="flex gap-2 p-2 items-center text-[14px] cursor-pointer hover:text-black-700 transition-all duration-300"
-                                >
-                                    <IconDownload class="!w-4 !h-4" />
-                                    {t("report-download.manual.en")}
-                                </a>
-                            )}
+                            {downloadManualData.value.path !== undefined &&
+                            Object.keys(downloadManualData.value.path).length >
+                                0
+                                ? Object.keys(
+                                      downloadManualData.value.path
+                                  ).map((key) => {
+                                      if (
+                                          downloadManualData.value.path[key] !==
+                                          undefined
+                                      ) {
+                                          return (
+                                              <a
+                                                  key={key}
+                                                  target="_blank"
+                                                  href={
+                                                      downloadManualData.value
+                                                          .path[key]
+                                                  }
+                                                  class="flex gap-2 p-2 items-center text-[14px] cursor-pointer hover:text-black-700 transition-all duration-300"
+                                              >
+                                                  <IconDownload class="!w-4 !h-4" />
+                                                  {
+                                                      downloadManualData.value[
+                                                          "name"
+                                                      ]
+                                                  }
+                                                  (
+                                                  {t(
+                                                      "report-download.manual.manual_" +
+                                                          key
+                                                  )}
+                                                  )
+                                              </a>
+                                          );
+                                      }
+                                      return null;
+                                  })
+                                : null}
                         </div>
                         <ReportDownloadTable
                             v-loading={loading.value}

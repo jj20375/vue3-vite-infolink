@@ -167,13 +167,18 @@ export interface ReportDetailResponseAPIInterface {
  * 報告下載說明書 api
  */
 export interface ReportDownloadManualResponseAPIInterface {
-    data: {
-        data: {
-            // 名稱
-            name: string;
-            path: {
-                [key: "en" | "zh_CN" | "zh_TW"]: string;
-            };
-        };
+    data: { data: ReportDownloadManualInterface[] };
+}
+
+/**
+ * 報告下載說明書
+ */
+export interface ReportDownloadManualInterface {
+    // 名稱
+    name: string;
+    path: {
+        [key: string]: string | undefined; // 允許任何字符串鍵
+        ["en"]?: string | undefined;
+        ["zh_CN"]?: string | undefined;
     };
 }
