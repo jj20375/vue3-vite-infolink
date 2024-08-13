@@ -37,6 +37,7 @@ export const useUserStore = defineStore("userStore", () => {
         phone: "0933123123",
         jobTitle: "CEO",
         needSettingProfile: false,
+        needSettingPassword: false,
     });
     // 使用者公司資料
     const company = ref<UserPanelCompanyInterface>({
@@ -74,6 +75,7 @@ export const useUserStore = defineStore("userStore", () => {
             jobTitle: "",
             phone: "",
             needSettingProfile: false,
+            needSettingPassword: false,
         });
     }
     /**
@@ -117,6 +119,8 @@ export const useUserStore = defineStore("userStore", () => {
                     messagingAppId: data.data.im_account || null,
                     // 判斷需不需要設定初始資料
                     needSettingProfile: data.data.is_need_to_complete || false,
+                    // 判斷需不需要重設密碼
+                    needSettingPassword: data.data.initial_password || false,
                 };
                 company.value = {
                     name: data.data.company.name,
@@ -127,15 +131,17 @@ export const useUserStore = defineStore("userStore", () => {
                 // 判斷需要重設初始化密碼時
                 if (data.data.initial_password) {
                     console.log("redirect to rest password");
-                    return router.push({
+                    router.push({
                         name: "reset-password",
                         params: {
                             slug: i18nData()["router"]["reset-password"],
                         },
                     });
+                    return;
                 }
                 // 判斷需要設定預設資料時導頁去會員資料管理畫面
                 if (data.data.is_need_to_complete) {
+                    console.log("redirect to user info");
                     return router.push({
                         name: "user-info",
                         params: {

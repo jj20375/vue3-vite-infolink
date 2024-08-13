@@ -123,7 +123,7 @@ const router: Array<RouteRecordRaw> = [
             menu: true,
             sort: 4,
             requiresAuth: true,
-            link: "https://www.google.com.tw/webhp?hl=zh-TW",
+            link: true,
         },
         component: () => import("@/views/NotFoundView"),
     },

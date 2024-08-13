@@ -1,4 +1,4 @@
-import { defineComponent, onMounted, ref } from "vue";
+import { defineComponent, onMounted, ref, watch } from "vue";
 import { useI18n } from "vue-i18n";
 import Pagination from "@/components/Pagination.vue";
 import type {
@@ -16,7 +16,7 @@ interface FilterInterFace {
 export default defineComponent({
     name: "HomeProducts",
     setup(props, { emit }) {
-        const { t } = useI18n();
+        const { t, locale } = useI18n();
         const loading = ref(false);
         // 分類列表資料
         const categories = ref<ProductCategoryInterface[]>();
@@ -113,6 +113,17 @@ export default defineComponent({
             ),
         };
 
+        watch(
+            () => locale.value,
+            async (val: string) => {
+                // 監聽語系切換時重取報表下載資料
+                await getCategories();
+                await getList({
+                    product_category_id: activeCategoryTab.value,
+                    page: currentPage.value,
+                });
+            }
+        );
         onMounted(async () => {
             await getCategories();
             await getList({
