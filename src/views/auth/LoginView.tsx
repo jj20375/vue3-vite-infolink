@@ -5,7 +5,7 @@ import { validateEmail } from "@/services/formValidator";
 import IconMember from "@/components/icons/IconMember.vue";
 import IconPassword from "@/components/icons/IconPassword.vue";
 import type { ColumnsInterface } from "@/interface/global.d";
-import type { FormInstance } from "element-plus";
+import { ElMessage, type FormInstance } from "element-plus";
 import { setStorage, getStorage } from "@/services/localStorage";
 import { useI18n } from "vue-i18n";
 import { AuthUserLoginAPI } from "@/api/oauthAPI";
@@ -92,8 +92,16 @@ export default defineComponent({
                     setStorage("loginEmail", form.email);
                 }
                 const { data } = await AuthUserLoginAPI(form);
-            } catch (err) {
+                return { apiErr: false, data };
+            } catch (err: any) {
                 console.log("AuthUserLoginAPI err =>", err);
+                if (err.response) {
+                    ElMessage({
+                        type: "error",
+                        message: err.response.data.message,
+                    });
+                }
+                return { apiErr: true, err };
             }
         }
 
@@ -104,8 +112,10 @@ export default defineComponent({
             }
             try {
                 await formRefDom.value.validate();
-                await login(form.value);
-                authEmailVerifyRefDom.value!.openDialog();
+                const { apiErr } = await login(form.value);
+                if (!apiErr) {
+                    authEmailVerifyRefDom.value!.openDialog();
+                }
                 // await getPermissionRouter();
             } catch (err) {}
         }

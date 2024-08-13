@@ -114,10 +114,25 @@ router.beforeEach(
             await userStore.getUserPorfile();
             await userStore.getSubAccounts();
         }
+
+        // 判斷非重設密碼畫面時觸發
+        if (to.name !== "reset-password") {
+            // 判斷需要設定初始化密碼時 導頁去重設密碼畫面
+            if (userStore.user.needSettingPassword) {
+                loading.close();
+                return {
+                    name: "reset-password",
+                    params: { slug: i18nData()["router"]["reset-password"] },
+                };
+            }
+        }
         // 判斷非個人資料設定畫面 且 需要設定個人資料情況時 讓使用者導頁去個人資料頁
         if (to.name !== "user-info") {
-            // 判斷需要輸入個人資料時 導頁去個人資料設定頁
-            if (userStore.user.needSettingProfile) {
+            // 判斷需要輸入個人資料時 且無需設定初始化密碼時 導頁去個人資料設定頁
+            if (
+                userStore.user.needSettingProfile &&
+                !userStore.user.needSettingPassword
+            ) {
                 loading.close();
                 return {
                     name: "user-info",

@@ -17,6 +17,8 @@ export interface UserPanelUserInfoResponseAPIInterface {
     messagingAppId?: string;
     // 國家
     company?: string;
+    // 判斷需要不需要重設密碼
+    needSettingPassword: boolean;
     // 判斷需要不需要設定初始資料
     needSettingProfile: boolean;
 }

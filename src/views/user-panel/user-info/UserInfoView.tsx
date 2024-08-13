@@ -34,6 +34,7 @@ const defaultUserForm: UserPanelUserInfoResponseAPIInterface = {
     messagingApp: "",
     messagingAppId: "",
     needSettingProfile: false,
+    needSettingPassword: false,
 };
 
 /**

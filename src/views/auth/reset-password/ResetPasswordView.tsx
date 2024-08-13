@@ -4,6 +4,7 @@ import { validatePassword } from "@/services/formValidator";
 import type { ColumnsInterface } from "@/interface/global.d";
 import type { FormInstance } from "element-plus";
 import { useI18n } from "vue-i18n";
+import { useUserStore } from "@/stores/userStore";
 import {
     AuthResetInitPasswordAPI,
     AuthForgotPasswordSetNewPasswordAPI,
@@ -19,6 +20,7 @@ export default defineComponent({
     props: {},
     emits: [],
     setup(props, { emit }) {
+        const userStore = useUserStore();
         const route = useRoute();
         const router = useRouter();
         const { t } = useI18n();
@@ -138,6 +140,8 @@ export default defineComponent({
         async function authResetInitPassword(form: AuthResetPasswordInterface) {
             try {
                 const { data } = await AuthResetInitPasswordAPI(form);
+                // 初始化登入資料 否則又會被倒回重設密碼頁面
+                userStore.removeUser();
                 ElMessage({
                     type: "success",
                     message: t("global.success.change"),
@@ -159,6 +163,8 @@ export default defineComponent({
         ) {
             try {
                 await AuthForgotPasswordSetNewPasswordAPI(form);
+                // 初始化登入資料 否則又會被倒回重設密碼頁面
+                userStore.removeUser();
                 ElMessage({
                     type: "success",
                     message: t("global.success.change"),

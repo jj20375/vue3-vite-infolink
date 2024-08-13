@@ -412,7 +412,10 @@ export default defineComponent({
                                     ) : (
                                         <a
                                             target="_blank"
-                                            href={item.meta!.link as string}
+                                            href={
+                                                initData.value.site
+                                                    .social_datafactory! as string
+                                            }
                                             class="relative block px-6 sm:px-7 py-4 text-[16px] text-black-500 hover:text-black-900"
                                         >
                                             <div class="flex items-center justify-between gap-3">

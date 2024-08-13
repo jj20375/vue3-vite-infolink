@@ -3,6 +3,7 @@ import LayoutMainHeader from "@/layouts/main/LayoutMainHeader";
 import IconHome from "@/components/icons/sidebar/IconHome.vue";
 import HomeView from "@/views/home/HomeView";
 import LoginView from "@/views/auth/LoginView";
+import ResetPasswordView from "@/views/auth/reset-password/ResetPasswordView";
 import NotFoundView from "@/views/NotFoundView";
 import { markRaw } from "vue";
 import type { RouteRecordRaw } from "vue-router";
@@ -59,8 +60,7 @@ const router: Array<RouteRecordRaw> = [
         name: "reset-password",
         meta: {},
         components: {
-            default: async () =>
-                await import("@/views/auth/reset-password/ResetPasswordView"),
+            default: ResetPasswordView,
             DefaultHeader: LayoutDefaultHeader,
             DefaultFooter: LayoutDefaultFooter,
         },

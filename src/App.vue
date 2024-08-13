@@ -76,11 +76,23 @@ watch(
 watch(
     () => user.value,
     (val) => {
+        // 判斷需要重設初始化密碼時導頁去設定密碼
+        if (val.needSettingPassword) {
+            router.push({
+                name: "reset-password",
+                params: {
+                    slug: i18n.t("router.reset-password"),
+                },
+            });
+            return;
+        }
+        // 判斷需要設定基本資料時導頁去會員資料管理
         if (val.needSettingProfile) {
             router.push({
                 name: "user-info",
                 params: { level2Slug: i18n.t("router.user-info") },
             });
+            return;
         }
     }
 );
