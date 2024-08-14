@@ -1,4 +1,4 @@
-import { defineComponent, ref, computed, watch, toRefs } from "vue";
+import { defineComponent, ref, computed, watch, toRefs, onMounted } from "vue";
 import type { PropType } from "vue";
 import { useUserStore } from "@/stores/userStore";
 import { useWindowResize } from "@/hooks/windowResize";
@@ -333,24 +333,33 @@ export default defineComponent({
         // 公司資料欄位
         const companyColumns = computed<
             { prop: "name" | "webURL" | "region" | "address"; label: string }[]
-        >(() => [
-            {
-                prop: "name",
-                label: t("user-panel.company-info.name"),
-            },
-            {
-                prop: "webURL",
-                label: t("user-panel.company-info.webURL"),
-            },
-            {
-                prop: "region",
-                label: t("user-panel.company-info.region"),
-            },
-            {
-                prop: "address",
-                label: t("user-panel.company-info.address"),
-            },
-        ]);
+        >(() => {
+            const columns: {
+                prop: "name" | "webURL" | "region" | "address";
+                label: string;
+            }[] = [
+                {
+                    prop: "name",
+                    label: t("user-panel.company-info.name"),
+                },
+                {
+                    prop: "webURL",
+                    label: t("user-panel.company-info.webURL"),
+                },
+                {
+                    prop: "region",
+                    label: t("user-panel.company-info.region"),
+                },
+                {
+                    prop: "address",
+                    label: t("user-panel.company-info.address"),
+                },
+            ];
+            if (isEmpty(companyForm.value.webURL)) {
+                return columns.filter((column) => column.prop !== "webURL");
+            }
+            return columns;
+        });
 
         // 子帳號列表表單欄位
         const subAccountsColumns = computed(() => {
@@ -416,6 +425,17 @@ export default defineComponent({
                 console.log("UpdateUserProfileAPI err =>", err);
             }
         }
+
+        onMounted(() => {
+            if (user.value.needSettingProfile) {
+                ElMessage({
+                    type: "error",
+                    message: t(
+                        "user-panel.user-info.notifyNeedSettingUserInfo"
+                    ),
+                });
+            }
+        });
 
         return () => {
             // 公司資料區塊

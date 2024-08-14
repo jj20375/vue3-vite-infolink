@@ -135,7 +135,8 @@
                 "label": "通訊軟體名稱",
                 "placeholder": "請輸入通訊軟體名稱",
                 "warning": "請輸入通訊軟體名稱"
-            }
+            },
+            "notifyNeedSettingUserInfo": "請完善個人資料"
         },
         "sub-accounts": {
             "solarEnergySubAccounts": "子帳號列表-太陽能",

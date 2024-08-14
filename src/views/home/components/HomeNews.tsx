@@ -1,4 +1,4 @@
-import { defineComponent, onMounted, ref } from "vue";
+import { defineComponent, onMounted, ref, watch } from "vue";
 import { useI18n } from "vue-i18n";
 import type { PostInterface } from "../interface/postInterface";
 import { GetPostListAPI } from "@/api/postAPI";
@@ -7,7 +7,7 @@ import Pagination from "@/components/Pagination.vue";
 export default defineComponent({
     name: "HomeNews",
     setup(props, { emit }) {
-        const { t } = useI18n();
+        const { t, locale } = useI18n();
         const loading = ref(false);
         // 文章列表資料
         const datas = ref<PostInterface[]>([]);
@@ -30,7 +30,7 @@ export default defineComponent({
                     return {
                         id: item.id,
                         title: item.title,
-                        content: item.title,
+                        content: item.content,
                         articleCategory: item.articleCategory,
                         publishedAt: item.published_at,
                     };
@@ -77,8 +77,16 @@ export default defineComponent({
             ),
         };
 
+        watch(
+            () => locale.value,
+            async (val: string) => {
+                // 監聽語系切換時重取最新公告下載資料
+                await getList({ page: currentPage.value });
+            }
+        );
+
         onMounted(async () => {
-            await getList();
+            await getList({ page: 1 });
         });
 
         return () => (

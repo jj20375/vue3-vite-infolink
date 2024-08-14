@@ -9,6 +9,7 @@ export interface PostListResponseAPIInterface {
             rows: {
                 id: number;
                 title: string;
+                content: string;
                 is_top: boolean;
                 // 發佈時間
                 published_at: Date;

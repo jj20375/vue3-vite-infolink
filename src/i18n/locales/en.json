@@ -135,7 +135,8 @@
                 "label": "Messaging App Name",
                 "placeholder": "Please enter the messaging app name",
                 "warning": "Please enter the messaging app name"
-            }
+            },
+            "notifyNeedSettingUserInfo": "Please complete your personal information"
         },
         "sub-accounts": {
             "solarEnergySubAccounts": "Sub-account List - Solar Energy",

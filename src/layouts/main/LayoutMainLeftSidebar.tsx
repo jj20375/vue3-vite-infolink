@@ -21,6 +21,7 @@ import { setStorage } from "@/services/localStorage";
 import { AuthLogoutAPI } from "@/api/oauthAPI";
 // 語系選項
 import langs from "@/i18n/langs";
+import { isEmpty } from "@/services/utils";
 
 export default defineComponent({
     name: "LayoutMainLeftSideBar",
@@ -78,14 +79,38 @@ export default defineComponent({
 
         // 路由選單
         const menuList = computed<Array<RouteRecordRaw> | any>(() => {
+            // 判斷是否有可以下載報告權限的部門 如果過濾掉 account_type === "sub" 的陣列值 數量大於 1 但表要顯示下載報告選單
+            const checkHaveRoleByDownloadReport = () => {
+                if (
+                    isEmpty(user.value.departments) ||
+                    !Array.isArray(user.value.departments)
+                ) {
+                    return false;
+                }
+                if (
+                    user.value.departments.filter(
+                        (item) => item.account_type !== "sub"
+                    ).length === 0
+                ) {
+                    return false;
+                }
+                return true;
+            };
             if (permissionRouter.value.length > 0) {
-                const rawMenuList = permissionRouter.value.filter((data) => {
+                let rawMenuList = permissionRouter.value.filter((data) => {
                     if (data.children) {
                         data.children = data.children.filter(
                             (children: any) => !children.meta.menu
                         );
                     }
                     return data.meta!.menu;
+                });
+                // 判斷是否為子帳號或沒有任何權限時 需移除 報告下載按鈕
+                rawMenuList = rawMenuList.filter((data) => {
+                    if (!checkHaveRoleByDownloadReport()) {
+                        return data.name !== "report-download";
+                    }
+                    return true;
                 });
                 return rawMenuList;
             }

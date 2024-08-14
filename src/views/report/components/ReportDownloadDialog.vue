@@ -106,6 +106,23 @@ const viewPage = ref(1); // 目前顯示的頁數
 const showDialog = ref(false);
 const verificationButtonRef = ref<any>(null);
 
+// 表單
+const formRefDom = ref<any>();
+
+const rules = ref({
+    verificationCode: [
+        {
+            required: true,
+            message: t("auth-verify.code.warning"),
+            trigger: ["change", "blur"],
+        },
+    ],
+});
+
+const form = ref<any>({
+    verificationCode: "",
+});
+
 /**
  * 取得報表下載驗證碼
  * @param data
@@ -148,6 +165,9 @@ async function reportDownloadVerifyEmailValidateCode(
 }
 
 async function openDialog() {
+    viewPage.value = 1;
+    formRefDom.value?.resetFields();
+    form.value.verificationCode = "";
     const { apiErr }: any = await getReportDownloadGetEmailValidateCode({
         report_id: props.downloadData.id!,
     });
@@ -164,23 +184,6 @@ function closeDialog() {
         formRefDom.value?.resetFields();
     }, 1000);
 }
-
-// 表單
-const formRefDom = ref<any>();
-
-const rules = ref({
-    verificationCode: [
-        {
-            required: true,
-            message: t("auth-verify.code.warning"),
-            trigger: ["change", "blur"],
-        },
-    ],
-});
-
-const form = ref<any>({
-    verificationCode: "",
-});
 
 async function onSubmit() {
     if (!formRefDom.value) {
