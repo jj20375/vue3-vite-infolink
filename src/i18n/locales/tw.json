@@ -247,8 +247,8 @@
         },
         "title": {
             "label": "主旨",
-            "placeholder": "請選擇主旨",
-            "warning": "請選擇主旨"
+            "placeholder": "請輸入主旨",
+            "warning": "請輸入主旨"
         },
         "category": {
             "label": "詢問類別",

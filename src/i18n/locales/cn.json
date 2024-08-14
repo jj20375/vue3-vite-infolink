@@ -247,8 +247,8 @@
         },
         "title": {
             "label": "主旨",
-            "placeholder": "请选择主旨",
-            "warning": "请选择主旨"
+            "placeholder": "请输入主旨",
+            "warning": "请输入主旨"
         },
         "category": {
             "label": "询问类别",

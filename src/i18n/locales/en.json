@@ -247,8 +247,8 @@
         },
         "title": {
             "label": "Subject",
-            "placeholder": "Please select a subject",
-            "warning": "Please select a subject"
+            "placeholder": "Please enter your subject",
+            "warning": "Please enter your subject"
         },
         "category": {
             "label": "Inquiry Category",
