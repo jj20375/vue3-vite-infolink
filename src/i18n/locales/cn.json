@@ -135,7 +135,8 @@
                 "label": "通讯软件名称",
                 "placeholder": "请输入通讯软件名称",
                 "warning": "请输入通讯软件名称"
-            }
+            },
+            "notifyNeedSettingUserInfo": "请完善个人资料"
         },
         "sub-accounts": {
             "solarEnergySubAccounts": "子账号列表-太阳能",

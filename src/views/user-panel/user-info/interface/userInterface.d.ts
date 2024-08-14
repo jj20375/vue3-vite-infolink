@@ -21,6 +21,11 @@ export interface UserPanelUserInfoResponseAPIInterface {
     needSettingPassword: boolean;
     // 判斷需要不需要設定初始資料
     needSettingProfile: boolean;
+    // 部門權限
+    departments?: {
+        name: string;
+        account_type: "main" | "sub" | "composite";
+    }[];
 }
 
 // 公司資料 type

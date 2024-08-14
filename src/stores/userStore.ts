@@ -38,6 +38,8 @@ export const useUserStore = defineStore("userStore", () => {
         jobTitle: "CEO",
         needSettingProfile: false,
         needSettingPassword: false,
+        // 使用者部門權限
+        departments: [],
     });
     // 使用者公司資料
     const company = ref<UserPanelCompanyInterface>({
@@ -76,6 +78,8 @@ export const useUserStore = defineStore("userStore", () => {
             phone: "",
             needSettingProfile: false,
             needSettingPassword: false,
+            // 使用者部門權限
+            departments: [],
         });
     }
     /**
@@ -121,6 +125,8 @@ export const useUserStore = defineStore("userStore", () => {
                     needSettingProfile: data.data.is_need_to_complete || false,
                     // 判斷需不需要重設密碼
                     needSettingPassword: data.data.initial_password || false,
+                    // 使用者部門權限
+                    departments: data.data.departments || [],
                 };
                 company.value = {
                     name: data.data.company.name,

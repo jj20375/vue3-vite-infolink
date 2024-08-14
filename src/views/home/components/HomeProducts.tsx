@@ -45,11 +45,17 @@ export default defineComponent({
         /**
          * 取得分類列表資料
          */
-        async function getCategories() {
+        async function getCategories({
+            needSettingTabActivity,
+        }: {
+            needSettingTabActivity: boolean;
+        }) {
             try {
                 const { data } = await GetProductCategoriesAPI();
                 categories.value = data.data;
-                activeCategoryTab.value = data.data[0].id;
+                if (needSettingTabActivity) {
+                    activeCategoryTab.value = data.data[0].id;
+                }
             } catch (err) {
                 console.log("GetProductCategoriesAPI err =>", err);
             }
@@ -116,8 +122,9 @@ export default defineComponent({
         watch(
             () => locale.value,
             async (val: string) => {
-                // 監聽語系切換時重取報表下載資料
-                await getCategories();
+                // 監聽語系切換時重取分類列表資料
+                await getCategories({ needSettingTabActivity: false });
+                // 監聽語系切換時重取產品列表資料
                 await getList({
                     product_category_id: activeCategoryTab.value,
                     page: currentPage.value,
@@ -125,7 +132,7 @@ export default defineComponent({
             }
         );
         onMounted(async () => {
-            await getCategories();
+            await getCategories({ needSettingTabActivity: true });
             await getList({
                 product_category_id: activeCategoryTab.value,
                 page: currentPage.value,
