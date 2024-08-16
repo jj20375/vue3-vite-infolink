@@ -4,6 +4,7 @@ import type { PostInterface } from "../interface/postInterface";
 import { GetPostListAPI } from "@/api/postAPI";
 import { isEmpty } from "@/services/utils";
 import Pagination from "@/components/Pagination.vue";
+import dayjs from "dayjs";
 export default defineComponent({
     name: "HomeNews",
     setup(props, { emit }) {
@@ -59,7 +60,9 @@ export default defineComponent({
             title: (data: PostInterface) => (
                 <div>
                     <div class="flex items-center gap-4 leading-8">
-                        <div class="text-[13px]">{data.publishedAt}</div>
+                        <div class="text-[13px]">
+                            {dayjs(data.publishedAt).format("YYYY-MM-DD")}
+                        </div>
                         <div class="relative bg-black-300 w-[1px] h-4"></div>
                         <div>
                             <span class="px-2 py-1 text-[13px] bg-yellow-200 rounded-sm">

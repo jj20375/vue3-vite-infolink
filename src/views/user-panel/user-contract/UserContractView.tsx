@@ -235,7 +235,7 @@ export default defineComponent({
     props: {},
     emits: [],
     setup(props, { emit }) {
-        const { t } = useI18n();
+        const { t, locale } = useI18n();
         const route: RouteLocationNormalizedLoaded = useRoute();
         const router = useRouter();
         const filterForm = ref<any>(defaultFilter);
@@ -381,7 +381,11 @@ export default defineComponent({
             await getList(params);
         }
 
-        onMounted(async () => {
+        /**
+         * 初始化
+         * @returns
+         */
+        async function init() {
             // 判斷是否有搜尋條件
             if (route.params.chapters && route.params.chapters.length > 0) {
                 const arr: string[] = route.params.chapters as string[];
@@ -404,6 +408,18 @@ export default defineComponent({
                 return;
             }
             await getList();
+        }
+
+        watch(
+            () => locale.value,
+            async (val) => {
+                // 監聽語系切換時重取歷年合約紀錄資料
+                await init();
+            }
+        );
+
+        onMounted(async () => {
+            await init();
         });
 
         return () => (
