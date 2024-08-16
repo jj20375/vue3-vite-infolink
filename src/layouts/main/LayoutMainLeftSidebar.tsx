@@ -79,7 +79,7 @@ export default defineComponent({
 
         // 路由選單
         const menuList = computed<Array<RouteRecordRaw> | any>(() => {
-            // 判斷是否有可以下載報告權限的部門 如果過濾掉 account_type === "sub" 的陣列值 數量大於 1 但表要顯示下載報告選單
+            // 判斷是否有可以下載報告權限的部門 如果過濾掉 account_type === "main" 的陣列值 數量大於 1 但表要顯示下載報告選單
             const checkHaveRoleByDownloadReport = () => {
                 if (
                     isEmpty(user.value.departments) ||
@@ -89,7 +89,7 @@ export default defineComponent({
                 }
                 if (
                     user.value.departments.filter(
-                        (item) => item.account_type !== "sub"
+                        (item) => item.account_type !== "main"
                     ).length === 0
                 ) {
                     return false;

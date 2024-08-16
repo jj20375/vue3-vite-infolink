@@ -430,6 +430,7 @@ export default defineComponent({
             if (user.value.needSettingProfile) {
                 ElMessage({
                     type: "error",
+                    duration: 0,
                     message: t(
                         "user-panel.user-info.notifyNeedSettingUserInfo"
                     ),

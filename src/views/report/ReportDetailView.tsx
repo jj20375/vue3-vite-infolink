@@ -1,4 +1,4 @@
-import { defineComponent, ref, nextTick, onMounted } from "vue";
+import { defineComponent, ref, nextTick, onMounted, watch } from "vue";
 import { useWindowResize } from "@/hooks/windowResize";
 import { useRoute, useRouter } from "vue-router";
 import { useI18n } from "vue-i18n";
@@ -14,7 +14,7 @@ export default defineComponent({
     props: {},
     emits: [],
     setup(props, { emit }) {
-        const { t } = useI18n();
+        const { t, locale } = useI18n();
         const route = useRoute();
         const router = useRouter();
         const { isLargePad } = useWindowResize();
@@ -63,6 +63,14 @@ export default defineComponent({
                 console.log("GetReportDetailAPI err =>", err);
             }
         }
+
+        watch(
+            () => locale.value,
+            async (val) => {
+                // 監聽語系切換時重取報告下載詳情資料
+                getDetail(Number(route.params.id));
+            }
+        );
 
         onMounted(async () => {
             await getDetail(Number(route.params.id));

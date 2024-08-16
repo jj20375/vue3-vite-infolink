@@ -91,6 +91,7 @@ export default defineComponent({
                 setStorage("token", data.data.access_token);
                 setTimeout(async () => {
                     await userStore.getUserPorfile();
+                    await userStore.getSubAccounts();
                     closeDialog();
                     loading.value = false;
                     return router.push({
