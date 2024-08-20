@@ -22,6 +22,7 @@ export default defineComponent({
             },
         },
     },
+    emits: ["downloadSuccess"],
     setup(props, { emit }) {
         const { isLargePad } = useWindowResize();
         // 商品詳情 彈窗dom
@@ -46,6 +47,9 @@ export default defineComponent({
             behavior: "smooth",
         });
         const { right: rightArrived, left: leftArrived } = toRefs(arrivedState);
+        const downloadSuccess = () => {
+            emit("downloadSuccess");
+        };
 
         return () => (
             <div
@@ -162,6 +166,7 @@ export default defineComponent({
                 <ReportDownloadDialog
                     ref={downloadDialogRef}
                     downloadData={downloadData.value}
+                    onDownloadSuccess={downloadSuccess}
                 />
             </div>
         );

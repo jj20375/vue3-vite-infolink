@@ -435,78 +435,85 @@ export default defineComponent({
                                             )}
                                         </button>
                                     ) : (
-                                        <a
-                                            target="_blank"
-                                            href={
-                                                initData.value.site
-                                                    .social_datafactory! as string
-                                            }
-                                            class="relative block px-6 sm:px-7 py-4 text-[16px] text-black-500 hover:text-black-900"
-                                        >
-                                            <div class="flex items-center justify-between gap-3">
-                                                <item.meta.icon
-                                                    class={[
-                                                        "!w-[18px] !h-[18px]",
-                                                        isActiveItem(item, idx)
-                                                            ? "text-black-900"
-                                                            : "text-black-500",
-                                                    ]}
-                                                />
-                                                <span
-                                                    class={[
-                                                        "flex-1",
-                                                        {
-                                                            "opacity-0":
-                                                                !expandMode.value &&
-                                                                isDesktop.value,
-                                                        },
-                                                    ]}
-                                                >
-                                                    {t(
-                                                        `router.${
-                                                            item.name as string
-                                                        }`
-                                                    )}
-                                                </span>
-                                                <div
-                                                    class={[
-                                                        "",
-                                                        {
-                                                            "opacity-0":
-                                                                !expandMode.value &&
-                                                                isDesktop.value,
-                                                        },
-                                                    ]}
-                                                >
+                                        initData.value.site
+                                            .social_datafactory && (
+                                            <a
+                                                target="_blank"
+                                                href={
+                                                    initData.value.site
+                                                        .social_datafactory! as string
+                                                }
+                                                class="relative block px-6 sm:px-7 py-4 text-[16px] text-black-500 hover:text-black-900"
+                                            >
+                                                <div class="flex items-center justify-between gap-3">
+                                                    <item.meta.icon
+                                                        class={[
+                                                            "!w-[18px] !h-[18px]",
+                                                            isActiveItem(
+                                                                item,
+                                                                idx
+                                                            )
+                                                                ? "text-black-900"
+                                                                : "text-black-500",
+                                                        ]}
+                                                    />
+                                                    <span
+                                                        class={[
+                                                            "flex-1",
+                                                            {
+                                                                "opacity-0":
+                                                                    !expandMode.value &&
+                                                                    isDesktop.value,
+                                                            },
+                                                        ]}
+                                                    >
+                                                        {t(
+                                                            `router.${
+                                                                item.name as string
+                                                            }`
+                                                        )}
+                                                    </span>
                                                     <div
                                                         class={[
                                                             "",
                                                             {
-                                                                "rotate-90":
-                                                                    collapseMap
-                                                                        .value[
-                                                                        idx
-                                                                    ],
+                                                                "opacity-0":
+                                                                    !expandMode.value &&
+                                                                    isDesktop.value,
                                                             },
                                                         ]}
                                                     >
-                                                        {item.meta!.link && (
-                                                            <IconLink
-                                                                class={[
-                                                                    "!w-5 !h-5",
-                                                                    isActiveItem(
-                                                                        item,
-                                                                        idx
-                                                                    )
-                                                                        ? "text-black-900"
-                                                                        : "text-black-500",
-                                                                ]}
-                                                            />
-                                                        )}
+                                                        <div
+                                                            class={[
+                                                                "",
+                                                                {
+                                                                    "rotate-90":
+                                                                        collapseMap
+                                                                            .value[
+                                                                            idx
+                                                                        ],
+                                                                },
+                                                            ]}
+                                                        >
+                                                            {item.meta!
+                                                                .link && (
+                                                                <IconLink
+                                                                    class={[
+                                                                        "!w-5 !h-5",
+                                                                        isActiveItem(
+                                                                            item,
+                                                                            idx
+                                                                        )
+                                                                            ? "text-black-900"
+                                                                            : "text-black-500",
+                                                                    ]}
+                                                                />
+                                                            )}
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                        </a>
+                                            </a>
+                                        )
                                     )}
 
                                     <Vue3SlideUpDown

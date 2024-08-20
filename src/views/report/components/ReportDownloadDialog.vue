@@ -89,6 +89,8 @@ import {
 import { ElMessage } from "element-plus";
 import { faL } from "@fortawesome/free-solid-svg-icons";
 
+const emit = defineEmits(["downloadSuccess"]);
+
 const userStore = useUserStore();
 const { user } = storeToRefs(userStore);
 const { t } = useI18n();
@@ -202,6 +204,7 @@ async function onSubmit() {
         if (!apiErr) {
             viewPage.value = 2;
             window.open(data.data.url, "_blank");
+            emit("downloadSuccess")
         }
     } catch (err) {}
 }
@@ -210,7 +213,6 @@ async function onSubmit() {
 async function resendVerification(
     form: GetReportDownloadEmailValidateCodeAPIInterface
 ) {
-    alert("work2");
     await getReportDownloadGetEmailValidateCode(form);
 }
 
