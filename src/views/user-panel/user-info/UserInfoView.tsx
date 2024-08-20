@@ -425,7 +425,16 @@ export default defineComponent({
                 console.log("UpdateUserProfileAPI err =>", err);
             }
         }
-
+        // 監聽是否需要設定使用者基本資料
+        watch(
+            () => user.value.needSettingProfile,
+            (val) => {
+                if (!val) {
+                    // 如果不需要設定時就移除提示彈窗
+                    ElMessage.closeAll();
+                }
+            }
+        );
         onMounted(() => {
             if (user.value.needSettingProfile) {
                 ElMessage({

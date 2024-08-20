@@ -488,6 +488,15 @@ export default defineComponent({
             await getList(params);
         }
 
+        async function downloadSuccess() {
+            setTimeout(async () => {
+                await onFilter({
+                    ...filterForm.value,
+                    page: currentPage.value,
+                });
+            }, 2000);
+        }
+
         watch(
             () => locale.value,
             async (val) => {
@@ -581,6 +590,7 @@ export default defineComponent({
                             v-loading={loading.value}
                             tableHeadData={tableHeadData.value}
                             tableBodyData={tableBodyData.value}
+                            onDownloadSuccess={downloadSuccess}
                         />
                         <div class="flex flex-col lg:flex-row justify-between items-start lg:items-center mt-6">
                             <div class="order-2 lg:order-1 text-[14px]">
