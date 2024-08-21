@@ -11,23 +11,27 @@ export default defineComponent({
             params: { slug: t("router.home") },
         };
         return () => (
-            <section class="mt-headerMb xl:mt-header py-[70px] ">
-                <div class="container flex justify-center">
-                    <div class="max-w-[500px]">
-                        <div class="font-bold text-[28px] md:text-left text-center mt-5 mb-5">
+            <section class="">
+                <div class="container flex justify-center items-center gap-4">
+                    <img
+                        class="w-[100px] h-[100px]"
+                        src="img/other/check.gif"
+                    />
+                    <div>
+                        <div class="font-bold text-[28px] md:text-left text-center mb-3">
                             {t("contact-success.title")}
                         </div>
                         <div class="md:text-left text-center">
                             {t("contact-success.content")}
                         </div>
-                        <div class="flex justify-center mt-10">
-                            <RouterLink to={link}>
-                                <button class="yellow-btn">
-                                    {t("global.back-home")}
-                                </button>
-                            </RouterLink>
-                        </div>
                     </div>
+                </div>
+                <div class="flex justify-center mt-10">
+                    <RouterLink to={link}>
+                        <button class="yellow-btn">
+                            {t("global.back-home")}
+                        </button>
+                    </RouterLink>
                 </div>
             </section>
         );

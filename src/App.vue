@@ -5,7 +5,7 @@
     >
         <RouterView name="MainHeader" />
         <img
-            class="fixed object-cover w-full h-screen"
+            class="fixed object-cover w-full h-screen opacity-[0.3]"
             src="/img/layout/bg.svg"
         />
         <section class="flex">
