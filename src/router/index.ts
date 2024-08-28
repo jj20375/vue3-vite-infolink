@@ -70,15 +70,23 @@ router.beforeEach(
                     "initData.value.site.maintenance_mode =>",
                     initData.value.site.maintenance_mode
                 );
+                // 取得網址參數
+                const params: any = new Proxy(
+                    new URLSearchParams(window.location.search),
+                    {
+                        get: (searchParams, prop: any) =>
+                            searchParams.get(prop),
+                    }
+                );
                 // 且有 hash 值
-                if (to.query.hash) {
+                if (params.hash) {
                     // 將 hash 值 存在 localStorage 用來以防重新整理時 因為維護模式狀態下 又導頁去維護頁
-                    setStorage("maintenanceHashData", to.query.hash);
+                    setStorage("maintenanceHashData", params.hash);
                 }
                 // 且有 iv 值
-                if (to.query.rand) {
+                if (params.rand) {
                     // 將 iv 值 存在 localStorage 用來以防重新整理時 因為維護模式狀態下 又導頁去維護頁
-                    setStorage("maintenanceRandData", to.query.rand);
+                    setStorage("maintenanceRandData", params.rand);
                 }
                 // 取得 localstorage 維護狀態 hash 值
                 const hashData = getStorage("maintenanceHashData");
