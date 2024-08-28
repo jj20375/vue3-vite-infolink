@@ -91,12 +91,20 @@ router.beforeEach(
                         hashData,
                         randData,
                     });
+                    console.log("decryptedData =>", decryptedData);
                     // 判斷解密不等於 1 時 導頁去維護頁
                     if (decryptedData !== "1") {
                         return {
                             name: "maintenance",
                             params: {
                                 slug: i18nData()["router"]["maintenance"],
+                            },
+                        };
+                    } else {
+                        return {
+                            name: "home",
+                            params: {
+                                slug: i18nData()["router"]["home"],
                             },
                         };
                     }
