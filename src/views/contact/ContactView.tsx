@@ -120,7 +120,7 @@ export default defineComponent({
                                 </div>
                                 <div class="text-[15px] underline underline-offset-2 hover:no-underline">
                                     <a
-                                        href={`mailto:${initData.value.site.contact_email}`}
+                                        href={`mailto:${initData.value.site.contact_sales}`}
                                     >
                                         {initData.value.site.contact_sales}
                                     </a>

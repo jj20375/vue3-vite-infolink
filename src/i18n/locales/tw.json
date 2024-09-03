@@ -119,7 +119,7 @@
             },
             "phone": {
                 "label": "聯絡電話",
-                "placeholder": "請輸入您的聯絡電話",
+                "placeholder": "請輸入您的聯絡電話，填寫範例：886912345678",
                 "warning": "請輸入聯絡電話"
             },
             "messagingApp": {

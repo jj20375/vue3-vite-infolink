@@ -247,15 +247,15 @@ export default defineComponent({
         // 表單標題
         const tableHeadData = computed(() => [
             {
-                sortKey: "contractIssuedDate",
+                sortKey: "created_at",
                 label: t("user-contract.table.contractIssuedDate"),
             },
             {
-                sortKey: "contractEffectiveDate",
+                sortKey: "enabled_at",
                 label: t("user-contract.table.contractEffectiveDate"),
             },
             {
-                sortKey: "contractExpiryDate",
+                sortKey: "expired_at",
                 label: t("user-contract.table.contractExpiryDate"),
             },
             {

@@ -119,7 +119,7 @@
             },
             "phone": {
                 "label": "Contact Phone",
-                "placeholder": "Please enter your contact phone number",
+                "placeholder": "Please enter your contact phone number. ex: 886912345678",
                 "warning": "Please enter your contact phone number"
             },
             "messagingApp": {

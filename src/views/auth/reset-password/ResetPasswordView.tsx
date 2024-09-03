@@ -196,13 +196,16 @@ export default defineComponent({
                             require-asterisk-position="right"
                         >
                             <div class="grid gap-5">
-                                {formColumns.value.map((item) => {
+                                {formColumns.value.map((item, index) => {
                                     return (
                                         item.style === "input" && (
                                             <el-form-item
                                                 key={item.prop}
                                                 prop={item.prop}
                                                 label={item.label}
+                                                class={[
+                                                    index === 1 ? "mt-2" : "",
+                                                ]}
                                             >
                                                 <el-input
                                                     show-password={
