@@ -555,7 +555,9 @@ export default defineComponent({
                                   ).map((key) => {
                                       if (
                                           downloadManualData.value.path[key] !==
-                                          undefined
+                                              undefined &&
+                                          downloadManualData.value.path[key] !==
+                                              null
                                       ) {
                                           return (
                                               <a
