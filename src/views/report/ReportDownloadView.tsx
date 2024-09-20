@@ -359,10 +359,7 @@ export default defineComponent({
         // 檔案下載資料
         const downloadManualData = ref<ReportDownloadManualInterface>({
             name: t("report-download.manual.name"),
-            path: {
-                en: "",
-                zh_CN: "",
-            },
+            path: {},
         });
 
         const currentPage = ref(1);

@@ -169,10 +169,7 @@ export default defineComponent({
                                           {!isEmpty(datas.value) ? (
                                               datas.value.map((data) => (
                                                   <el-collapse-item
-                                                      name={String(
-                                                          data.productCategory
-                                                              .id
-                                                      )}
+                                                      name={String(data.id)}
                                                       key={data.id + "content"}
                                                   >
                                                       {{
