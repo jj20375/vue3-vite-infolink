@@ -106,3 +106,16 @@ export interface UserChangePasswordRequestAPIInterface {
     new_password: string;
     new_password_confirmation: string;
 }
+
+/**
+ * 歷年合約購買報告項目下拉選單 api 回應參數
+ */
+export interface UserContractCategoriesResponseAPIInterface {
+    data: {
+        messasge: string;
+        data: {
+            id: number;
+            name: string;
+        }[];
+    };
+}

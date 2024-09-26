@@ -17,7 +17,7 @@ import { isEmpty } from "@/services/utils";
 import type { RouteLocationNormalizedLoaded } from "vue-router";
 import { useRoute, useRouter } from "vue-router";
 import type { ReportDownloadCategoriesAPIInterface } from "@/views/report/interface/reportDownloadInterface";
-import { GetReportCategoriesAPI } from "@/api/reportAPI";
+import { GetContractCategoriesAPI } from "@/api/contractAPI";
 
 interface FilterInterFace {
     // 報告名稱(分類)
@@ -112,7 +112,7 @@ const ContractSearch = defineComponent({
         async function getReportCategories() {
             try {
                 const { data }: ReportDownloadCategoriesAPIInterface =
-                    await GetReportCategoriesAPI();
+                    await GetContractCategoriesAPI();
 
                 categoryOptions.value = data.data.map((item) => {
                     return {

@@ -119,7 +119,7 @@
             },
             "phone": {
                 "label": "联系电话",
-                "placeholder": "请输入您的联系电话，填写范例：886912345678",
+                "placeholder": "请输入您的联系电话，填写范例：+886 912345678",
                 "warning": "请输入联系电话"
             },
             "messagingApp": {
@@ -243,7 +243,7 @@
         },
         "phone": {
             "label": "联系电话",
-            "placeholder": "请输入联系电话",
+            "placeholder": "请输入您的联系电话",
             "warning": "请输入联系电话"
         },
         "title": {

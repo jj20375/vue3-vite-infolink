@@ -5,8 +5,8 @@
         "user-panel": "User Panel",
         "user-info": "User Info Management",
         "user-change-password": "Change Password",
-        "user-contract": "Contract History",
-        "report-download": "Report Download",
+        "user-contract": "Historical Contract",
+        "report-download": "Download Report",
         "report-download-detail": "Report Detail",
         "data-factory": "DataFactory",
         "contact": "Contact Us",
@@ -31,10 +31,10 @@
         "login": "Login",
         "logout": "Logout",
         "back": "Back",
-        "title": "Report Download Area",
+        "title": "Download Report",
         "remember-me": "Remember me",
         "all": "All",
-        "totalPages": "Total {total} pages",
+        "totalPages": "Total: {total} pages",
         "currentPage": "Page {current} / {total}",
         "download": "Download",
         "language": {
@@ -43,21 +43,21 @@
             "en": "English"
         },
         "success": {
-            "change": "Change Success"
+            "change": "Changes Saved"
         },
-        "back-list": "Back to List",
+        "back-list": "Back to Menu",
         "back-home": "Back to Home",
-        "empty-data": "No data available"
+        "empty-data": "No Data Available"
     },
     "login": {
         "email": {
             "placeholder": "Email (Account)",
-            "warning": "Please enter your email address",
-            "invalid": "Invalid format"
+            "warning": "Please enter your email address.",
+            "invalid": "Invalid format."
         },
         "password": {
             "placeholder": "Password",
-            "warning": "At least 8 characters with numbers and 1 uppercase"
+            "warning": "At least 8 characters with numbers and 1 uppercase letter."
         }
     },
     "forgot-password": {
@@ -66,25 +66,25 @@
         "back": "Back to Login",
         "email": {
             "label": "Email (Account)",
-            "placeholder": "Please enter your email address",
-            "warning": "Please enter your email address",
-            "invalid": "Invalid format"
+            "placeholder": "Please enter your email address.",
+            "warning": "Please enter your email address.",
+            "invalid": "Invalid format."
         },
-        "success": "Password reset link has been sent to your email"
+        "success": "Password reset link has been sent to your email."
     },
     "reset-password": {
         "description": "Please enter your new password. You will need to log in with the new password after completion.",
         "password": {
             "label": "New Password",
-            "placeholder": "At least 8 characters with numbers and 1 uppercase",
-            "warning": "Please enter a new password",
-            "invalid": "Must contain at least one uppercase letter, one lowercase letter, one number, and be at least 8 characters long"
+            "placeholder": "At least 8 characters with numbers and 1 uppercase letter.",
+            "warning": "Please enter a new password.",
+            "invalid": "Must contain at least one uppercase letter, one lowercase letter, one number, and be at least 8 characters long."
         },
         "confirm-password": {
             "label": "Confirm New Password",
-            "placeholder": "Please re-enter your new password",
-            "warning": "Please re-enter your new password",
-            "invalid": "Passwords do not match"
+            "placeholder": "Please re-enter your new password.",
+            "warning": "Please re-enter your new password.",
+            "invalid": "Passwords do not match."
         },
         "submit": "Save"
     },
@@ -94,33 +94,33 @@
     },
     "user-panel": {
         "company-info": {
-            "title": "Company Information",
+            "title": "Company Info",
             "name": "Company Name",
             "webURL": "Company Website",
             "region": "Company Country",
             "address": "Company Address"
         },
         "user-info": {
-            "title": "Personal Information",
+            "title": "Personal Info",
             "email": {
                 "label": "Email (Account)",
-                "placeholder": "Please enter your email address",
-                "warning": "Please enter your email address"
+                "placeholder": "Please enter your email address.",
+                "warning": "Please enter your email address."
             },
             "name": {
                 "label": "Name",
-                "placeholder": "Please enter your name",
-                "warning": "Please enter your name"
+                "placeholder": "Please enter your name.",
+                "warning": "Please enter your name."
             },
             "jobTitle": {
                 "label": "Job Title",
-                "placeholder": "Please enter your job title",
-                "warning": "Please enter your job title"
+                "placeholder": "Please enter your job title.",
+                "warning": "Please enter your job title."
             },
             "phone": {
-                "label": "Contact Phone",
-                "placeholder": "Please enter your contact phone number. ex: 886912345678",
-                "warning": "Please enter your contact phone number"
+                "label": "Contact Number",
+                "placeholder": "Please enter your contact number. For example: +886 912345678",
+                "warning": "Please enter your contact number."
             },
             "messagingApp": {
                 "label": "Messaging App",
@@ -128,15 +128,15 @@
             },
             "messagingAppId": {
                 "label": "Messaging App ID",
-                "placeholder": "Please enter your messaging app ID",
-                "warning": "Please enter your messaging app ID"
+                "placeholder": "Please enter your messaging app ID.",
+                "warning": "Please enter your messaging app ID."
             },
             "messagingAppCustomName": {
                 "label": "Messaging App Name",
-                "placeholder": "Please enter the messaging app name",
-                "warning": "Please enter the messaging app name"
+                "placeholder": "Please enter the messaging app name.",
+                "warning": "Please enter the messaging app name."
             },
-            "notifyNeedSettingUserInfo": "Please complete your personal information"
+            "notifyNeedSettingUserInfo": "Please complete your personal information."
         },
         "sub-accounts": {
             "solarEnergySubAccounts": "Sub-account List - Solar Energy",
@@ -147,30 +147,30 @@
     "user-reset-password": {
         "old-password": {
             "label": "Old Password",
-            "placeholder": "Please enter your old password",
-            "warning": "Please enter your old password"
+            "placeholder": "Please enter your old password.",
+            "warning": "Please enter your old password."
         },
         "new-password": {
             "label": "New Password",
-            "placeholder": "Please enter a new password",
-            "warning": "Please enter a new password",
-            "invalid": "Must contain at least one uppercase letter, one lowercase letter, one number, and be at least 8 characters long"
+            "placeholder": "Please enter a new password.",
+            "warning": "Please enter a new password.",
+            "invalid": "Must contain at least one uppercase letter, one lowercase letter, one number, and be at least 8 characters long."
         },
         "confirm-password": {
             "label": "Confirm Password",
-            "placeholder": "Please re-enter your new password",
-            "warning": "Please re-enter your new password",
-            "invalid": "Passwords do not match"
+            "placeholder": "Please re-enter your new password.",
+            "warning": "Please enter a new password.",
+            "invalid": "Passwords do not match."
         }
     },
     "user-contract": {
         "category": {
-            "label": "Purchased Report Items",
-            "placeholder": "Select report items"
+            "label": "Purchased Reports",
+            "placeholder": "Select report"
         },
         "name": {
             "label": " ",
-            "placeholder": "Search purchased report items"
+            "placeholder": "Search purchased reports"
         },
         "table": {
             "contractIssuedDate": "Contract Issue Date",
@@ -190,24 +190,24 @@
         },
         "period": {
             "label": "Period",
-            "placeholderStart": "Start date",
-            "placeholderEnd": "End date"
+            "placeholderStart": "Start Date",
+            "placeholderEnd": "End Date"
         },
         "category": {
-            "label": "Report Name",
-            "placeholder": "Select report name"
+            "label": "Report",
+            "placeholder": "Select report"
         },
         "name": {
             "label": " ",
-            "placeholder": "Search report name"
+            "placeholder": "Search report"
         },
         "table": {
             "industry": "Industry",
             "language": "Language",
-            "reportName": "Report Name",
-            "period": "Period",
+            "reportName": "Report",
+            "period": "Issue",
             "fileType": "File Type",
-            "publishTime": "Publish Time",
+            "publishTime": "Publish Date",
             "downloadCount": "Download Count"
         },
         "manual": {
@@ -217,34 +217,34 @@
         }
     },
     "report-detail": {
-        "title": "File Download"
+        "title": "Download File"
     },
     "contact": {
         "greeting": "Thank you for your visit.",
-        "description": "Please describe your questions or needs in the form below and leave your contact information. Our staff will respond to your inquiry.",
+        "description": "Please describe your questions or needs and leave your contact information in the form below. We will respond to your inquiry.",
         "contact-us": "Contact Us:",
         "salesService": "After-sales Service",
-        "businessContact": "Business Contact",
+        "businessContact": "Contact Sales",
         "email": {
-            "label": "Email (Account)",
-            "placeholder": "Please enter your email address",
-            "warning": "Please enter your email address",
-            "invalid": "Invalid format"
+            "label": "Account (Email)",
+            "placeholder": "Please enter your email address.",
+            "warning": "Please enter your email address.",
+            "invalid": "Invalid format."
         },
         "name": {
             "label": "Name",
-            "placeholder": "Please enter your name",
-            "warning": "Please enter your name"
+            "placeholder": "Please enter your name.",
+            "warning": "Please enter your name."
         },
         "company": {
             "label": "Company",
-            "placeholder": "Please enter your company name",
-            "warning": "Please enter your company name"
+            "placeholder": "Please enter your company name.",
+            "warning": "Please enter your company name."
         },
         "phone": {
-            "label": "Contact Phone",
-            "placeholder": "Please enter your contact phone number",
-            "warning": "Please enter your contact phone number"
+            "label": "Contact Number",
+            "placeholder": "Please enter your contact number.",
+            "warning": "Please enter your contact number."
         },
         "title": {
             "label": "Subject",
@@ -253,39 +253,39 @@
         },
         "category": {
             "label": "Inquiry Category",
-            "placeholder": "Please select",
-            "warning": "Please select an inquiry category"
+            "placeholder": "Please select an inquiry category.",
+            "warning": "Please select an inquiry category."
         },
         "content": {
-            "label": "Inquiry Content",
-            "placeholder": "Please enter your inquiry content",
-            "warning": "Please enter your inquiry content"
+            "label": "Inquiry",
+            "placeholder": "Please explain your inquiry",
+            "warning": "Please explain your inquiry"
         },
         "photo": {
-            "label": "Upload Issue Image",
+            "label": "Upload Image",
             "placeholder": "Please upload a photo",
             "warning": "Please upload an image",
-            "direction": "Click to upload a photo",
-            "limit": "(JPEG, PNG only, max 10MB)",
+            "direction": "Click to upload",
+            "limit": "(JPEG, PNG only; max 10MB.)",
             "invalidSize": "Image size must not exceed 10MB",
-            "invalidType": "Invalid image type (jpg, jpeg, png, gif only)"
+            "invalidType": "Invalid image type (jpg, jpeg, png, gif only)."
         },
         "recaptchaValidation": "Please check 'I'm not a robot'"
     },
     "contact-success": {
-        "title": "Form Successfully Submitted!",
-        "content": "Thank you for your message. We will reply as soon as possible after receiving it."
+        "title": "Form Submitted Successfully",
+        "content": "Thank you for your reaching out to us. Your inquiry will be attended shortly."
     },
     "auth-verify": {
         "title": "Identity Verification",
-        "description": "A verification code has been sent to {email}",
+        "description": "A verification code has been sent to {email}.",
         "code": {
             "label": "Verification Code",
-            "placeholder": "Please enter the verification code",
-            "warning": "Please enter the verification code"
+            "placeholder": "Please enter the verification code.",
+            "warning": "Please enter the verification code."
         },
-        "tip": "Didn't receive the verification email? Please check your spam folder",
-        "success": "File downloaded successfully",
+        "tip": "Didn't receive the verification code? Please check your spam folder.",
+        "success": "File downloaded successfully.",
         "countdown": "Resend in {time}",
         "resend": "Resend"
     },
@@ -294,7 +294,7 @@
         "description": "We're sorry, the page you are looking for does not exist. The URL may be incorrect or no longer valid."
     },
     "maintenance": {
-        "title": "Website Under Maintenance!",
-        "description": "We apologize for the inconvenience. The site is currently undergoing system maintenance. Please try again later."
+        "title": "Website Under Maintenance",
+        "description": "The site is currently undergoing system maintenance. We apologize for the inconvenience. Please try again later."
     }
 }

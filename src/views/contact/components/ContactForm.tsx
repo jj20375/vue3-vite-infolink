@@ -6,6 +6,7 @@ import { ElMessage } from "element-plus";
 import type { FormInstance } from "element-plus";
 import type { ColumnsInterface, OptionsInterface } from "@/interface/global.d";
 import GoogleReCaptchaV2 from "@/components/GoogleRecaptchaV2";
+import Hcaptcha from "@/components/Hcaptcha";
 import ContactFileUpload from "./ContactFileUpload";
 import { useI18n } from "vue-i18n";
 import {
@@ -20,6 +21,7 @@ export default defineComponent({
     name: "ContactForm",
     components: {
         GoogleReCaptchaV2,
+        Hcaptcha,
     },
     setup(props, { emit }) {
         const { t } = useI18n();
@@ -51,7 +53,10 @@ export default defineComponent({
             category: "",
             content: "",
             photo: [],
+            // google recaptcha token 暫時棄用 因為考量中國客戶問題
             recaptchaToken: "",
+            // 替代 google recaptcha token 機制
+            hcaptchaToken: "",
         });
 
         const rules = computed<any>(() => {
@@ -213,7 +218,16 @@ export default defineComponent({
 
         async function onSubmit(e: Event) {
             e.preventDefault();
-            if (isEmpty(form.value.recaptchaToken)) {
+            // 判斷 google recaptcha token 此機制放棄 因為中國客戶考量
+            // if (isEmpty(form.value.recaptchaToken)) {
+            //     ElMessage({
+            //         type: "error",
+            //         message: t("contact.recaptchaValidation"),
+            //     });
+            //     return;
+            // }
+            // hcaptcha 改為替代 googel recaptcha 驗證
+            if (isEmpty(form.value.hcaptchaToken)) {
                 ElMessage({
                     type: "error",
                     message: t("contact.recaptchaValidation"),
@@ -235,7 +249,14 @@ export default defineComponent({
             if (isEmpty(sendData.attachments)) {
                 delete sendData.attachments;
             }
-            await contactUs(sendData);
+            if (formRefDom.value) {
+                try {
+                    await formRefDom.value.validate();
+                    await contactUs(sendData);
+                } catch (err) {
+                    throw err;
+                }
+            }
         }
 
         /**
@@ -337,9 +358,10 @@ export default defineComponent({
                         </div>
                     </el-form>
                     <div class="flex justify-start mt-[30px] mb-[40px]">
-                        <GoogleReCaptchaV2
+                        {/* <GoogleReCaptchaV2
                             v-model={form.value.recaptchaToken}
-                        />
+                        /> */}
+                        <Hcaptcha v-model={form.value.hcaptchaToken} />
                     </div>
                     <button
                         onClick={onSubmit}
