@@ -2,8 +2,9 @@
  * 文件參考
  * https://github.com/hCaptcha/vue-hcaptcha
  */
-import { defineComponent, ref } from "vue";
+import { defineComponent, ref, computed } from "vue";
 import VueHcaptcha from "@hcaptcha/vue3-hcaptcha";
+import { useI18n } from "vue-i18n";
 
 export default defineComponent({
     name: "Hcaptcha",
@@ -15,6 +16,7 @@ export default defineComponent({
         const token = ref("");
         const eKey = ref("");
         const error = ref("");
+        const { locale } = useI18n();
 
         function onVerify(tokenStr: string, ekey: string) {
             verified.value = true;
@@ -49,14 +51,28 @@ export default defineComponent({
             emit("update:modelValue", token.value);
             console.log(`Error: ${err}`);
         }
+
+        const language = computed(() => {
+            if (locale.value === "tw") {
+                return "zh-TW";
+            }
+            if (locale.value === "cn") {
+                return "zh-CN";
+            }
+            return locale.value;
+        });
         return () => (
-            <vue-hcaptcha
-                sitekey={siteKey}
-                onVerify={onVerify}
-                onExpired={onExpire}
-                onChallengeExpired={onChallengeExpire}
-                onError={onError}
-            />
+            <>
+                {language.value}
+                <vue-hcaptcha
+                    sitekey={siteKey}
+                    onVerify={onVerify}
+                    onExpired={onExpire}
+                    hl={language.value}
+                    onChallengeExpired={onChallengeExpire}
+                    onError={onError}
+                />
+            </>
         );
     },
 });

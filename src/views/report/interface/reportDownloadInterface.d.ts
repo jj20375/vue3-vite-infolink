@@ -174,8 +174,6 @@ export interface ReportDownloadManualResponseAPIInterface {
  * 報告下載說明書
  */
 export interface ReportDownloadManualInterface {
-    // 名稱
-    name: string;
     path: {
         [key: string]: string | undefined; // 允許任何字符串鍵
         ["en"]?: string | undefined;

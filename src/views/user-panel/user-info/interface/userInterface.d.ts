@@ -84,7 +84,7 @@ export interface UserContractParamsInterface {
     // 排序方式 倒序(desc)或者正序(asc)
     order_direction?: "desc" | "asc";
     // 報告名稱
-    report_category_id?: number;
+    report_category_ids?: number;
 }
 
 /**

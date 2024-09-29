@@ -358,9 +358,9 @@ export default defineComponent({
 
         // 檔案下載資料
         const downloadManualData = ref<ReportDownloadManualInterface>({
-            name: t("report-download.manual.name"),
             path: {},
         });
+        const manuaName = computed(() => t("report-download.manual.name"));
 
         const currentPage = ref(1);
         const pagination = ref({
@@ -567,12 +567,7 @@ export default defineComponent({
                                                   class="flex gap-2 p-2 items-center text-[14px] cursor-pointer hover:text-black-700 transition-all duration-300"
                                               >
                                                   <IconDownload class="!w-4 !h-4" />
-                                                  {
-                                                      downloadManualData.value[
-                                                          "name"
-                                                      ]
-                                                  }
-                                                  (
+                                                  {manuaName.value}(
                                                   {t(
                                                       "report-download.manual.manual_" +
                                                           key

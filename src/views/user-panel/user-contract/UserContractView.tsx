@@ -341,7 +341,7 @@ export default defineComponent({
             const params: UserContractParamsInterface | any = {
                 keyword: val.name,
 
-                report_category_id: Array.isArray(val.category)
+                report_category_ids: Array.isArray(val.category)
                     ? val.category
                     : [],
                 order_column: val.sortBy,
