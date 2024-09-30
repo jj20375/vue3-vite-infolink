@@ -2,7 +2,7 @@
  * 文件參考
  * https://github.com/hCaptcha/vue-hcaptcha
  */
-import { defineComponent, ref, computed } from "vue";
+import { defineComponent, ref, computed, watch } from "vue";
 import VueHcaptcha from "@hcaptcha/vue3-hcaptcha";
 import { useI18n } from "vue-i18n";
 
@@ -61,18 +61,22 @@ export default defineComponent({
             }
             return locale.value;
         });
+        watch(
+            () => locale.value,
+            () => {
+                location.reload();
+            }
+        );
+
         return () => (
-            <>
-                {language.value}
-                <vue-hcaptcha
-                    sitekey={siteKey}
-                    onVerify={onVerify}
-                    onExpired={onExpire}
-                    hl={language.value}
-                    onChallengeExpired={onChallengeExpire}
-                    onError={onError}
-                />
-            </>
+            <vue-hcaptcha
+                sitekey={siteKey}
+                onVerify={onVerify}
+                onExpired={onExpire}
+                language={language.value}
+                onChallengeExpired={onChallengeExpire}
+                onError={onError}
+            />
         );
     },
 });

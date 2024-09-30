@@ -342,7 +342,7 @@ export default defineComponent({
                 keyword: val.name,
 
                 report_category_ids: Array.isArray(val.category)
-                    ? val.category
+                    ? val.category.join(",")
                     : [],
                 order_column: val.sortBy,
                 order_direction: val.sortRule,

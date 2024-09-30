@@ -59,7 +59,7 @@ const ReportSearch = defineComponent({
     },
     emits: ["searchFilter"],
     setup(props, { emit, attrs }) {
-        const { t } = useI18n();
+        const { t, locale } = useI18n();
 
         const { isLargePad } = useWindowResize();
 
@@ -220,6 +220,16 @@ const ReportSearch = defineComponent({
                 emit("searchFilter", val);
             }
         );
+        watch(
+            () => locale.value,
+            async (val) => {
+                // 監聽語系切換時重取報表下載資料
+                await getReportLanguages();
+                await getReportIndustries();
+                await getReportCategories();
+            }
+        );
+
         onMounted(async () => {
             await getReportLanguages();
             await getReportIndustries();
